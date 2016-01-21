@@ -28,22 +28,6 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: none;
 }
 
-/* Filter header */
-.filter-header {
-  margin-top: 94px;
-}
-.filter-block {
-  display: inline-block;
-  margin-right: 10px;
-}
-.filter-block .btn {
-  margin-top: -8px;
-}
-.filter-header-text {
-  font-family: "Hind";
-  font-size: 24px;
-  color: #999;
-}
 
 
 /* Tweak autocomplete */
@@ -94,6 +78,55 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   background-color: #444;
   overflow: hidden;
+}
+
+
+/* card */
+.card-spacer{
+  height: 12px;
+}
+.card{
+  padding: 24px 36px 24px 36px;
+
+  border: 1px solid #EEE;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  background-color: #FFF;
+  color: #666;
+}
+.card p, .card ul, .card ol {
+  font-family: 'Hind';
+  font-size: 18px;
+}
+.card blockquote p {
+  font-size: 18px;
+  color: #666;
+}
+.card blockquote footer {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #999;
+}
+.card .viz-description h1{
+  font-size:36px
+}
+.card .viz-description h2{
+  font-size:32px
+}
+.card .viz-description h3{
+  font-size:28px
+}
+.card .viz-description h4{
+  font-size:24px
+}
+.card .viz-description h5{
+  font-size:22px
+}
+.card .viz-description h6{
+  font-size:20px
 }
 
 

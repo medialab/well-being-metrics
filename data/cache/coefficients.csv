@@ -1,0 +1,55 @@
+id,name-fr,current_life,leisure,housing,loved_ones
+age,age,-0.221,-0.227,-0.0561,-0.160
+age-square,age au carré,0.00403,0.00429,0.00126,0.00279
+age-cube,âge au cube,-2.38e-05,-2.74e-05,-7.55e-06,-1.54e-05
+is-woman,Femme,-0.124,-0.936,0.0391,-0.0375
+woman-by-age,femme*âge,0.00215,0.00895,0.00104,0.00410
+is-french,français,0.201,0.386,0.231,-0.138
+log-income,Log revenus tot du ménage,0.537,0.785,0.392,0.123
+adult-count,Nbre d'adultes,-0.207,-0.243,-0.0726,-0.0506
+has-kids-1,1 enfant,-0.255,-0.389,-0.119,-0.211
+has-kids-2,2 enfants,-0.437,-0.689,-0.166,-0.237
+has-kids-3,3 enfants,-0.295,-1.073,-0.567,-0.247
+has-kids-4-more,+ de 4 enfants,-0.568,-1.026,-0.310,0.614
+has-employed-adults-1,1 adulte travaille,0.138,0.0578,0.105,0.149
+has-employed-adults-2,2 adultes travaillent,0.281,0.171,0.228,0.105
+has-employed-adults-3-more,+ de 3 adultes travaillent,0.439,0.191,0.256,0.263
+is-student,étudiant,0.520,0.825,0.548,0.239
+is-unemployed,chômeur,-0.536,0.0698,-0.0976,-0.161
+is-retired,retraité,0.351,0.558,0.0177,0.195
+is-at-home,au foyer,-0.620,-0.109,-1.130,-0.800
+is-other-invalid,autre invalide,-1.241,-1.021,-0.165,-1.032
+is-other,autre ,-0.836,-0.575,-0.189,-0.434
+is-cdi-dummy,cdi (dummy),0.301,0.523,0.0697,0.207
+is-cdd-dummy,cdd (dummy),0.158,0.393,0.0548,0.127
+is-woman-by-at-home,femme*au foyer,0.791,0.531,1.155,0.755
+is-woman-by-other-invalid,femme*invalide,0.504,0.517,-0.000381,0.697
+has-cep-brevet,CEP/Brevet,-0.0194,0.0720,-0.0250,-0.0780
+has-dip-pro,dip pro,0.0205,0.219,-0.000731,0.0292
+has-bac,Bac,1.978,1.195,0.808,0.456
+has-bac-plus-2,bac+2,1.470,2.860,1.628,0.428
+has-bac-plus-3-more,>bac+2,2.517,3.985,0.971,0.404
+bac-by-log-income,Bac*log revenus,-0.182,-0.0936,-0.0795,-0.0382
+bac-plus-2-by-log-income,bac+2*log revenus,-0.142,-0.253,-0.156,-0.0412
+bac-plus-3-more-by-log-income,>bac+2*log revenus,-0.230,-0.347,-0.0902,-0.0336
+woman-by-bac,femme*Bac,-0.0432,0.300,-0.00224,-0.00356
+woman-by-bac-plus-2,femme*bac+2,0.0994,0.270,-0.0222,0.00593
+woman-by-bac-plus-3-more,femme*>bac+2,0.0502,0.271,0.0412,-0.0111
+is-in-couple,En couple,0.418,0.0337,0.101,0.148
+is-divorced,Divorcé,-0.301,-0.409,-0.110,-0.0703
+is-widow,Veuf,0.0357,-0.0125,0.183,0.0956
+in-couple-by-kids-1,couple*1 enfant,0.160,0.00585,-0.0370,0.166
+in-couple-by-kids-2,couple*2 enfants,0.327,0.0725,-0.0663,0.120
+in-couple-by-kids-3,couple*3 enfants,0.255,0.236,0.308,0.277
+in-couple-by-kids-4-more,couple*4 enfants et plus,0.358,-0.436,-0.406,-0.642
+is-accessing-owner,propriétaire accédant,0.269,0.292,0.975,0.244
+is-non-accessing-owner,propriétaire non accédant,0.326,0.483,0.818,0.262
+is-in-zus,zus (dummy),-0.134,-0.0976,-0.448,-0.157
+is-in-paris-region,Bassin parisien,0.0984,0.0784,0.209,0.0582
+is-in-north,Nord,0.0543,0.0162,0.131,-0.0332
+is-in-east,Est,0.137,0.269,0.196,0.113
+is-in-west,Ouest,0.192,0.305,0.137,0.0455
+is-in-south-west,Sud-Ouest,0.0643,0.0762,0.140,-0.0103
+is-in-center-east,Centre-Est,0.0621,0.169,0.148,0.00120
+is-in-mediterranean,Méditerranée,0.136,0.120,0.290,0.116
+constant,Constant,4.926,1.905,3.193,9.272

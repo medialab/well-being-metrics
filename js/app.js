@@ -9,6 +9,7 @@ angular.module('thisApp', [
 , 'thisApp.directives'
 , 'thisApp.home'
 , 'thisApp.exploreIndex'
+, 'thisApp.populationData'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
