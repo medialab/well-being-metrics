@@ -19,8 +19,20 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      
+    <div class="col-md-3">
+      Region:
+      <select ng-model="regionSelect">
+        <option ng-repeat="region in regions" value="{{region}}">{{region}}</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      Topic:
+      <select ng-model="topicSelect">
+        <option ng-repeat="topic in topics" value="{{topic}}">{{topic}}</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      {{data}}
     </div>
   </div>
 
