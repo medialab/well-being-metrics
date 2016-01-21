@@ -1,0 +1,104 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body{
+  background-color: #EEE;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  font-family: 'Hind';
+  color: #999;
+}
+.section-subtitle{
+  margin-top: 0px;
+}
+
+.navbar-inverse {
+  background-color: #444;
+}
+
+
+/* Page header */
+.page-header{
+  margin: 60px 0 30px;
+  border-bottom: none;
+}
+
+/* Filter header */
+.filter-header {
+  margin-top: 94px;
+}
+.filter-block {
+  display: inline-block;
+  margin-right: 10px;
+}
+.filter-block .btn {
+  margin-top: -8px;
+}
+.filter-header-text {
+  font-family: "Hind";
+  font-size: 24px;
+  color: #999;
+}
+
+
+/* Tweak autocomplete */
+.angucomplete-holder input{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #F9F9F9;
+}
+.angucomplete-holder input:focus{
+  background-color: #FFF;
+}
+
+
+
+
+/* Particles spinner */
+#pjs-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  -webkit-user-select: none; /* Chrome/Safari */        
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+ */
+       -o-user-select: none;
+          user-select: none;
+
+  cursor: crosshair;
+
+}
+#pjs-container .pjs-txt-container {
+  position: absolute;
+  left: -100px;
+  top: -20px;
+}
+#pjs-container .pjs-txt-container .pjs-txt {
+  width: 200px;
+  text-align: center;
+  font-size: 28px;
+  color: #FFFFFF;
+  font-weight: 300;
+}
+#particles-js {
+  position: absolute;
+  margin-left: -80px;
+  margin-top: -80px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background-color: #444;
+  overflow: hidden;
+}
+
+
+/* ==========================================================================
+   Home view specific styles
+   ========================================================================== */
+
+
