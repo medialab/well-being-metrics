@@ -9,6 +9,9 @@ angular.module('thisApp.populationData', ['ngRoute'])
   })
 }])
 
-.controller('PopulationDataController', function($scope, $location) {
-  
+.controller('PopulationDataController', function($scope, $location, Facets) {
+  Facets.coeffs.retrieveData( function (data) {
+    $scope.coeffs = data;
+    $scope.$apply();
+  });
 });
