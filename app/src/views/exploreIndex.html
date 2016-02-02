@@ -1,0 +1,22 @@
+<div ng-show="loading">
+  LOADING
+</div>
+
+<div ng-show="!loading">
+  <h1>Prototype: Explore the index</h1>
+  <div>
+    Region:
+    <select ng-model="regionSelect">
+      <option ng-repeat="region in regions" value="{{region}}">{{region}}</option>
+    </select>
+  </div>
+  <div>
+    Topic:
+    <select ng-model="topicSelect">
+      <option ng-repeat="topic in topics" value="{{topic}}">{{topic}}</option>
+    </select>
+  </div>
+  <div>
+    {{data}}
+  </div>
+</div>

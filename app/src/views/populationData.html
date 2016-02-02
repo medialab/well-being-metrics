@@ -1,0 +1,14 @@
+<div ng-show="loading">
+  LOADING
+</div>
+
+<div ng-show="!loading">
+  <h1>Prototype: Population Data</h1>
+  <div ng-repeat="coeff in coeffs">
+    <strong>{{coeff.id}}:</strong> 
+    {{coeff.current_life}} | 
+    {{coeff.leisure}} |
+    {{coeff.housing}} |
+    {{coeff.loved_ones}}
+  </div>
+</div>
