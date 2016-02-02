@@ -6,25 +6,40 @@ angular.module('app.directives', [])
   
   .directive('hexus', function ($timeout) {
     return {
-      restrict: 'E',
+      restrict: 'A',
     // , templateUrl: 'partials/navbar.html'
       scope: {
           data: '='
       },
       link: function($scope, el, attrs) {
-        var elId = el.attr('id')
-        if (!elId) {console.log('Element id missing -> causes issues')};
 
         el.html('<div class="simple-curve">Loading...</div>');
-
+        
         $scope.$watch('data', function () {
           if ($scope.data !== undefined){
             $timeout(function () {
               var data = $scope.data;
 
+              var margin = {top: 10, right: 40, bottom: 30, left: 40}
+              var width = el[0].offsetWidth - margin.left - margin.right
+              var height = el[0].offsetHeight - margin.top - margin.bottom
+
+              var svg = d3.select(el[0]).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              // svg.selectAll(".bar")
+              //   .data(data)
+              // .enter().append("rect")
+              //   .attr("class", "bar")
+              //   .attr("x", function(d) { return x(d.letter); })
+              //   .attr("width", x.rangeBand())
+              //   .attr("y", function(d) { return y(d.frequency); })
+              //   .attr("height", function(d) { return height - y(d.frequency); });
+
               
-
-
               // launchpad
               function initializeMap() {
                 // creating base svg
@@ -132,7 +147,7 @@ angular.module('app.directives', [])
               }
 
               // run the initialization script
-              initializeMap();
+              // initializeMap();
 
               // individual hex calculations
               function getHexGroup(svg,x,y,r,state,ratio,width,data) {
