@@ -22,7 +22,6 @@ angular.module('app.directives', [])
       
               var data = $scope.data;
               var states = usStatesHex.data;
-              console.log(states)
 
               // Setup: dimensions
               var margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -31,7 +30,7 @@ angular.module('app.directives', [])
 
               // Setup: scales
               var size = d3.scale.linear()
-                  .range([0, width]);
+                  .range([0, height]);
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -42,8 +41,8 @@ angular.module('app.directives', [])
 
               // Binding: scales
               size.domain(d3.extent(
-                states.map(function(d) { return d.xExtent[0]; })
-                .concat(states.map(function(d) { return d.xExtent[1]; }))
+                states.map(function(d) { return d.yExtent[0]; })
+                .concat(states.map(function(d) { return d.yExtent[1]; }))
               ));
               
               var lineFunction = d3.svg.line()
@@ -55,6 +54,9 @@ angular.module('app.directives', [])
                 .data(states)
               .enter().append('path')
                 .attr("d", function(d){return lineFunction(d.hex); })
+                .attr("stroke", "white")
+                .attr("stroke-width", 1)
+                .attr("fill", "steelblue");
 
             }, 0, false);
           }

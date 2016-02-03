@@ -210,40 +210,34 @@ angular.module('app.services', [])
   ns.data = []
   // hexagon shape variables
   var hex_di = 100
-  // radius
   var hex_rad = hex_di / 2
   // apothem
   var hex_apo = hex_rad * Math.cos(Math.PI / 6)
-  // stroke width around hexagon
-  var stroke  = 0
-  // the hover state zoom scale
-  var scale = 1
   // initial x
-  var x = hex_rad * scale / 2 + stroke * scale
+  var x = hex_rad / 2
   // initial y
-  var y = hex_rad * scale + stroke * scale
-  // used constants
+  var y = hex_rad
+  // constants
   var pi_six = Math.PI/6;
   var cos_six = Math.cos(pi_six);
   var sin_six = Math.sin(pi_six);
-
   // loop variables
   var offset = false
   // initial state index
   var state_index = 0
-  var i, loop_x, loc_x, s
+  var i, loop_x, loc_x, s, grid_plot, item
   for(i = 0; i < ns.matrix.length; i++) {
     loop_x = offset ? hex_apo * 2 : hex_apo;
     
     loc_x = x;
     for(s = 0; s < ns.matrix[i].length; s++) {
       // grid plot in 0 and 1 array
-      var grid_plot = ns.matrix[i][s];
+      grid_plot = ns.matrix[i][s];
 
       // if we have a plot in the grid
       if (grid_plot != 0) {
         // get the state
-        var item = ns.states[state_index];
+        item = ns.states[state_index];
         
         // hexagon polygon points
         item.hex = [
@@ -252,7 +246,8 @@ angular.module('app.services', [])
           [loc_x + loop_x + cos_six * hex_rad, y + sin_six * hex_rad],
           [loc_x + loop_x, y + hex_rad],
           [loc_x + loop_x - cos_six * hex_rad, y + sin_six * hex_rad],
-          [loc_x + loop_x - cos_six * hex_rad, y - sin_six * hex_rad]
+          [loc_x + loop_x - cos_six * hex_rad, y - sin_six * hex_rad],
+          [loc_x + loop_x, y - hex_rad]
         ]
 
         // stats
