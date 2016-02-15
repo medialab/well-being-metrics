@@ -56,30 +56,36 @@ angular.module('app.directives', [])
                 .y(function(d) { return size(d[1]); })
                 .interpolate('linear');
 
-              svg.selectAll('.hex')
+              var stateGroups = svg.selectAll('.hex')
                 .data(states)
-              .enter().append('path')
+              .enter().append('g')
+                .style('cursor', function(d){
+                  if (regionClickable(d)) {
+                    return 'pointer'
+                  }
+                  return 'default'
+                })
+                .on('mouseover', function(d) {
+                  if (regionClickable(d)) {
+                    d3.select(this).select('path')
+                      .attr('fill', 'red');
+                  }
+                })                  
+                .on('mouseout', function(d) {
+                  if (regionClickable(d)) {
+                    d3.select(this).select('path')
+                      .attr('fill', regionColor);
+                  }
+                });
+
+              stateGroups.append('path')
                 .attr('d', function(d){return lineFunction(d.hex); })
                 .attr('stroke', 'white')
                 .attr('stroke-width', 1)
-                .attr('fill', function (d) {
+                .attr('fill', regionColor)
+                
 
-                  if ($scope.statuses[d.abbr]) {
-                    if ($scope.statuses[d.abbr].loading) {
-                      return '#EEEEEE'
-                    } else if ($scope.statuses[d.abbr].available) {
-                      return 'steelblue'
-                    } else {
-                      return '#CCCCCC'
-                    }
-                  } else {
-                    return '#EEEEEE'
-                  }
-                })
-
-              svg.selectAll('.hextext')
-                .data(states)
-              .enter().append('text')
+              stateGroups.append('text')
                 .text(function (d) { return d.abbr })
                 .attr('x', function(d){ return xOffset + size(d.x) })
                 .attr('y', function(d){ return size(d.y) })
@@ -89,7 +95,23 @@ angular.module('app.directives', [])
                 .attr('text-anchor', 'middle')
                 .attr('alignment-baseline', 'middle')
               
-
+              function regionClickable(d) {
+                return $scope.statuses[d.abbr] && $scope.statuses[d.abbr].available
+              }
+              
+              function regionColor(d) {
+                if ($scope.statuses[d.abbr]) {
+                  if ($scope.statuses[d.abbr].loading) {
+                    return '#EEEEEE'
+                  } else if ($scope.statuses[d.abbr].available) {
+                    return 'steelblue'
+                  } else {
+                    return '#CCCCCC'
+                  }
+                } else {
+                  return '#EEEEEE'
+                }
+              }
             }, 0, false);
           }
         }, true);
