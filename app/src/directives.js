@@ -24,7 +24,7 @@ angular.module('app.directives', [])
               var states = usStatesHex.data;
 
               // Setup: dimensions
-              var margin = {top: 10, right: 10, bottom: 10, left: 10};
+              var margin = {top: 24, right: 0, bottom: 24, left: 0};
               var width = el[0].offsetWidth - margin.left - margin.right;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
@@ -44,9 +44,15 @@ angular.module('app.directives', [])
                 states.map(function(d) { return d.yExtent[0]; })
                 .concat(states.map(function(d) { return d.yExtent[1]; }))
               ));
+
+              var xExtent = d3.extent(
+                states.map(function(d) { return d.xExtent[0]; })
+                .concat(states.map(function(d) { return d.xExtent[1]; }))
+              )
+              var xOffset = -size(xExtent[0]) + (width / 2 - ( size(xExtent[1]) - size(xExtent[0]) ) / 2 )
               
               var lineFunction = d3.svg.line()
-                .x(function(d) { return size(d[0]); })
+                .x(function(d) { return xOffset + size(d[0]); })
                 .y(function(d) { return size(d[1]); })
                 .interpolate('linear');
 
@@ -75,7 +81,7 @@ angular.module('app.directives', [])
                 .data(states)
               .enter().append('text')
                 .text(function (d) { return d.abbr })
-                .attr('x', function(d){ return size(d.x) })
+                .attr('x', function(d){ return xOffset + size(d.x) })
                 .attr('y', function(d){ return size(d.y) })
                 .attr('font-family', 'sans-serif')
                 .attr('font-size', '14px')
