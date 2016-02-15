@@ -21,29 +21,30 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
   cascadeLoadRegions('happiness')
 
-  function cascadeLoadRegions() {
+  function cascadeLoadRegions(serie) {
     $scope.regions.some(function (region) {
       if ($scope.regionsStatuses[region].loading) {
-        console.log('load ' + region)
-        $timeout(function(){
-          console.log('loaded: ' + region)
-          $scope.regionsStatuses[region].loading = false
-          $scope.regionsStatuses[region].available = Math.random() > 0.3
-          cascadeLoadRegions()
-        }, 100)
+        // Load region data
+        var facet = Facets.getSeries('US', region, serie)
+        if (facet) {
+          facet.retrieveData(function (data) {
+            $timeout(function () {
+              $scope.regionsStatuses[region].loading = false
+              $scope.regionsStatuses[region].available = data !== undefined && data.length > 0
+              $scope.regionsData[region] = data
+              cascadeLoadRegions(serie)
+              $scope.$apply()
+            }, 0);
+          });
+        } else {
+          console.error('Cannot retrieve series\' facet', 'US', newValues[0], newValues[1]);
+          $scope.regionsStatuses[region].loading = true
+          $scope.regionsStatuses[region].available = false
+          cascadeLoadRegions(serie)
+        }
         return true
       }
       return false
-      // TODO: adapt this up
-      var regionData = {}
-      var facet = Facets.getSeries('US', region, 'happiness')
-      if (facet) {
-        regionData.available = true
-
-      } else {
-        regionData.available = false
-      }
-      $scope.regionsData[region] = regionData
     })
   }
 

@@ -19,7 +19,6 @@ angular.module('app.directives', [])
         $scope.$watch('statuses', function () {
           if ($scope.statuses !== undefined){
             $timeout(function () {
-              console.log('redraw')
               el.html('');
       
               var states = usStatesHex.data;
