@@ -10,21 +10,41 @@ angular.module('app.directives', [])
     // , templateUrl: 'partials/navbar.html'
       scope: {
           data: '=',
-          statuses: '='
+          statuses: '=',
+          setState: '=',
+          state: '='
       },
       link: function($scope, el, attrs) {
 
         el.html('<div class="simple-curve">Loading...</div>');
         
-        $scope.$watch('statuses', function () {
+        $scope.$watch('statuses', redraw, true);
+        $scope.$watch('state', redraw);
+
+        function redraw() {
           if ($scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
       
               var states = usStatesHex.data;
-              // console.log('$scope.statuses', $scope.statuses)
-              // console.log('$scope.data', $scope.data)
-              // console.log('states', states)
+
+              // Semiotic settings
+              var settings = {
+                color: {
+                  selected: '#C58D7C',
+                  hover: '#C58D7C',
+                  loading: '#EEEEEE',
+                  available: '#887066',
+                  unavailable: '#CCCCCC'
+                },
+                opacity: {
+                  selected: 1,
+                  hover: 1,
+                  loading: 1,
+                  available: 1,
+                  unavailable: 1
+                }
+              }
 
               // Setup: dimensions
               var margin = {top: 24, right: 0, bottom: 24, left: 0};
@@ -72,10 +92,10 @@ angular.module('app.directives', [])
                 .on('mouseover', function(d) {
                   if (regionValid(d)) {
                     d3.select(this).select('path.hexagon')
-                      .attr('fill', 'red')
+                      .attr('fill', settings.color.hover)
                     d3.select(this).select('text.border')
-                      .attr('stroke', 'red')
-                      .attr('fill', 'red')
+                      .attr('stroke', settings.color.hover)
+                      .attr('fill', settings.color.hover)
                   }
                 })                  
                 .on('mouseout', function(d) {
@@ -86,7 +106,12 @@ angular.module('app.directives', [])
                       .attr('stroke', regionColor)
                       .attr('fill', regionColor)
                   }
-                });
+                })
+                .on('click', function(d) {
+                  if (regionValid(d)) {
+                    $scope.setState(d.abbr)
+                  }
+                })
 
               stateGroups.append('path')
                 .attr('class', 'hexagon')
@@ -113,12 +138,12 @@ angular.module('app.directives', [])
                 .attr('class', 'border')
                 .text(function (d) { return d.abbr })
                 .attr('x', function(d){ return xOffset + size(d.x) })
-                .attr('y', function(d){ return 3 + size(d.y) })
+                .attr('y', function(d){ return 2 + size(d.y) })
                 .attr('font-family', 'Roboto')
                 .attr('font-weight', '100')
-                .attr('font-size', '36px')
+                .attr('font-size', '26px')
                 .attr('stroke', regionColor)
-                .attr('stroke-width', 6)
+                .attr('stroke-width', 8)
                 .attr('fill', regionColor)
                 .attr('text-anchor', 'middle')
                 .attr('alignment-baseline', 'middle')
@@ -127,10 +152,10 @@ angular.module('app.directives', [])
               stateGroups.append('text')
                 .text(function (d) { return d.abbr })
                 .attr('x', function(d){ return xOffset + size(d.x) })
-                .attr('y', function(d){ return 3 + size(d.y) })
+                .attr('y', function(d){ return 2 + size(d.y) })
                 .attr('font-family', 'Roboto')
                 .attr('font-weight', '100')
-                .attr('font-size', '36px')
+                .attr('font-size', '26px')
                 .attr('fill', 'white')
                 .attr('text-anchor', 'middle')
                 .attr('alignment-baseline', 'middle')
@@ -156,35 +181,39 @@ angular.module('app.directives', [])
               }
 
               function regionOpacity(d) {
-                if ($scope.statuses[d.abbr]) {
+                if ($scope.state == d.abbr) {
+                  return settings.opacity.selected
+                } else if ($scope.statuses[d.abbr]) {
                   if ($scope.statuses[d.abbr].loading) {
-                    return 1
+                    return settings.opacity.loading
                   } else if ($scope.statuses[d.abbr].available) {
-                    return 1
+                    return settings.opacity.available
                   } else {
-                    return 0.9
+                    return settings.opacity.unavailable
                   }
                 } else {
-                  return 1
+                  return settings.opacity.loading
                 }
               }
 
               function regionColor(d) {
-                if ($scope.statuses[d.abbr]) {
+                if ($scope.state == d.abbr) {
+                  return settings.color.selected
+                } else if ($scope.statuses[d.abbr]) {
                   if ($scope.statuses[d.abbr].loading) {
-                    return '#EEEEEE'
+                    return settings.color.loading
                   } else if ($scope.statuses[d.abbr].available) {
-                    return 'steelblue'
+                    return settings.color.available
                   } else {
-                    return '#CCCCCC'
+                    return settings.color.unavailable
                   }
                 } else {
-                  return '#EEEEEE'
+                  return settings.color.loading
                 }
               }
             }, 0, false);
           }
-        }, true);
+        }
       }
     }
   })

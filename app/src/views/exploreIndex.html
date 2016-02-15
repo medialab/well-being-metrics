@@ -4,26 +4,38 @@
 
 <div ng-show="!loading"
   <div layout="row">
-    <h1>Prototype: Explore the index</h1>
+    <div layout="col">
+      <div class="input-proxy-container">
+        Evolution of
+      </div>
+    </div>
+    <div layout="col">
+      <md-input-container>
+        <label>Index</label>
+        <md-select ng-model="topic">
+          <md-option ng-repeat="topic in topics" value="{{topic}}">
+            {{topicName(topic)}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div layout="col">
+      <div class="input-proxy-container">
+        in
+      </div>
+    </div>
+    <div layout="col">
+      <md-input-container>
+        <label>Region</label>
+        <md-select ng-model="region">
+          <md-option ng-repeat="region in regions" value="{{region}}">
+            {{regionName(region)}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
   </div>
   <div layout="row">
-    <div hexus statuses="regionsStatuses" data="regionsData" style="width: 100%; height: 500px; background-color: #EEE;"></div>
-  </div>
-  <div layout="row">
-    <div layout="col">
-      Region:
-      <select ng-model="regionSelect">
-        <option ng-repeat="region in regions" value="{{region}}">{{region}}</option>
-      </select>
-    </div>
-    <div layout="col">
-      Topic:
-      <select ng-model="topicSelect">
-        <option ng-repeat="topic in topics" value="{{topic}}">{{topic}}</option>
-      </select>
-    </div>
-    <div layout="col">
-      {{data}}
-    </div>
+    <div hexus statuses="regionsStatuses" data="regionsData" set-state="setState" state="region" style="width: 100%; height: 500px; background-color: #8FB8CC;"></div>
   </div>
 </div>
