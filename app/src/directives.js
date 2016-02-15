@@ -50,13 +50,26 @@ angular.module('app.directives', [])
                 .y(function(d) { return size(d[1]); })
                 .interpolate('linear');
 
-              svg.selectAll('.bar')
+              svg.selectAll('.hex')
                 .data(states)
               .enter().append('path')
-                .attr("d", function(d){return lineFunction(d.hex); })
-                .attr("stroke", "white")
-                .attr("stroke-width", 1)
-                .attr("fill", "steelblue");
+                .attr('d', function(d){return lineFunction(d.hex); })
+                .attr('stroke', 'white')
+                .attr('stroke-width', 1)
+                .attr('fill', 'steelblue')
+
+              svg.selectAll('.hextext')
+                .data(states)
+              .enter().append('text')
+                .text(function (d) { return d.abbr })
+                .attr('x', function(d){ return size(d.x) })
+                .attr('y', function(d){ return size(d.y) })
+                .attr('font-family', 'sans-serif')
+                .attr('font-size', '14px')
+                .attr('fill', 'white')
+                .attr('text-anchor', 'middle')
+                .attr('alignment-baseline', 'middle')
+              
 
             }, 0, false);
           }

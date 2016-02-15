@@ -253,6 +253,8 @@ angular.module('app.services', [])
         // stats
         item.xExtent = d3.extent(item.hex.map(function(d){return d[0]}))
         item.yExtent = d3.extent(item.hex.map(function(d){return d[1]}))
+        item.x = ( item.xExtent[0] + item.xExtent[1] ) / 2
+        item.y = ( item.yExtent[0] + item.yExtent[1] ) / 2
 
         ns.data.push(item);
       
