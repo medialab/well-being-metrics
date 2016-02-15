@@ -9,18 +9,19 @@ angular.module('app.directives', [])
       restrict: 'A',
     // , templateUrl: 'partials/navbar.html'
       scope: {
-          data: '='
+          data: '=',
+          statuses: '='
       },
       link: function($scope, el, attrs) {
 
         el.html('<div class="simple-curve">Loading...</div>');
         
-        $scope.$watch('data', function () {
-          if ($scope.data !== undefined){
+        $scope.$watch('statuses', function () {
+          if ($scope.statuses !== undefined){
             $timeout(function () {
+              console.log('redraw')
               el.html('');
       
-              var data = $scope.data;
               var states = usStatesHex.data;
 
               // Setup: dimensions
@@ -56,7 +57,20 @@ angular.module('app.directives', [])
                 .attr('d', function(d){return lineFunction(d.hex); })
                 .attr('stroke', 'white')
                 .attr('stroke-width', 1)
-                .attr('fill', 'steelblue')
+                .attr('fill', function (d) {
+
+                  if ($scope.statuses[d.abbr]) {
+                    if ($scope.statuses[d.abbr].loading) {
+                      return '#EEEEEE'
+                    } else if ($scope.statuses[d.abbr].available) {
+                      return 'steelblue'
+                    } else {
+                      return '#CCCCCC'
+                    }
+                  } else {
+                    return '#EEEEEE'
+                  }
+                })
 
               svg.selectAll('.hextext')
                 .data(states)
@@ -73,7 +87,7 @@ angular.module('app.directives', [])
 
             }, 0, false);
           }
-        });
+        }, true);
       }
     }
   })
