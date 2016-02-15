@@ -23,19 +23,12 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
   cascadeLoadRegions($scope.topic)
 
-  $scope.$watchGroup(['regionSelect', 'topicSelect'], function (newValues, oldValues, $scope) {
-    if (newValues[0] && newValues[1] && newValues[0] !== '' && newValues[1] !== '') {
-      var facet = Facets.getSeries('US', newValues[0], newValues[1]);
-      if (facet) {
-        facet.retrieveData( function (data) {
-          setTimeout(() => {
-            $scope.data = data || 'NOT AVAILABLE';
-            $scope.$apply();
-          }, 0);
-        });
-      } else {
-        console.error('Cannot retrieve series\' facet', 'US', newValues[0], newValues[1]);
-      }
+  $scope.$watch('topic', function (newValue, oldValue, $scope) {
+    if (newValue !== oldValue) {
+      $scope.regions.forEach(function (region) {
+        $scope.regionsStatuses[region] = {loading: true}
+      })
+      cascadeLoadRegions($scope.topic)
     }
   })
 
