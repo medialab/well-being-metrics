@@ -235,8 +235,6 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              console.log('DATA: ', $scope.data)
-
               // Setup: dimensions
               var margin = {top: 24, right: 0, bottom: 24, left: 30};
               var width = el[0].offsetWidth - margin.left - margin.right;
@@ -266,6 +264,7 @@ angular.module('app.directives', [])
                 .data($scope.data)
               .enter().append("rect")
                 .attr("class", function(d) { return d < 0 ? "bar negative" : "bar positive"; })
+                .attr('fill', function(d) { return d < 0 ? "brown" : "steelblue"; })
                 .attr("x", function(d, i) { return x(i); })
                 .attr("y", function(d) { return y(Math.max(0, d)); })
                 .attr("width", x.rangeBand())

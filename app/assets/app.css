@@ -3,14 +3,7 @@
 }
 
 
-
-.bar.positive {
-  fill: steelblue;
-}
-
-.bar.negative {
-  fill: brown;
-}
+/* Misc D3 classes */
 
 .axis text {
   font: 10px sans-serif;
@@ -20,4 +13,5 @@
 .axis line {
   fill: none;
   stroke: #000;
-  sha
+  shape-rendering: crispEdges;
+}
