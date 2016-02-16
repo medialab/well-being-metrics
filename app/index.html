@@ -23,20 +23,18 @@
 
   </head>
 
-  <body ng-app="app" ng-cloak >
+  <body ng-app="app" ng-cloak layout="column">
     <md-toolbar>
       <div class="md-toolbar-tools">
       <span>So Well - PROTOTYPE</span>
-      <!-- fill up the space between left and right area -->
       <span flex></span>
       <!-- <md-button>
         Right Bar Button
       </md-button> -->
     </div>
     </md-toolbar>
-    <md-content>  
-      <div ng-view flex layout="column">
-      </div>
+    <md-content flex layout="row">
+      <div layout="column" flex ng-view></div>
     </md-content>
 
     <script src="../node_modules/angular/angular.js"></script>
