@@ -48,8 +48,8 @@ angular.module('app.directives', [])
 
               // Setup: dimensions
               var margin = {top: 24, right: 0, bottom: 24, left: 0};
-              var width = el[0].offsetWidth - margin.left - margin.right;
-              var height = el[0].offsetHeight - margin.top - margin.bottom;
+              var width = el[0].offsetWidth - margin.left - margin.right - 12;
+              var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
               // Setup: scales
               var size = d3.scale.linear()
@@ -235,9 +235,9 @@ angular.module('app.directives', [])
               el.html('');
 
               // Setup: dimensions
-              var margin = {top: 24, right: 0, bottom: 24, left: 30};
-              var width = el[0].offsetWidth - margin.left - margin.right;
-              var height = el[0].offsetHeight - margin.top - margin.bottom;
+              var margin = {top: 12, right: 12, bottom: 12, left: 46};
+              var width = el[0].offsetWidth - margin.left - margin.right - 12;
+              var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
               // Setup: scales
               var x = d3.scale.ordinal()

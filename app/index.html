@@ -23,9 +23,21 @@
 
   </head>
 
-  <body ng-app="app" layout="row" ng-cloak >
-
-    <div ng-view flex layout="column"></div>
+  <body ng-app="app" ng-cloak >
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+      <span>So Well - PROTOTYPE</span>
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <!-- <md-button>
+        Right Bar Button
+      </md-button> -->
+    </div>
+    </md-toolbar>
+    <md-content>  
+      <div ng-view flex layout="column">
+      </div>
+    </md-content>
 
     <script src="../node_modules/angular/angular.js"></script>
     <script src="../node_modules/angular-animate/angular-animate.js"></script>
@@ -62,9 +74,8 @@ angular
   $routeProvider.otherwise({redirectTo: '/'});
 
   $mdThemingProvider.theme('default')
-    .primaryPalette('brown')
+    .primaryPalette('amber')
     .accentPalette('red');
-
 })
 
 // Other colors
