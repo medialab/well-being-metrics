@@ -7,7 +7,6 @@ angular.module('app.directives', [])
   .directive('hexus', function ($timeout, usStatesHex) {
     return {
       restrict: 'A',
-    // , templateUrl: 'partials/navbar.html'
       scope: {
           data: '=',
           statuses: '=',
@@ -17,7 +16,7 @@ angular.module('app.directives', [])
       },
       link: function($scope, el, attrs) {
 
-        el.html('<div class="simple-curve">Loading...</div>');
+        el.html('<div>Loading...</div>');
         
         $scope.$watch('statuses', redraw, true);
         $scope.$watch('state', redraw);
@@ -219,3 +218,32 @@ angular.module('app.directives', [])
       }
     }
   })
+
+  .directive('happinessChart', [function () {
+    return {
+      restrict: 'A',
+      scope: {
+          data: '='
+      },
+      link: function($scope, el, attrs) {
+        el.html('<div>Loading...</div>');
+        
+        $scope.$watch('data', redraw, true);
+
+        function redraw() {
+          if ($scope.data !== undefined) {
+            $timeout(function () {
+              el.html('');
+
+              console.log($scope.data)
+
+              /*var x = d3.scale.linear()
+                .domain(d3.extent(data, function(d) { return d.value; }))
+                .range([0, width]);*/
+
+            })
+          }
+        }
+      }
+    }
+  }])

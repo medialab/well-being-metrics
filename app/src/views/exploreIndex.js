@@ -11,17 +11,12 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
 .controller('ExploreIndexController', function($scope, $location, $timeout, swbCategories, swbSeries, regionsMetadata, Facets) {
   $scope.regions = d3.keys(regionsMetadata.USA.values);
-  $scope.region = undefined;
+  $scope.region = 'IL';
   $scope.topics = swbSeries;
   $scope.topic = 'happiness'
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
-
-  $scope.regions.forEach(function (region) {
-    $scope.regionsStatuses[region] = {loading: true}
-  })
-
-  cascadeLoadRegions($scope.topic)
+  $scope.chartData
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
@@ -32,9 +27,20 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }
   })
 
+  $scope.$watch('region', function (newValue, oldValue, $scope) {
+    if (newValue !== oldValue) {
+      updateChartData()
+    }
+  })
+
+  $scope.regions.forEach(function (region) {
+    $scope.regionsStatuses[region] = {loading: true}
+  })
+
+  cascadeLoadRegions($scope.topic)
+
   $scope.setState = function (region) {
     $timeout(function () {
-      // console.log('Set region to', region)
       $scope.region = region
       $scope.$apply()
     }, 0);
@@ -57,6 +63,9 @@ angular.module('app.exploreIndex', ['ngRoute'])
     return t
   }
 
+  function updateChartData() {
+    $scope.chartData = $scope.regionsData[$scope.region]
+  }
 
   function cascadeLoadRegions (serie) {
     if ( serie == $scope.topic ) {
@@ -71,6 +80,9 @@ angular.module('app.exploreIndex', ['ngRoute'])
                   $scope.regionsStatuses[region].loading = false
                   $scope.regionsStatuses[region].available = data !== undefined && data.length > 0
                   $scope.regionsData[region] = data
+                  if (region == $scope.region) {
+                    updateChartData()
+                  }
                   cascadeLoadRegions(serie)
                   $scope.$apply()
                 }, 0);
