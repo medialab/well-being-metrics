@@ -219,7 +219,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('happinessChart', [function () {
+  .directive('happinessChart', function ($timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -227,7 +227,7 @@ angular.module('app.directives', [])
       },
       link: function($scope, el, attrs) {
         el.html('<div>Loading...</div>');
-        
+
         $scope.$watch('data', redraw, true);
 
         function redraw() {
@@ -235,15 +235,18 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              console.log($scope.data)
+              console.log('DATA: ', $scope.data)
 
-              /*var x = d3.scale.linear()
-                .domain(d3.extent(data, function(d) { return d.value; }))
-                .range([0, width]);*/
+              // Setup: dimensions
+              var margin = {top: 24, right: 0, bottom: 24, left: 0};
+              var width = el[0].offsetWidth - margin.left - margin.right;
+              var height = el[0].offsetHeight - margin.top - margin.bottom;
+
+              // Setup: scales
 
             })
           }
         }
       }
     }
-  }])
+  })
