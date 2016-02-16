@@ -4,7 +4,7 @@
 
 angular.module('app.directives', [])
   
-  .directive('hexus', function ($timeout, usStatesHex) {
+  .directive('hexus', function ($timeout, usStatesHex, colors) {
     return {
       restrict: 'A',
       scope: {
@@ -31,12 +31,11 @@ angular.module('app.directives', [])
               // Semiotic settings
               var settings = {
                 color: {
-                  selected: '#C58D7C',
-                  hover: '#C58D7C',
-                  loading: '#EEEEEE',
-                  available: 'steelblue',
-                  // available: '#887066',
-                  unavailable: '#D6CAC4'
+                  selected:     colors.mapItemHighlight,
+                  hover:        colors.mapItemHighlight,
+                  loading:      colors.mapItemLoading,
+                  available:    colors.mapItemReady,
+                  unavailable:  colors.mapItemUnavailable
                 },
                 opacity: {
                   selected: 1,
@@ -219,7 +218,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('happinessChart', function ($timeout) {
+  .directive('happinessChart', function ($timeout, colors) {
     return {
       restrict: 'A',
       scope: {
@@ -264,7 +263,7 @@ angular.module('app.directives', [])
                 .data($scope.data)
               .enter().append("rect")
                 .attr("class", function(d) { return d < 0 ? "bar negative" : "bar positive"; })
-                .attr('fill', function(d) { return d < 0 ? "brown" : "steelblue"; })
+                .attr('fill', function(d) { return d < 0 ? colors.barNegative : colors.barPositive; })
                 .attr("x", function(d, i) { return x(i); })
                 .attr("y", function(d) { return y(Math.max(0, d)); })
                 .attr("width", x.rangeBand())

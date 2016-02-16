@@ -9,7 +9,8 @@ angular.module('app.exploreIndex', ['ngRoute'])
   })
 }])
 
-.controller('ExploreIndexController', function($scope, $location, $timeout, swbCategories, swbSeries, regionsMetadata, Facets) {
+.controller('ExploreIndexController', function($scope, $location, $timeout, swbCategories, swbSeries, regionsMetadata, Facets, colors) {
+  $scope.colors = colors
   $scope.regions = d3.keys(regionsMetadata.USA.values);
   $scope.region = 'IL';
   $scope.topics = swbSeries;

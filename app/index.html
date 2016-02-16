@@ -47,23 +47,37 @@
     <script type="text/javascript">
 
 angular
-  .module('app', [
-    'ngMaterial',
-    'ngRoute',
-    'app.services',
-    'app.directives',
-    'app.home',
-    'app.exploreIndex',
-    'app.populationData'
-  ])
-  .config(function($mdThemingProvider, $routeProvider){
-    $routeProvider.otherwise({redirectTo: '/'});
+.module('app', [
+  'ngMaterial',
+  'ngRoute',
+  'app.services',
+  'app.directives',
+  'app.home',
+  'app.exploreIndex',
+  'app.populationData'
+])
+  
+// Material theme
+.config(function($mdThemingProvider, $routeProvider){
+  $routeProvider.otherwise({redirectTo: '/'});
 
-    $mdThemingProvider.theme('default')
-      .primaryPalette('brown')
-      .accentPalette('red');
+  $mdThemingProvider.theme('default')
+    .primaryPalette('brown')
+    .accentPalette('red');
 
-  });
+})
+
+// Other colors
+.constant('colors', {
+  mapItemLoading: '#EEEEEE',
+  mapItemReady: 'steelblue',
+  mapItemUnavailable: '#D6CAC4',
+  mapItemHighlight: '#C58D7C',
+  mapBackground: '#CEE0E8',
+  happinessChartBackground: '#EEEEEE',
+  barPositive: 'steelblue', 
+  barNegative: 'brown' 
+})
 
     </script>
 
