@@ -12,7 +12,8 @@ angular.module('app.directives', [])
           data: '=',
           statuses: '=',
           setState: '=',
-          state: '='
+          state: '=',
+          backgroundClick: '='
       },
       link: function($scope, el, attrs) {
 
@@ -34,8 +35,9 @@ angular.module('app.directives', [])
                   selected: '#C58D7C',
                   hover: '#C58D7C',
                   loading: '#EEEEEE',
-                  available: '#887066',
-                  unavailable: '#CCCCCC'
+                  available: 'steelblue',
+                  // available: '#887066',
+                  unavailable: '#D6CAC4'
                 },
                 opacity: {
                   selected: 1,
@@ -108,6 +110,7 @@ angular.module('app.directives', [])
                   }
                 })
                 .on('click', function(d) {
+                  d3.event.stopPropagation();
                   if (regionValid(d)) {
                     $scope.setState(d.abbr)
                   }

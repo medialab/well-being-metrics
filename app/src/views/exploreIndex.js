@@ -10,8 +10,8 @@ angular.module('app.exploreIndex', ['ngRoute'])
 }])
 
 .controller('ExploreIndexController', function($scope, $location, $timeout, swbCategories, swbSeries, regionsMetadata, Facets) {
-  $scope.regions = d3.keys(regionsMetadata.USA.values).concat(['US']);
-  $scope.region = 'US';
+  $scope.regions = d3.keys(regionsMetadata.USA.values);
+  $scope.region = undefined;
   $scope.topics = swbSeries;
   $scope.topic = 'happiness'
   $scope.regionsStatuses = {}
@@ -32,15 +32,20 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }
   })
 
-  $scope.setState = function(region) {
+  $scope.setState = function (region) {
     $timeout(function () {
-      console.log('Set region to', region)
+      // console.log('Set region to', region)
       $scope.region = region
       $scope.$apply()
     }, 0);
   }
 
-  $scope.regionName = function(r) {
+  $scope.unselectRegion = function () {
+    console.log('UNSELECT')
+    $scope.region = ''
+  }
+
+  $scope.regionName = function (r) {
     if (r === 'US') {
       return 'the United States'
     } else {
@@ -48,12 +53,12 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }
   }
 
-  $scope.topicName = function(t) {
+  $scope.topicName = function (t) {
     return t
   }
 
 
-  function cascadeLoadRegions(serie) {
+  function cascadeLoadRegions (serie) {
     if ( serie == $scope.topic ) {
       $scope.regions.some(function (region) {
         if ($scope.regionsStatuses[region].loading) {
