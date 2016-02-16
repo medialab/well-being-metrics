@@ -238,11 +238,49 @@ angular.module('app.directives', [])
               console.log('DATA: ', $scope.data)
 
               // Setup: dimensions
-              var margin = {top: 24, right: 0, bottom: 24, left: 0};
+              var margin = {top: 24, right: 0, bottom: 24, left: 30};
               var width = el[0].offsetWidth - margin.left - margin.right;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
               // Setup: scales
+              var x = d3.scale.ordinal()
+                .domain(d3.keys($scope.data))
+                .rangeRoundBands([0, width], .2);
+    
+              var y = d3.scale.linear()
+                .domain(d3.extent($scope.data))
+                .range([height, 0]);
+
+              var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left");
+
+              // Draw
+              var svg = d3.select(el[0]).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              svg.selectAll(".bar")
+                .data($scope.data)
+              .enter().append("rect")
+                .attr("class", function(d) { return d < 0 ? "bar negative" : "bar positive"; })
+                .attr("x", function(d, i) { return x(i); })
+                .attr("y", function(d) { return y(Math.max(0, d)); })
+                .attr("width", x.rangeBand())
+                .attr("height", function(d) { return Math.abs(y(d) - y(0)); })
+
+              svg.append("g")
+                  .attr("class", "x axis")
+                .append("line")
+                  .attr("y1", y(0))
+                  .attr("y2", y(0))
+                  .attr("x2", width);
+
+              svg.append("g")
+                  .attr("class", "y axis")
+                  .call(yAxis);
 
             })
           }
