@@ -4,13 +4,33 @@
 
 <div ng-show="!loading">
 
-  <div layout="row">
-    <div layout="col">
+  <div layout="row" layout-padding>
+    <div layout="column" flex="50">
+      <div flex>
+        <h3>What's on people's minds and what are they up to?</h3>
+      </div>
+      <div flex>
+
+        <md-grid-list md-cols="5" md-gutter="1em" md-row-height="4:3">
+          <md-grid-tile>xx</md-grid-tile>
+          <md-grid-tile>yy</md-grid-tile>
+          <md-grid-tile>zz</md-grid-tile>
+        </md-grid-list>
+    
+      </div>
+    </div>
+    <div layout="column" flex="50">
+      <h3>How are people feeling?</h3>
+    </div>
+  </div>
+
+  <div layout="row" layout-padding>
+    <div>
       <div class="input-proxy-container">
         Evolution of
       </div>
     </div>
-    <div layout="col">
+    <div>
       <md-input-container>
         <label>Index</label>
         <md-select ng-model="topic">
@@ -20,7 +40,7 @@
         </md-select>
       </md-input-container>
     </div>
-    <div layout="col">
+    <div>
       <div class="input-proxy-container">
         in the United States
       </div>
@@ -38,13 +58,13 @@
     ></div>
   </div>
 
-  <div layout="row" ng-if="region">
-    <div layout="col">
+  <div layout="row" ng-if="region" layout-padding>
+    <div>
       <div class="input-proxy-container">
         Evolution of
       </div>
     </div>
-    <div layout="col">
+    <div>
       <md-input-container>
         <label>Index</label>
         <md-select ng-model="$parent.topic">
@@ -54,12 +74,12 @@
         </md-select>
       </md-input-container>
     </div>
-    <div layout="col">
+    <div>
       <div class="input-proxy-container">
         in
       </div>
     </div>
-    <div layout="col">
+    <div>
       <md-input-container>
         <label>Region</label>
         <md-select ng-model="$parent.region">
