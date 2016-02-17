@@ -103,6 +103,7 @@ angular.module('app.services', [])
     prefix: 'FR',
     label: 'All France regions',
     values: {
+      /*
       "A": "Alsace",
       "B": "Aquitaine",
       "C": "Auvergne",
@@ -125,11 +126,34 @@ angular.module('app.services', [])
       "T": "Poitou-Charentes",
       "U": "Provence-Alpes-Côte d'Azur",
       "V": "Rhône-Alpes",
+      */
+      "ALS": "Alsace",
+      "AQU": "Aquitaine",
+      "AUV": "Auvergne",
+      "BOU": "Bourgogne",
+      "BRE": "Bretagne",
+      "CEN": "Centre",
+      "CHA": "Champagne-Ardenne",
+      "COR": "Corse",
+      "FRC": "Franche-Comté",
+      "IDF": "Île-de-France",
+      "LAN": "Languedoc-Roussillon",
+      "LIM": "Limousin",
+      "LOR": "Lorraine",
+      "MID": "Midi-Pyrénées",
+      "NPC": "Nord-Pas-de-Calais",
+      "BNO": "Basse-Normandie",
+      "HNO": "Haute-Normandie",
+      "PDL": "Pays-de-la-Loire",
+      "PIC": "Picardie",
+      "POI": "Poitou-Charentes",
+      "PAC": "Provence-Alpes-Côte d'Azur",
+      "RHA": "Rhône-Alpes",
     }
   }
 })
 
-// Facets declaration
+// US Hex tiling
 .factory('usStatesHex', function () {
   // Namespace
   var ns = {};
@@ -238,6 +262,120 @@ angular.module('app.services', [])
       if (grid_plot != 0) {
         // get the state
         item = ns.states[state_index];
+        
+        // hexagon polygon points
+        item.hex = [
+          [loc_x + loop_x, y - hex_rad],
+          [loc_x + loop_x + cos_six * hex_rad, y - sin_six * hex_rad],
+          [loc_x + loop_x + cos_six * hex_rad, y + sin_six * hex_rad],
+          [loc_x + loop_x, y + hex_rad],
+          [loc_x + loop_x - cos_six * hex_rad, y + sin_six * hex_rad],
+          [loc_x + loop_x - cos_six * hex_rad, y - sin_six * hex_rad],
+          [loc_x + loop_x, y - hex_rad]
+        ]
+
+        // stats
+        item.xExtent = d3.extent(item.hex.map(function(d){return d[0]}))
+        item.yExtent = d3.extent(item.hex.map(function(d){return d[1]}))
+        item.x = ( item.xExtent[0] + item.xExtent[1] ) / 2
+        item.y = ( item.yExtent[0] + item.yExtent[1] ) / 2
+
+        ns.data.push(item);
+      
+        // increase the state index reference
+        state_index++;
+      }
+
+      // move our x plot to next hex position
+      loc_x += hex_apo * 2;
+    }
+    // move our y plot to next row position
+    y += hex_di * 0.75; 
+    // toggle offset per row
+    offset = !offset;
+  }
+
+  return ns;
+})
+
+// FR Hex tiling
+.factory('frRegionsHex', function () {
+  // Namespace
+  var ns = {};
+  
+  ns.matrix = [
+    [0,0,1,0,0,0],
+    [0,1,1,1,0,0],
+    [1,1,1,1,1,0],
+    [1,1,1,1,0,0],
+    [0,1,1,1,1,0],
+    [1,1,1,1,0,0],
+    [0,0,0,0,0,1]
+  ];
+
+  ns.regions = [
+    { abbr: "NPC", name: "Nord-Pas-de-Calais" },
+
+    { abbr: "HNO", name: "Haute-Normandie" },
+    { abbr: "PIC", name: "Picardie"},
+    { abbr: "LOR", name: "Lorraine" },
+
+    { abbr: "BRE", name: "Bretagne" },
+    { abbr: "BNO", name: "Basse Normandie" },
+    { abbr: "IDF", name: "Île-de-France" },
+    { abbr: "CHA", name: "Champagne-Ardenne" },
+    { abbr: "ALS", name: "Alsace" },
+
+    { abbr: "PDL", name: "Pays-de-la-Loire" },
+    { abbr: "CEN", name: "Centre" },
+    { abbr: "BOU", name: "Bourgogne"},
+    { abbr: "FRC", name: "Franche-Comté" },
+
+    { abbr: "POI", name: "Poitou-Charentes" },
+    { abbr: "LIM", name: "Limousin" },
+    { abbr: "AUV", name: "Auvergne" },
+    { abbr: "RHA", name: "Rhône-Alpes" },
+
+    { abbr: "AQU", name: "Aquitaine" },
+    { abbr: "MID", name: "Midi-Pyrénées" },
+    { abbr: "LAN", name: "Languedoc-Roussillon" },
+    { abbr: "PAC", name: "Provence-Alpes-Côte d'Azur" },
+
+    { abbr: "COR", name: "Corse"}
+  ];
+
+  // Process data
+  ns.data = []
+  // hexagon shape variables
+  var hex_di = 100
+  var hex_rad = hex_di / 2
+  // apothem
+  var hex_apo = hex_rad * Math.cos(Math.PI / 6)
+  // initial x
+  var x = hex_rad / 2
+  // initial y
+  var y = hex_rad
+  // constants
+  var pi_six = Math.PI/6;
+  var cos_six = Math.cos(pi_six);
+  var sin_six = Math.sin(pi_six);
+  // loop variables
+  var offset = false
+  // initial state index
+  var state_index = 0
+  var i, loop_x, loc_x, s, grid_plot, item
+  for(i = 0; i < ns.matrix.length; i++) {
+    loop_x = offset ? hex_apo * 2 : hex_apo;
+    
+    loc_x = x;
+    for(s = 0; s < ns.matrix[i].length; s++) {
+      // grid plot in 0 and 1 array
+      grid_plot = ns.matrix[i][s];
+
+      // if we have a plot in the grid
+      if (grid_plot != 0) {
+        // get the state
+        item = ns.regions[state_index];
         
         // hexagon polygon points
         item.hex = [
