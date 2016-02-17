@@ -4,23 +4,31 @@
 
 <div ng-show="!loading">
 
-  <div layout="row" layout-padding>
-    <div layout="column" flex="50">
-      <div flex>
+  <div layout="row" layout-sm="column" layout-padding>
+    <div layout="column" flex="50" flex-sm="100">
+      <div>
         <h3>What's on people's minds and what are they up to?</h3>
       </div>
-      <div flex>
-
-        <md-grid-list md-cols="5" md-gutter="1em" md-row-height="4:3">
-          <md-grid-tile>xx</md-grid-tile>
-          <md-grid-tile>yy</md-grid-tile>
-          <md-grid-tile>zz</md-grid-tile>
+      <div>
+        <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
+          <md-grid-tile ng-repeat="item in seriesDomain">
+            <md-button ng-click="setTopic(item.topic)">{{item.name}}</md-button>
+          </md-grid-tile>
         </md-grid-list>
-    
       </div>
     </div>
-    <div layout="column" flex="50">
-      <h3>How are people feeling?</h3>
+    <div layout="column" flex="50" flex-sm="100">
+      <div>
+        <h3>How are people feeling?</h3>
+      </div>
+      <div>
+        <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
+          <md-grid-tile ng-repeat="item in seriesMeasure">
+            <md-button>{{item.name}}</md-button>
+            <p>{{item.desc}}</p>
+          </md-grid-tile>
+        </md-grid-list>
+      </div>   
     </div>
   </div>
 
@@ -34,8 +42,8 @@
       <md-input-container>
         <label>Index</label>
         <md-select ng-model="topic">
-          <md-option ng-repeat="topic in topics" value="{{topic}}">
-            {{topicName(topic)}}
+          <md-option ng-repeat="t in topics" value="{{t.topic}}">
+            {{t.name}}
           </md-option>
         </md-select>
       </md-input-container>

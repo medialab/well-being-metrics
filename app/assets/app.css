@@ -1,7 +1,10 @@
 .input-proxy-container {
-  padding-top: 25px;
+  padding-top: 27px;
 }
 
+md-grid-tile {
+  background: #b9f6ca;
+}
 
 /* Misc D3 classes */
 

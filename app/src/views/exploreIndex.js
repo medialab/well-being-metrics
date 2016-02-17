@@ -4,20 +4,33 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/explore-index', {
-    templateUrl: 'src/views/exploreIndex.html'
-  , controller: 'ExploreIndexController'
+    templateUrl: 'src/views/exploreIndex.html',
+    controller: 'ExploreIndexController'
   })
 }])
 
-.controller('ExploreIndexController', function($scope, $location, $timeout, swbCategories, swbSeries, regionsMetadata, Facets, colors) {
+.controller('ExploreIndexController', function (
+  $scope,
+  $location,
+  $timeout,
+  swbCategories,
+  swbSeries,
+  seriesMetadata,
+  regionsMetadata,
+  Facets,
+  colors
+) {
   $scope.colors = colors
-  $scope.regions = d3.keys(regionsMetadata.USA.values);
-  $scope.region = 'IL';
-  $scope.topics = swbSeries;
-  $scope.topic = 'happiness'
+  $scope.regions = d3.keys(regionsMetadata.USA.values)
+  $scope.region = 'IL'
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
   $scope.chartData
+  $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
+  $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
+  $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
+  $scope.topic = 'happiness'
+
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
@@ -47,6 +60,10 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }, 0);
   }
 
+  $scope.setTopic = function (topic) {
+    $scope.topic = topic
+  }
+
   $scope.unselectRegion = function () {
     console.log('UNSELECT')
     $scope.region = ''
@@ -58,10 +75,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
     } else {
       return regionsMetadata.USA.values[r]
     }
-  }
-
-  $scope.topicName = function (t) {
-    return t
   }
 
   function updateChartData() {
