@@ -24,12 +24,20 @@
       <div>
         <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
           <md-grid-tile ng-repeat="item in seriesMeasure">
-            <md-button>{{item.name}}</md-button>
-            <p>{{item.desc}}</p>
+            <md-button ng-click="setTopic(item.topic)">{{item.name}}</md-button>
           </md-grid-tile>
         </md-grid-list>
       </div>   
     </div>
+  </div>
+
+  <!-- SLIDER -->
+  <div>
+    <div time-slider></div>
+  </div>
+
+  <div>
+    <!-- MULTI CURVE -->
   </div>
 
   <div layout="row" layout-padding>
@@ -54,17 +62,15 @@
       </div>
     </div>
   </div>
-  
-  <div layout="row">
-    <div hexus
-      statuses="regionsStatuses"
-      data="regionsData"
-      set-state="setState"
-      state="region"
-      style="width: 100%; height: 500px; background-color: {{colors.mapBackground}};"
-      ng-click="unselectRegion()"
-    ></div>
-  </div>
+
+  <div hexus
+    statuses="regionsStatuses"
+    data="regionsData"
+    set-state="setState"
+    state="region"
+    style="width: 100%; height: 500px; background-color: {{colors.mapBackground}};"
+    ng-click="unselectRegion()"
+  ></div>
 
   <div layout="row" ng-if="region" layout-padding>
     <div>
@@ -99,11 +105,51 @@
     </div>
   </div>
 
-  <div layout="row" ng-if="region">
+  <div ng-if="region">
+    <!-- TODO: THIS FOR EVERY INDICATOR -->
     <div happiness-chart
       data="chartData"
       style="width: 100%; height: 200px; background-color: {{colors.happinessChartBackground}};"
     ></div>
+  </div>
+
+  <div layout-padding>
+    <!-- temp filler to test stickyness -->
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
+    TEMP FILLER<br>
   </div>
 
 </div>

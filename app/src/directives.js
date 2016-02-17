@@ -286,3 +286,17 @@ angular.module('app.directives', [])
       }
     }
   })
+
+  .directive('timeSlider', function ($mdSticky, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+          // data: '='
+      },
+      templateUrl: 'src/directives/timeSlider.html',
+      link: function($scope, el, attrs) {
+        $scope.colors = colors
+        $mdSticky($scope, el)
+      }
+    }
+  })

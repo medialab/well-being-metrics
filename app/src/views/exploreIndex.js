@@ -31,7 +31,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
   $scope.topic = 'happiness'
 
-
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
       $scope.regions.forEach(function (region) {
