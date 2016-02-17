@@ -4,15 +4,14 @@
 
 angular.module('app.directives', [])
   
-  .directive('hexus', function ($timeout, usStatesHex, colors) {
+  .directive('hexUs', function ($timeout, usStatesHex, colors) {
     return {
       restrict: 'A',
       scope: {
           data: '=',
           statuses: '=',
           setState: '=',
-          state: '=',
-          backgroundClick: '='
+          state: '='
       },
       link: function($scope, el, attrs) {
 
@@ -222,7 +221,109 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('happinessChart', function ($timeout, colors) {
+  .directive('stackedCurvesUs', function ($timeout, usStatesHex, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+          data: '=',
+          statuses: '=',
+          setState: '=',
+          state: '='
+      },
+      link: function($scope, el, attrs) {
+
+        el.html('<div>Loading...</div>')
+        
+        $scope.$watch('statuses', redraw, true)
+        $scope.$watch('state', redraw)
+        window.addEventListener('resize', redraw)
+        $scope.$on('$destroy', function(){
+          window.removeEventListener('resize', redraw)
+        })
+
+        function redraw() {
+          if ($scope.statuses !== undefined){
+            $timeout(function () {
+              el.html('');
+      
+              var states = usStatesHex.data;
+
+              // Preliminary data crunching
+              var allValues = []
+              var seriesLength = 0
+              var region
+              for (region in $scope.data) {
+                var series = $scope.data[region]
+                if ( series && series.length > 0 ) {
+                  seriesLength = Math.max(seriesLength, series.length)
+                  allValues = allValues.concat(series)
+                }
+              }
+
+              // Semiotic settings
+              var settings = {
+                color: {
+                }
+              }
+
+              // Setup: dimensions
+              var margin = {top: 24, right: 0, bottom: 24, left: 0};
+              var width = el[0].offsetWidth - margin.left - margin.right - 12;
+              var height = el[0].offsetHeight - margin.top - margin.bottom;
+
+              // Setup: scales
+              var x = d3.scale.linear()
+                // TODO: use time conversion for this
+                .domain([0, seriesLength])
+                .range([0, width])
+              console.log(x(0), x(1), seriesLength)
+              
+              var y = d3.scale.linear()
+                .domain(d3.extent(allValues))
+                .range([height, 0])
+
+              var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left");
+
+              // Setup: SVG container
+              var svg = d3.select(el[0]).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+              
+              var lineFunction = d3.svg.line()
+                .x(function(d, i) { return x(i); })
+                .y(function(d) { return y(d); })
+                .interpolate('bundle');
+
+              var curves = svg.selectAll('.curve')
+                .data(states)
+              .enter().append('g')
+                .attr('class', 'curve')
+              .append("path")
+                .attr('d', function (d) {
+                  if (regionValid(d)) return lineFunction($scope.data[d.abbr])
+                })
+                .attr('stroke', 'steelblue')
+                .attr('stroke-width', 1)
+                .attr('fill', 'none')
+                .attr('opacity', .8)
+                 
+            }, 0)
+          }
+        }
+
+        function regionValid(d) {
+          return $scope.statuses[d.abbr] && $scope.statuses[d.abbr].available
+        }
+      }
+    }
+  })
+
+  // bar chart: Unused
+  .directive('barChart', function ($timeout, colors) {
     return {
       restrict: 'A',
       scope: {
@@ -305,7 +406,7 @@ angular.module('app.directives', [])
       link: function(scope, el, attrs) {
         scope.colors = colors
         scope.sticking = false
-        
+
         // Custom sticky behavior
         var namespace = 'sticky'
         // get element

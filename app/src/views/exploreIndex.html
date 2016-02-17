@@ -4,8 +4,8 @@
 
 <div ng-show="!loading">
 
-  <div layout="row" layout-sm="column" layout-padding md-whiteframe="2">
-    <div layout="column" flex="50" flex-sm="100">
+  <div layout="row" layout-xs="column" layout-sm="column" layout-padding md-whiteframe="2">
+    <div layout="column" flex="50" flex-sm="100" flex-xs="100">
       <div>
         <h3>What's on people's minds and what are they up to?</h3>
       </div>
@@ -17,7 +17,7 @@
         </md-grid-list>
       </div>
     </div>
-    <div layout="column" flex="50" flex-sm="100">
+    <div layout="column" flex="50" flex-sm="100" flex-xs="100">
       <div>
         <h3>How are people feeling?</h3>
       </div>
@@ -36,34 +36,16 @@
     <div time-slider class="time-slider-container"></div>
   </div>
 
-  <div>
-    <!-- MULTI CURVE -->
-  </div>
+  <!-- MULTI CURVES -->
+  <div stacked-curves-us
+    statuses="regionsStatuses"
+    data="regionsData"
+    set-state="setState"
+    state="region"
+    style="width: 100%; height: 300px;"
+  ></div>
 
-  <div layout="row" layout-padding>
-    <div>
-      <div class="input-proxy-container">
-        Evolution of
-      </div>
-    </div>
-    <div>
-      <md-input-container>
-        <label>Index</label>
-        <md-select ng-model="topic">
-          <md-option ng-repeat="t in topics" value="{{t.topic}}">
-            {{t.name}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-    </div>
-    <div>
-      <div class="input-proxy-container">
-        in the United States
-      </div>
-    </div>
-  </div>
-
-  <div hexus
+  <div hex-us
     statuses="regionsStatuses"
     data="regionsData"
     set-state="setState"
@@ -107,49 +89,10 @@
 
   <div ng-if="region">
     <!-- TODO: THIS FOR EVERY INDICATOR -->
-    <div happiness-chart
+    <div bar-chart
       data="chartData"
       style="width: 100%; height: 200px; background-color: {{colors.happinessChartBackground}};"
     ></div>
-  </div>
-
-  <div layout-padding>
-    <!-- temp filler to test stickyness -->
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
-    TEMP FILLER<br>
   </div>
 
 </div>
