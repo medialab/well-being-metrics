@@ -16,10 +16,14 @@ angular.module('app.directives', [])
       },
       link: function($scope, el, attrs) {
 
-        el.html('<div>Loading...</div>');
+        el.html('<div>Loading...</div>')
         
-        $scope.$watch('statuses', redraw, true);
-        $scope.$watch('state', redraw);
+        $scope.$watch('statuses', redraw, true)
+        $scope.$watch('state', redraw)
+        window.addEventListener('resize', redraw)
+        $scope.$on('$destroy', function(){
+          window.removeEventListener('resize', redraw)
+        })
 
         function redraw() {
           if ($scope.statuses !== undefined){
@@ -225,14 +229,18 @@ angular.module('app.directives', [])
           data: '='
       },
       link: function($scope, el, attrs) {
-        el.html('<div>Loading...</div>');
+        el.html('<div>Loading...</div>')
 
-        $scope.$watch('data', redraw, true);
+        $scope.$watch('data', redraw, true)
+        window.addEventListener('resize', redraw)
+        $scope.$on('$destroy', function(){
+          window.removeEventListener('resize', redraw)
+        })
 
         function redraw() {
           if ($scope.data !== undefined) {
             $timeout(function () {
-              el.html('');
+              el.html('')
 
               // Setup: dimensions
               var margin = {top: 12, right: 12, bottom: 12, left: 46};
@@ -287,7 +295,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('timeSlider', function (colors) {
+  .directive('timeSlider', function ($timeout, colors) {
     return {
       restrict: 'A',
       scope: {
@@ -296,35 +304,29 @@ angular.module('app.directives', [])
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
         scope.colors = colors
+        scope.sticking = false
         
-        // Make it sticky
+        // Custom sticky behavior
         var namespace = 'sticky'
-        var
         // get element
-        element = el[0],
-
+        var element = el[0]
         // get document
-        document = element.ownerDocument,
-
+        var document = element.ownerDocument
         // get window
-        window = document.defaultView,
-
+        var window = document.defaultView
         // get wrapper
-        wrapper = document.createElement('span'),
-
+        var wrapper = document.createElement('span')
         // cache style
-        style = element.getAttribute('style'),
-
+        var style = element.getAttribute('style')
         // get options
-        bottom = parseFloat(attrs[namespace + 'Bottom']),
-        media = window.matchMedia(attrs[namespace + 'Media'] || 'all'),
-        // top = parseFloat(attrs[namespace + 'Top']),
-        top = document.querySelector('md-toolbar').offsetHeight,
+        var bottom = parseFloat(attrs[namespace + 'Bottom'])
+        var media = window.matchMedia(attrs[namespace + 'Media'] || 'all')
+        var top = document.querySelector('md-toolbar').offsetHeight
 
         // initialize states
-        activeBottom = false,
-        activeTop = false,
-        offset = {};
+        var activeBottom = false
+        var activeTop = false
+        var offset = {}
 
         // configure wrapper
         wrapper.className = 'is-' + namespace;
@@ -332,17 +334,16 @@ angular.module('app.directives', [])
         // activate sticky
         function activate() {
           // get element computed style
-          var
-          computedStyle = getComputedStyle(element),
-          position = activeTop ? 'top:' + top : 'bottom:' + bottom,
-          parentNode = element.parentNode,
-          nextSibling = element.nextSibling;
+          var computedStyle = getComputedStyle(element)
+          var position = activeTop ? 'top:' + top : 'bottom:' + bottom
+          var parentNode = element.parentNode
+          var nextSibling = element.nextSibling
 
           // replace element with wrapper containing element
-          wrapper.appendChild(element);
+          wrapper.appendChild(element)
 
           if (parentNode) {
-            parentNode.insertBefore(wrapper, nextSibling);
+            parentNode.insertBefore(wrapper, nextSibling)
           }
 
           // style wrapper
@@ -350,13 +351,18 @@ angular.module('app.directives', [])
 
           // style element
           element.setAttribute('style', 'left:' + offset.left + 'px;margin:0;position:fixed;transition:none;' + position + 'px;width:' + computedStyle.width);
+
+          // angular state
+          $timeout(function () {
+            scope.sticking = true
+            scope.$apply()
+          }, 0)
         }
 
         // deactivate sticky
         function deactivate() {
-          var
-          parentNode = wrapper.parentNode,
-          nextSibling = wrapper.nextSibling;
+          var parentNode = wrapper.parentNode
+          var nextSibling = wrapper.nextSibling
 
           // replace wrapper with element
           parentNode.removeChild(wrapper);
@@ -374,6 +380,12 @@ angular.module('app.directives', [])
           wrapper.removeAttribute('style');
 
           activeTop = activeBottom = false;
+
+          // angular state
+          $timeout(function () {
+            scope.sticking = false
+            scope.$apply()
+          }, 0)
         }
 
         // window scroll listener
