@@ -2,8 +2,12 @@
   padding-top: 27px;
 }
 
+div[time-slider] {
+	z-index: 10000;
+}
 .time-slider {
   height: 100px;
+  background-color: #FFF;
 }
 
 /* Misc D3 classes */
