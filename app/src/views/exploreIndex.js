@@ -76,7 +76,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
   }
 
   $scope.unselectRegion = function () {
-    console.log('UNSELECT')
     $scope.region = ''
   }
 
@@ -156,7 +155,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
       var data = $scope.regionsData[$scope.region]
       if ( data ) summary.currentScore = data[$scope.month]
     }
-    
+
     return summary
   }
 
