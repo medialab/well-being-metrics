@@ -124,7 +124,8 @@ angular.module('app.directives', [])
                 .attr('stroke-width', 1)
                 .attr('fill', regionColor)
 
-              stateGroups.append('path')
+              // Sparkline
+              /*stateGroups.append('path')
                 .attr('class', 'sparkline')
                 .attr('d', function (d) {
                   if (regionValid(d.abbr)) {
@@ -135,7 +136,7 @@ angular.module('app.directives', [])
                 .attr('stroke', 'white')
                 .attr('stroke-width', 1)
                 .attr('fill', 'none')
-                .attr('opacity', .8)
+                .attr('opacity', .8)*/
 
               // Border text
               var yTextOffset = 10;
@@ -180,7 +181,7 @@ angular.module('app.directives', [])
               }
 
               function regionValid(d) {
-                return $scope.statuses[d.abbr] && $scope.statuses[d.abbr].available
+                return $scope.statuses[d] && $scope.statuses[d].available
               }
 
               function regionOpacity(d) {
@@ -309,7 +310,7 @@ angular.module('app.directives', [])
                   if (regionValid(d.abbr)) return lineFunction($scope.data[d.abbr])
                 })
                 .attr('stroke', colors.curve)
-                .attr('stroke-width', 1)
+                .attr('stroke-width', .8)
                 .attr('fill', 'none')
                 .attr('opacity', .6)
               

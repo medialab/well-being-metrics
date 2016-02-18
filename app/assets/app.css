@@ -2,6 +2,10 @@
   padding-top: 27px;
 }
 
+div :focus, svg :focus {
+	outline: 0;
+}
+
 /* Series tiles */
 .domain-tile {
 	background-color: #FFF8E1;
