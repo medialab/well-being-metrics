@@ -40,7 +40,7 @@
   <div layout="row">
     <div layout layout-padding class="stacked-curves-left">
       <md-list>
-        <p class="md-body-2">{{topicName(topic)}}</p>
+        <h2 class="md-title">{{topicName(topic)}}</h2>
 
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
@@ -49,7 +49,7 @@
           </div>
         </md-list-item>
                 
-        <md-list-item class="md-2-line">
+        <md-list-item class="md-2-line" ng-if="region">
           <div class="md-list-item-text" layout="column">
             <h3>{{regionName(region)}} <small class="md-caption">{{summary.currentScore|number}}</small></h3>
             <p>Current region</p>

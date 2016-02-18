@@ -269,7 +269,7 @@ angular.module('app.directives', [])
               }
 
               // Setup: dimensions
-              var margin = {top: 6, right: 12, bottom: 24, left: 200};
+              var margin = {top: 6, right: 12, bottom: 24, left: 300};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
