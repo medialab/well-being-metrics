@@ -229,7 +229,8 @@ angular.module('app.directives', [])
           statuses: '=',
           setState: '=',
           state: '=',
-          month: '='
+          month: '=',
+          summary: '='
       },
       link: function($scope, el, attrs) {
 
@@ -308,20 +309,15 @@ angular.module('app.directives', [])
                 .attr('d', function (d) {
                   if (regionValid(d)) return lineFunction($scope.data[d.abbr])
                 })
-                .attr('stroke', function(d) {
-                  if (d.abbr == $scope.state) return colors.regionHighlight
-                  else return colors.curve
-                })
-                .attr('stroke-width', function(d) {
-                  if (d.abbr == $scope.state) return 2
-                  else return 1
-                })
+                .attr('stroke', colors.curve)
+                .attr('stroke-width', 1)
                 .attr('fill', 'none')
                 .attr('opacity', .6)
               
-              // Additional information
+              // Additional informations
               var overlay = svg.append('g')
 
+              // Line of the selected date
               overlay.append("line")
                 .attr("x1", x($scope.month))
                 .attr("y1", 0)
@@ -331,14 +327,38 @@ angular.module('app.directives', [])
                 .style("stroke", colors.time)
                 .style("fill", "none");
 
+              // Dot for min region
+              overlay.append("circle")
+                .attr("cx", x($scope.month))
+                .attr("cy", y($scope.data[$scope.summary.minRegion][$scope.month]))
+                .attr("r", 6)
+                .style("fill", colors.curve);
+
+              // Dot for max region
+              overlay.append("circle")
+                .attr("cx", x($scope.month))
+                .attr("cy", y($scope.data[$scope.summary.maxRegion][$scope.month]))
+                .attr("r", 6)
+                .style("fill", colors.curve);
+
+              // Curve of current region
+              if ($scope.state) {
+                overlay.append("path")
+                  .attr('d', lineFunction($scope.data[$scope.state]))
+                  .attr('stroke', colors.regionHighlight)
+                  .attr('stroke-width', 2)
+                  .attr('fill', 'none')
+                  .attr('opacity', 1)
+              }
+
+              // Dot for current region
               if ($scope.state && $scope.data[$scope.state]) {
                 overlay.append("circle")
                   .attr("cx", x($scope.month))
                   .attr("cy", y($scope.data[$scope.state][$scope.month]))
-                  .attr("r", 3)
+                  .attr("r", 6)
                   .style("fill", colors.regionHighlight);
               }
-
 
             }, 0)
           }
