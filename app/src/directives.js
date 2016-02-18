@@ -298,7 +298,7 @@ angular.module('app.directives', [])
               var lineFunction = d3.svg.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
-                .interpolate('bundle');
+                .interpolate('cardinal');
 
               var curves = svg.selectAll('.curve')
                 .data(states)
@@ -308,8 +308,14 @@ angular.module('app.directives', [])
                 .attr('d', function (d) {
                   if (regionValid(d)) return lineFunction($scope.data[d.abbr])
                 })
-                .attr('stroke', colors.curve)
-                .attr('stroke-width', 1)
+                .attr('stroke', function(d) {
+                  if (d.abbr == $scope.state) return colors.regionHighlight
+                  else return colors.curve
+                })
+                .attr('stroke-width', function(d) {
+                  if (d.abbr == $scope.state) return 2
+                  else return 1
+                })
                 .attr('fill', 'none')
                 .attr('opacity', .6)
               
@@ -324,6 +330,14 @@ angular.module('app.directives', [])
                 .style("stroke-width", 2)
                 .style("stroke", colors.time)
                 .style("fill", "none");
+
+              if ($scope.state && $scope.data[$scope.state]) {
+                overlay.append("circle")
+                  .attr("cx", x($scope.month))
+                  .attr("cy", y($scope.data[$scope.state][$scope.month]))
+                  .attr("r", 3)
+                  .style("fill", colors.regionHighlight);
+              }
 
 
             }, 0)
