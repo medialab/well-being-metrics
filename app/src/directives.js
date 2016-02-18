@@ -237,6 +237,7 @@ angular.module('app.directives', [])
         
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('state', redraw)
+        $scope.$watch('month', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -310,8 +311,21 @@ angular.module('app.directives', [])
                 .attr('stroke', colors.curve)
                 .attr('stroke-width', 1)
                 .attr('fill', 'none')
-                .attr('opacity', 0.4)
-                 
+                .attr('opacity', .6)
+              
+              // Additional information
+              var overlay = svg.append('g')
+
+              overlay.append("line")
+                .attr("x1", x($scope.month))
+                .attr("y1", 0)
+                .attr("x2", x($scope.month))
+                .attr("y2", height)
+                .style("stroke-width", 2)
+                .style("stroke", colors.time)
+                .style("fill", "none");
+
+
             }, 0)
           }
         }
@@ -409,7 +423,7 @@ angular.module('app.directives', [])
         scope.sticking = false
         scope.startDate = new Date(seriesMetadata.us.startDate)
         scope.endDate = new Date(seriesMetadata.us.endDate)
-        scope.monthMax = monthDiff(scope.startDate, scope.endDate)
+        scope.monthMax = monthDiff(scope.startDate, scope.endDate) + 1
         scope.date = getDate()
 
         scope.$watch('month', getDate)

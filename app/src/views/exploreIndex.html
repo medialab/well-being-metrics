@@ -37,14 +37,42 @@
   </div>
 
   <!-- MULTI CURVES -->
-  <div stacked-curves-us
-    statuses="regionsStatuses"
-    data="regionsData"
-    set-state="setState"
-    state="region"
-    month="month"
-    style="width: 100%; height: 200px;"
-  ></div>
+  <div layout="row">
+    <div layout layout-padding class="stacked-curves-left">
+      <md-list>
+        <p class="md-body-2">{{topicName(topic)}}</p>
+
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{regionName(summary.maxRegion)}} <small class="md-caption">{{summary.max|number}}</small></h3>
+            <p>Max at selection</p>
+          </div>
+        </md-list-item>
+                
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{regionName(region)}} <small class="md-caption">{{summary.currentScore|number}}</small></h3>
+            <p>Current region</p>
+          </div>
+        </md-list-item>
+                
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{regionName(summary.minRegion)}} <small class="md-caption">{{summary.min|number}}</small></h3>
+            <p>Min at selection</p>
+          </div>
+        </md-list-item>
+
+      </md-list>
+    </div>
+    <div stacked-curves-us
+      statuses="regionsStatuses"
+      data="regionsData"
+      set-state="setState"
+      state="region"
+      month="month"
+    ></div>
+  </div>
 
   <div hex-us
     statuses="regionsStatuses"
@@ -65,8 +93,8 @@
       <md-input-container>
         <label>Index</label>
         <md-select ng-model="$parent.topic">
-          <md-option ng-repeat="topic in topics" value="{{topic}}">
-            {{topicName(topic)}}
+          <md-option ng-repeat="topic in topics" value="{{topic.topic}}">
+            {{topic.name}}
           </md-option>
         </md-select>
       </md-input-container>

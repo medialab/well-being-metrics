@@ -31,6 +31,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
   $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
   $scope.topic = 'happiness'
+  $scope.summary = summarize()
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
@@ -46,6 +47,16 @@ angular.module('app.exploreIndex', ['ngRoute'])
       updateChartData()
     }
   })
+
+  $scope.$watch('month', function (newValue, oldValue, $scope) {
+    if (newValue !== oldValue) {
+      $scope.summary = summarize()
+    }
+  })
+
+  $scope.$watch('regionsStatuses', function (newValue, oldValue, $scope) {
+    $scope.summary = summarize()
+  }, true)
 
   $scope.regions.forEach(function (region) {
     $scope.regionsStatuses[region] = {loading: true}
@@ -75,6 +86,10 @@ angular.module('app.exploreIndex', ['ngRoute'])
     } else {
       return regionsMetadata.USA.values[r]
     }
+  }
+
+  $scope.topicName = function (t) {
+    return seriesMetadata.naming[t]
   }
 
   function updateChartData() {
@@ -113,6 +128,36 @@ angular.module('app.exploreIndex', ['ngRoute'])
         return false
       })
     }
+  }
+
+  function summarize() {
+    var summary = {
+      maxRegion: undefined,
+      max: -Infinity,
+      minRegion: undefined,
+      min: +Infinity
+    }
+    var region
+    for ( region in $scope.regionsData ) {
+      var data = $scope.regionsData[region]
+      if ( data ) {
+        var score = data[$scope.month]
+        if (score < summary.min) {
+          summary.min = score
+          summary.minRegion = region
+        }
+        if (score > summary.max) {
+          summary.max = score
+          summary.maxRegion = region
+        }
+      }
+    }
+    if ( $scope.region ) {
+      var data = $scope.regionsData[$scope.region]
+      if ( data ) summary.currentScore = data[$scope.month]
+    }
+    
+    return summary
   }
 
 
