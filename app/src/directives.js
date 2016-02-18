@@ -87,13 +87,13 @@ angular.module('app.directives', [])
               .enter().append('g')
                 .attr('class', 'hex')
                 .style('cursor', function(d){
-                  if (regionValid(d)) {
+                  if (regionValid(d.abbr)) {
                     return 'pointer'
                   }
                   return 'default'
                 })
                 .on('mouseover', function(d) {
-                  if (regionValid(d)) {
+                  if (regionValid(d.abbr)) {
                     d3.select(this).select('path.hexagon')
                       .attr('fill', settings.color.hover)
                     d3.select(this).select('text.border')
@@ -102,7 +102,7 @@ angular.module('app.directives', [])
                   }
                 })                  
                 .on('mouseout', function(d) {
-                  if (regionValid(d)) {
+                  if (regionValid(d.abbr)) {
                     d3.select(this).select('path')
                       .attr('fill', regionColor)
                     d3.select(this).select('text.border')
@@ -112,7 +112,7 @@ angular.module('app.directives', [])
                 })
                 .on('click', function(d) {
                   d3.event.stopPropagation();
-                  if (regionValid(d)) {
+                  if (regionValid(d.abbr)) {
                     $scope.setState(d.abbr)
                   }
                 })
@@ -127,7 +127,7 @@ angular.module('app.directives', [])
               stateGroups.append('path')
                 .attr('class', 'sparkline')
                 .attr('d', function (d) {
-                  if (regionValid(d)) {
+                  if (regionValid(d.abbr)) {
                     var sparklineFunction = buildSparklineFunction(d)
                     return sparklineFunction($scope.data[d.abbr])
                   }
@@ -276,12 +276,11 @@ angular.module('app.directives', [])
 
               // Setup: scales
               var x = d3.scale.linear()
-                // TODO: use time conversion for this
                 .domain([0, seriesLength - 1])
                 .range([0, width])
               
               var y = d3.scale.linear()
-                .domain([-3, 3])
+                .domain([-4, 4])
                 // .domain(d3.extent(allValues))
                 .range([height, 0])
 
@@ -307,7 +306,7 @@ angular.module('app.directives', [])
                 .attr('class', 'curve')
               .append("path")
                 .attr('d', function (d) {
-                  if (regionValid(d)) return lineFunction($scope.data[d.abbr])
+                  if (regionValid(d.abbr)) return lineFunction($scope.data[d.abbr])
                 })
                 .attr('stroke', colors.curve)
                 .attr('stroke-width', 1)
@@ -342,7 +341,7 @@ angular.module('app.directives', [])
                 .style("fill", colors.curve);
 
               // Curve of current region
-              if ($scope.state) {
+              if ($scope.state && regionValid($scope.state)) {
                 overlay.append("path")
                   .attr('d', lineFunction($scope.data[$scope.state]))
                   .attr('stroke', colors.regionHighlight)
@@ -365,7 +364,7 @@ angular.module('app.directives', [])
         }
 
         function regionValid(d) {
-          return $scope.statuses[d.abbr] && $scope.statuses[d.abbr].available
+          return $scope.statuses[d] && $scope.statuses[d].available
         }
       }
     }
