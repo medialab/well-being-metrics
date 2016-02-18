@@ -118,9 +118,10 @@
 
   <div ng-if="region">
     <!-- TODO: THIS FOR EVERY INDICATOR -->
-    <div bar-chart
+    <div simple-curve
       data="chartData"
-      style="width: 100%; height: 200px; background-color: {{colors.happinessChartBackground}};"
+      month="month"
+      style="width: 100%; height: 120px;"
     ></div>
   </div>
 

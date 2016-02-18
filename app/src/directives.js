@@ -327,18 +327,22 @@ angular.module('app.directives', [])
                 .style("fill", "none");
 
               // Dot for min region
-              overlay.append("circle")
-                .attr("cx", x($scope.month))
-                .attr("cy", y($scope.data[$scope.summary.minRegion][$scope.month]))
-                .attr("r", 6)
-                .style("fill", colors.curve);
+              if ($scope.summary.minRegion && $scope.data[$scope.summary.minRegion]) {
+                overlay.append("circle")
+                  .attr("cx", x($scope.month))
+                  .attr("cy", y($scope.data[$scope.summary.minRegion][$scope.month]))
+                  .attr("r", 6)
+                  .style("fill", colors.curve);
+              }
 
               // Dot for max region
-              overlay.append("circle")
-                .attr("cx", x($scope.month))
-                .attr("cy", y($scope.data[$scope.summary.maxRegion][$scope.month]))
-                .attr("r", 6)
-                .style("fill", colors.curve);
+              if ($scope.summary.maxRegion && $scope.data[$scope.summary.maxRegion]) {
+                overlay.append("circle")
+                  .attr("cx", x($scope.month))
+                  .attr("cy", y($scope.data[$scope.summary.maxRegion][$scope.month]))
+                  .attr("r", 6)
+                  .style("fill", colors.curve);
+              }
 
               // Curve of current region
               if ($scope.region && regionValid($scope.region)) {
@@ -358,6 +362,99 @@ angular.module('app.directives', [])
                   .attr("r", 6)
                   .style("fill", colors.regionHighlight);
               }
+
+            }, 0)
+          }
+        }
+
+        function regionValid(d) {
+          return $scope.statuses[d] && $scope.statuses[d].available
+        }
+      }
+    }
+  })
+  
+  .directive('simpleCurve', function ($timeout, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+        data: '=',
+        month: '='
+      },
+      link: function($scope, el, attrs) {
+
+        el.html('<div>Loading...</div>')
+        
+        $scope.$watch('data', redraw)
+        $scope.$watch('month', redraw)
+        window.addEventListener('resize', redraw)
+        $scope.$on('$destroy', function(){
+          window.removeEventListener('resize', redraw)
+        })
+
+        function redraw() {
+          if ($scope.data !== undefined){
+            $timeout(function () {
+              el.html('');
+              
+              // Setup: dimensions
+              var margin = {top: 6, right: 12, bottom: 24, left: 300};
+              var width = el[0].offsetWidth - margin.left - margin.right - 12;
+              var height = el[0].offsetHeight - margin.top - margin.bottom;
+
+              // Setup: scales
+              var x = d3.scale.linear()
+                .domain([0, $scope.data.length - 1])
+                .range([0, width])
+              
+              var y = d3.scale.linear()
+                .domain([-4, 4])
+                .range([height, 0])
+
+              var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left");
+
+              // Setup: SVG container
+              var svg = d3.select(el[0]).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+              
+              var lineFunction = d3.svg.line()
+                .x(function(d, i) { return x(i); })
+                .y(function(d) { return y(d); })
+                .interpolate('cardinal');
+
+              if ($scope.data) {
+                svg
+                  .append("path")
+                    .attr('d', lineFunction($scope.data) )
+                    .attr('stroke', colors.curve)
+                    .attr('stroke-width', 1)
+                    .attr('fill', 'none')
+              }
+              
+              // Additional informations
+              var overlay = svg.append('g')
+
+              // Line of the selected date
+              overlay.append("line")
+                .attr("x1", x($scope.month))
+                .attr("y1", 0)
+                .attr("x2", x($scope.month))
+                .attr("y2", height)
+                .style("stroke-width", 2)
+                .style("stroke", colors.time)
+                .style("fill", "none");
+
+              // Dot
+              overlay.append("circle")
+                .attr("cx", x($scope.month))
+                .attr("cy", y($scope.data[$scope.month]))
+                .attr("r", 6)
+                .style("fill", colors.regionHighlight);
 
             }, 0)
           }
