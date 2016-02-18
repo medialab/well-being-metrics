@@ -228,7 +228,8 @@ angular.module('app.directives', [])
           data: '=',
           statuses: '=',
           setState: '=',
-          state: '='
+          state: '=',
+          month: '='
       },
       link: function($scope, el, attrs) {
 
@@ -306,10 +307,10 @@ angular.module('app.directives', [])
                 .attr('d', function (d) {
                   if (regionValid(d)) return lineFunction($scope.data[d.abbr])
                 })
-                .attr('stroke', 'steelblue')
+                .attr('stroke', colors.curve)
                 .attr('stroke-width', 1)
                 .attr('fill', 'none')
-                .attr('opacity', .6)
+                .attr('opacity', 0.4)
                  
             }, 0)
           }
@@ -400,13 +401,12 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-          // data: '='
+        month: '='
       },
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
         scope.colors = colors
         scope.sticking = false
-        scope.month = 0
         scope.startDate = new Date(seriesMetadata.us.startDate)
         scope.endDate = new Date(seriesMetadata.us.endDate)
         scope.monthMax = monthDiff(scope.startDate, scope.endDate)

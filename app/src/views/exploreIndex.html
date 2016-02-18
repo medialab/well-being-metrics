@@ -11,7 +11,7 @@
       </div>
       <div>
         <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
-          <md-grid-tile ng-repeat="item in seriesDomain">
+          <md-grid-tile ng-repeat="item in seriesDomain" class="domain-tile" ng-class="{highlight: item.topic == topic}">
             <md-button ng-click="setTopic(item.topic)">{{item.name}}</md-button>
           </md-grid-tile>
         </md-grid-list>
@@ -23,7 +23,7 @@
       </div>
       <div>
         <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
-          <md-grid-tile ng-repeat="item in seriesMeasure">
+          <md-grid-tile ng-repeat="item in seriesMeasure" class="measure-tile" ng-class="{highlight: item.topic == topic}">
             <md-button ng-click="setTopic(item.topic)">{{item.name}}</md-button>
           </md-grid-tile>
         </md-grid-list>
@@ -33,7 +33,7 @@
 
   <!-- SLIDER -->
   <div>
-    <div time-slider class="time-slider-container"></div>
+    <div time-slider class="time-slider-container" month="month"></div>
   </div>
 
   <!-- MULTI CURVES -->
@@ -42,6 +42,7 @@
     data="regionsData"
     set-state="setState"
     state="region"
+    month="month"
     style="width: 100%; height: 200px;"
   ></div>
 

@@ -21,6 +21,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   colors
 ) {
   $scope.colors = colors
+  $scope.month = 0
   $scope.regions = d3.keys(regionsMetadata.USA.values)
   $scope.region = 'IL'
   $scope.regionsStatuses = {}

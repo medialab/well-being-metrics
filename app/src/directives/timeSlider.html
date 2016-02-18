@@ -1,9 +1,7 @@
 <div class="time-slider" ng-class="{'md-whiteframe-2dp':!sticking, 'md-whiteframe-4dp':sticking}">
 	<div layout="row">
-	  <div class="time-slider-left" >
-	    <span class="md-body-1">TIME</span>
-	    <br>
-	    <span class="md-body-1">{{date | monthDate}}</span>
+	  <div layout layout-padding class="time-slider-left" >
+	    <span class="md-body-2">{{date | monthDate}}</span>
 	  </div>
 	  <md-slider
 	  	class="md-default time-slider-slider"

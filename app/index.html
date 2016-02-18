@@ -74,8 +74,17 @@ angular
   $routeProvider.otherwise({redirectTo: '/'});
 
   $mdThemingProvider.theme('default')
-    .primaryPalette('amber')
-    .accentPalette('red');
+    .primaryPalette('amber', {
+      'default': '400',   // by default use shade 400 from the pink palette for primary intentions
+      'hue-1': '100',     // use shade 100 for the <code>md-hue-1</code> class
+      'hue-2': '600',     // use shade 600 for the <code>md-hue-2</code> class
+      'hue-3': 'A100'     // use shade A100 for the <code>md-hue-3</code> class
+    })
+    .accentPalette('blue', {
+      'default': '300'
+    })
+    .warnPalette('pink')
+    .backgroundPalette('grey')
 })
 
 // Other colors
@@ -87,7 +96,8 @@ angular
   mapBackground: '#CEE0E8',
   happinessChartBackground: '#EEEEEE',
   barPositive: 'steelblue', 
-  barNegative: 'brown'
+  barNegative: 'brown',
+  curve: '#64B5F6'
 })
 
     </script>

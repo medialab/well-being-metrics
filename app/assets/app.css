@@ -2,26 +2,39 @@
   padding-top: 27px;
 }
 
+/* Series tiles */
+.domain-tile {
+	background-color: #FFF8E1;
+}
+.measure-tile {
+	background-color: #FFECB3;
+}
+.domain-tile.highlight, .measure-tile.highlight {
+	background-color: #90CAF9;
+}
+
 /* Time slider */
 
 div[time-slider] {
 	z-index: 10000;
 }
 .time-slider {
-  height: 100px;
+  height: 60px;
   background-color: #FFF;
 }
 .time-slider-slider{
   width: 100%;
+	margin-top: 6px;
+	margin-bottom: 6px;
   margin-left: 200px;
   margin-right: 24px;
   cursor: pointer;
 }
 .time-slider-left {
 	width: 200px;
-	height: 100px;
+	height: 60px;
 	position: absolute;
-	background-color: #F00;
+	background-color: #64B5F6;
 }
 
 /* Misc D3 classes */
