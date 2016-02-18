@@ -10,15 +10,15 @@ angular.module('app.directives', [])
       scope: {
           data: '=',
           statuses: '=',
-          setState: '=',
-          state: '='
+          setRegion: '=',
+          region: '='
       },
       link: function($scope, el, attrs) {
 
         el.html('<div>Loading...</div>')
         
         $scope.$watch('statuses', redraw, true)
-        $scope.$watch('state', redraw)
+        $scope.$watch('region', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -29,7 +29,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
       
-              var states = usStatesHex.data;
+              var regions = usStatesHex.data;
 
               // Semiotic settings
               var settings = {
@@ -67,13 +67,13 @@ angular.module('app.directives', [])
 
               // Binding: scales
               size.domain(d3.extent(
-                states.map(function(d) { return d.yExtent[0]; })
-                .concat(states.map(function(d) { return d.yExtent[1]; }))
+                regions.map(function(d) { return d.yExtent[0]; })
+                .concat(regions.map(function(d) { return d.yExtent[1]; }))
               ));
 
               var xExtent = d3.extent(
-                states.map(function(d) { return d.xExtent[0]; })
-                .concat(states.map(function(d) { return d.xExtent[1]; }))
+                regions.map(function(d) { return d.xExtent[0]; })
+                .concat(regions.map(function(d) { return d.xExtent[1]; }))
               )
               var xOffset = -size(xExtent[0]) + (width / 2 - ( size(xExtent[1]) - size(xExtent[0]) ) / 2 )
               
@@ -82,8 +82,8 @@ angular.module('app.directives', [])
                 .y(function(d) { return size(d[1]); })
                 .interpolate('linear');
 
-              var stateGroups = svg.selectAll('.hex')
-                .data(states)
+              var regionGroups = svg.selectAll('.hex')
+                .data(regions)
               .enter().append('g')
                 .attr('class', 'hex')
                 .style('cursor', function(d){
@@ -113,19 +113,19 @@ angular.module('app.directives', [])
                 .on('click', function(d) {
                   d3.event.stopPropagation();
                   if (regionValid(d.abbr)) {
-                    $scope.setState(d.abbr)
+                    $scope.setRegion(d.abbr)
                   }
                 })
 
-              stateGroups.append('path')
+              regionGroups.append('path')
                 .attr('class', 'hexagon')
                 .attr('d', function (d) { return lineFunction(d.hex); })
                 .attr('stroke', 'white')
                 .attr('stroke-width', 1)
                 .attr('fill', regionColor)
 
-              // Sparkline
-              /*stateGroups.append('path')
+              // Sparklines
+              /*regionGroups.append('path')
                 .attr('class', 'sparkline')
                 .attr('d', function (d) {
                   if (regionValid(d.abbr)) {
@@ -140,7 +140,7 @@ angular.module('app.directives', [])
 
               // Border text
               var yTextOffset = 10;
-              stateGroups.append('text')
+              regionGroups.append('text')
                 .attr('class', 'border')
                 .text(function (d) { return d.abbr })
                 .attr('x', function(d){ return xOffset + size(d.x) })
@@ -154,7 +154,7 @@ angular.module('app.directives', [])
                 .attr('text-anchor', 'middle')
                 .attr('opacity', 0.6)
 
-              stateGroups.append('text')
+              regionGroups.append('text')
                 .text(function (d) { return d.abbr })
                 .attr('x', function(d){ return xOffset + size(d.x) })
                 .attr('y', function(d){ return yTextOffset + size(d.y) })
@@ -185,7 +185,7 @@ angular.module('app.directives', [])
               }
 
               function regionOpacity(d) {
-                if ($scope.state == d.abbr) {
+                if ($scope.region == d.abbr) {
                   return settings.opacity.selected
                 } else if ($scope.statuses[d.abbr]) {
                   if ($scope.statuses[d.abbr].loading) {
@@ -201,7 +201,7 @@ angular.module('app.directives', [])
               }
 
               function regionColor(d) {
-                if ($scope.state == d.abbr) {
+                if ($scope.region == d.abbr) {
                   return settings.color.selected
                 } else if ($scope.statuses[d.abbr]) {
                   if ($scope.statuses[d.abbr].loading) {
@@ -228,8 +228,7 @@ angular.module('app.directives', [])
       scope: {
           data: '=',
           statuses: '=',
-          setState: '=',
-          state: '=',
+          region: '=',
           month: '=',
           summary: '='
       },
@@ -238,7 +237,7 @@ angular.module('app.directives', [])
         el.html('<div>Loading...</div>')
         
         $scope.$watch('statuses', redraw, true)
-        $scope.$watch('state', redraw)
+        $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
@@ -250,7 +249,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
       
-              var states = usStatesHex.data;
+              var regions = usStatesHex.data;
 
               // Preliminary data crunching
               var allValues = []
@@ -302,7 +301,7 @@ angular.module('app.directives', [])
                 .interpolate('cardinal');
 
               var curves = svg.selectAll('.curve')
-                .data(states)
+                .data(regions)
               .enter().append('g')
                 .attr('class', 'curve')
               .append("path")
@@ -342,9 +341,9 @@ angular.module('app.directives', [])
                 .style("fill", colors.curve);
 
               // Curve of current region
-              if ($scope.state && regionValid($scope.state)) {
+              if ($scope.region && regionValid($scope.region)) {
                 overlay.append("path")
-                  .attr('d', lineFunction($scope.data[$scope.state]))
+                  .attr('d', lineFunction($scope.data[$scope.region]))
                   .attr('stroke', colors.regionHighlight)
                   .attr('stroke-width', 2)
                   .attr('fill', 'none')
@@ -352,10 +351,10 @@ angular.module('app.directives', [])
               }
 
               // Dot for current region
-              if ($scope.state && $scope.data[$scope.state]) {
+              if ($scope.region && $scope.data[$scope.region]) {
                 overlay.append("circle")
                   .attr("cx", x($scope.month))
-                  .attr("cy", y($scope.data[$scope.state][$scope.month]))
+                  .attr("cy", y($scope.data[$scope.region][$scope.month]))
                   .attr("r", 6)
                   .style("fill", colors.regionHighlight);
               }
@@ -370,7 +369,7 @@ angular.module('app.directives', [])
       }
     }
   })
-
+  
   // bar chart: Unused
   .directive('barChart', function ($timeout, colors) {
     return {
@@ -495,7 +494,7 @@ angular.module('app.directives', [])
         var media = window.matchMedia(attrs[namespace + 'Media'] || 'all')
         var top = document.querySelector('md-toolbar').offsetHeight
 
-        // initialize states
+        // initialize regions
         var activeBottom = false
         var activeTop = false
         var offset = {}

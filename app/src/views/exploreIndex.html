@@ -68,8 +68,7 @@
     <div stacked-curves-us
       statuses="regionsStatuses"
       data="regionsData"
-      set-state="setState"
-      state="region"
+      region="region"
       month="month"
       summary="summary"
     ></div>
@@ -78,8 +77,8 @@
   <div hex-us
     statuses="regionsStatuses"
     data="regionsData"
-    set-state="setState"
-    state="region"
+    set-region="setState"
+    region="region"
     style="background-color: {{colors.mapBackground}};"
     ng-click="unselectRegion()"
   ></div>
