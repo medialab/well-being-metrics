@@ -6,10 +6,12 @@ angular.module('app.services', [])
 
 .constant('seriesMetadata', {
   us: {
-    startdate: '2011-01-01'
+    startDate: '2011-01-01',
+    endDate: '2015-09-01'
   },
   fr: {
-    startdate: '2011-01-01'
+    startDate: '2011-01-01',
+    endDate: '2015-09-01'
   },
   naming: {
     'big_picture_f':        'Ideas and Big Picture',

@@ -14,7 +14,8 @@ div[time-slider] {
 .time-slider-slider{
   width: 100%;
   margin-left: 200px;
-  margin-right: 36px;
+  margin-right: 24px;
+  cursor: pointer;
 }
 .time-slider-left {
 	width: 200px;

@@ -267,7 +267,7 @@ angular.module('app.directives', [])
               }
 
               // Setup: dimensions
-              var margin = {top: 6, right: 24, bottom: 24, left: 200};
+              var margin = {top: 6, right: 12, bottom: 24, left: 200};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
@@ -396,7 +396,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('timeSlider', function ($timeout, colors) {
+  .directive('timeSlider', function ($timeout, colors, seriesMetadata) {
     return {
       restrict: 'A',
       scope: {
@@ -406,6 +406,29 @@ angular.module('app.directives', [])
       link: function(scope, el, attrs) {
         scope.colors = colors
         scope.sticking = false
+        scope.month = 0
+        scope.startDate = new Date(seriesMetadata.us.startDate)
+        scope.endDate = new Date(seriesMetadata.us.endDate)
+        scope.monthMax = monthDiff(scope.startDate, scope.endDate)
+        scope.date = getDate()
+
+        scope.$watch('month', getDate)
+
+        function getDate() {
+          scope.date = addMonths(scope.startDate, scope.month)
+        }
+
+        function addMonths(d, m) {
+          return new Date(d.getTime()).setMonth(d.getMonth() + m)
+        }
+
+        function monthDiff(d1, d2) {
+          var months;
+          months = (d2.getFullYear() - d1.getFullYear()) * 12;
+          months -= d1.getMonth() + 1;
+          months += d2.getMonth();
+          return months <= 0 ? 0 : months;
+        }
 
         // Custom sticky behavior
         var namespace = 'sticky'

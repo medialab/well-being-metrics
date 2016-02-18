@@ -2,15 +2,16 @@
 	<div layout="row">
 	  <div class="time-slider-left" >
 	    <span class="md-body-1">TIME</span>
+	    <br>
+	    <span class="md-body-1">{{date | monthDate}}</span>
 	  </div>
 	  <md-slider
-	  	class="md-primary time-slider-slider"
-	  	md-discrete
-	  	ng-model="rating3"
+	  	class="md-default time-slider-slider"
+	  	ng-model="month"
 	  	step="1"
-	  	min="1"
-	  	max="5"
-	  	aria-label="rating"
+	  	min="0"
+	  	max="55"
+	  	aria-label="time"
 	  >
 	  </md-slider>
 	</div>
