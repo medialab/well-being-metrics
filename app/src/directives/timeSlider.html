@@ -1,11 +1,10 @@
 <div class="time-slider" ng-class="{'md-whiteframe-2dp':!sticking, 'md-whiteframe-4dp':sticking}">
-	<div layout>
-	  <div flex="10" layout layout-align="center center">
+	<div layout="row">
+	  <div class="time-slider-left" >
 	    <span class="md-body-1">TIME</span>
 	  </div>
 	  <md-slider
-	  	flex
-	  	class="md-primary"
+	  	class="md-primary time-slider-slider"
 	  	md-discrete
 	  	ng-model="rating3"
 	  	step="1"

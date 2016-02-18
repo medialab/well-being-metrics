@@ -2,12 +2,25 @@
   padding-top: 27px;
 }
 
+/* Time slider */
+
 div[time-slider] {
 	z-index: 10000;
 }
 .time-slider {
   height: 100px;
   background-color: #FFF;
+}
+.time-slider-slider{
+  width: 100%;
+  margin-left: 200px;
+  margin-right: 36px;
+}
+.time-slider-left {
+	width: 200px;
+	height: 100px;
+	position: absolute;
+	background-color: #F00;
 }
 
 /* Misc D3 classes */

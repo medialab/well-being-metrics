@@ -267,19 +267,18 @@ angular.module('app.directives', [])
               }
 
               // Setup: dimensions
-              var margin = {top: 24, right: 0, bottom: 24, left: 0};
+              var margin = {top: 6, right: 24, bottom: 24, left: 200};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
               // Setup: scales
               var x = d3.scale.linear()
                 // TODO: use time conversion for this
-                .domain([0, seriesLength])
+                .domain([0, seriesLength - 1])
                 .range([0, width])
-              console.log(x(0), x(1), seriesLength)
               
               var y = d3.scale.linear()
-                .domain([-2.2, 2.2])
+                .domain([-3, 3])
                 // .domain(d3.extent(allValues))
                 .range([height, 0])
 
@@ -310,7 +309,7 @@ angular.module('app.directives', [])
                 .attr('stroke', 'steelblue')
                 .attr('stroke-width', 1)
                 .attr('fill', 'none')
-                .attr('opacity', .8)
+                .attr('opacity', .6)
                  
             }, 0)
           }
