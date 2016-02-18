@@ -28,7 +28,7 @@ angular.module('app.services', [])
     'life_eval':            'Life Evaluation',
     'life_eval_5':          'Anticipated Life Eval.',
     'happiness':            'Feeling Happiness',
-    'learn':                'F. Interested & Learning',
+    'learn':                'Feeling Interested',
     'respect':              'Feeling Respected',
     'anger':                'Feeling Anger',
     'stress':               'Feeling Stress',

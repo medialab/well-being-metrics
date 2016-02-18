@@ -279,7 +279,8 @@ angular.module('app.directives', [])
               console.log(x(0), x(1), seriesLength)
               
               var y = d3.scale.linear()
-                .domain(d3.extent(allValues))
+                .domain([-2.2, 2.2])
+                // .domain(d3.extent(allValues))
                 .range([height, 0])
 
               var yAxis = d3.svg.axis()
