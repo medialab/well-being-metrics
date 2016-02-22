@@ -376,6 +376,7 @@ angular.module('app.directives', [])
 
         el.html('<div><center>Loading...</center></div>')
         
+        $scope.$watch('status', redraw, true)
         $scope.$watch('data', redraw)
         $scope.$watch('month', redraw)
         window.addEventListener('resize', redraw)

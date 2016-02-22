@@ -45,8 +45,8 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
   $scope.$watch('region', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
-      $scope.topics.forEach(function (topic) {
-        $scope.topicsStatuses[topic] = {loading: true}
+      $scope.topics.forEach(function (t) {
+        $scope.topicsStatuses[t.topic] = {loading: true}
       })
       cascadeLoadTopics($scope.region)
     }
