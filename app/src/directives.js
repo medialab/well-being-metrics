@@ -431,7 +431,7 @@ angular.module('app.directives', [])
                 svg
                   .append("path")
                     .attr('d', lineFunction($scope.data) )
-                    .attr('stroke', colors.curve)
+                    .attr('stroke', colors.regionHighlight)
                     .attr('stroke-width', 1)
                     .attr('fill', 'none')
               }

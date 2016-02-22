@@ -14,7 +14,7 @@ div :focus, svg :focus {
 	background-color: #FFECB3;
 }
 .domain-tile.highlight, .measure-tile.highlight {
-	background-color: #B2DFDB;
+	background-color: #90CAF9;
 }
 
 /* Time slider */
