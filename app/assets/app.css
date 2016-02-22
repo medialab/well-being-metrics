@@ -104,13 +104,23 @@ div[hex-us] {
 
 /* Wizard placeholders*/
 .wizard-placeholder {
+	margin-top: 50px;
 	margin-bottom: 100px;
+}
+.time-slider-info {
+	margin-top: 60px;
+	margin-bottom: 50px;
 }
 
 /* Balloon arrow */
 .balloon-container {
-	margin-top: 50px;
+	margin-top: 30px;
+	margin-bottom: 0px;
 	margin-left: 50%;
+}
+.balloon-container.bottom {
+	margin-top: 0px;
+	margin-bottom: 30px;
 }
 .balloon-box {
 	border-radius: 6px;
@@ -131,6 +141,20 @@ div[hex-us] {
 	pointer-events: none;
 	border-color: rgba(255, 255, 255, 0);
 	border-bottom-color: #FFFFFF;
+	border-width: 30px;
+	margin-left: -30px;
+}
+.balloon-container.bottom .balloon-box:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #FFFFFF;
 	border-width: 30px;
 	margin-left: -30px;
 }

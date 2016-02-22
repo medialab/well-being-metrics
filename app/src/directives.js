@@ -551,72 +551,81 @@ angular.module('app.directives', [])
 
         // deactivate sticky
         function deactivate() {
-          var parentNode = wrapper.parentNode
-          var nextSibling = wrapper.nextSibling
+          // NB: we care only if visible
+          if (el[0].offsetHeight > 0) {
+            var parentNode = wrapper.parentNode
+            var nextSibling = wrapper.nextSibling
 
-          // replace wrapper with element
-          parentNode.removeChild(wrapper);
+            // replace wrapper with element
+            parentNode.removeChild(wrapper);
 
-          parentNode.insertBefore(element, nextSibling);
+            parentNode.insertBefore(element, nextSibling);
 
-          // unstyle element
-          if (style === null) {
-            element.removeAttribute('style');
-          } else {
-            element.setAttribute('style', style);
+            // unstyle element
+            if (style === null) {
+              element.removeAttribute('style');
+            } else {
+              element.setAttribute('style', style);
+            }
+
+            // unstyle wrapper
+            wrapper.removeAttribute('style');
+
+            activeTop = activeBottom = false;
+
+            // angular state
+            $timeout(function () {
+              scope.sticking = false
+              scope.$apply()
+            }, 0)
           }
-
-          // unstyle wrapper
-          wrapper.removeAttribute('style');
-
-          activeTop = activeBottom = false;
-
-          // angular state
-          $timeout(function () {
-            scope.sticking = false
-            scope.$apply()
-          }, 0)
         }
 
         // window scroll listener
         function onscroll() {
-          // if activated
-          if (activeTop || activeBottom) {
-            // get wrapper offset
-            offset = wrapper.getBoundingClientRect();
-
-            activeBottom = !isNaN(bottom) && offset.top > window.innerHeight - bottom - wrapper.offsetHeight;
-            activeTop = !isNaN(top) && offset.top < top;
-
-            // deactivate if wrapper is inside range
-            if (!activeTop && !activeBottom) {
-              deactivate();
-            }
-          }
-          // if not activated
-          else if (media.matches) {
-            // get element offset
-            offset = element.getBoundingClientRect();
-
-            activeBottom = !isNaN(bottom) && offset.top > window.innerHeight - bottom - element.offsetHeight;
-            activeTop = !isNaN(top) && offset.top < top;
-
-            // activate if element is outside range
+          // NB: we care only if visible
+          if (el[0].offsetHeight > 0) {
+            // if activated
             if (activeTop || activeBottom) {
-              activate();
+              // get wrapper offset
+              offset = wrapper.getBoundingClientRect();
+
+              activeBottom = !isNaN(bottom) && offset.top > window.innerHeight - bottom - wrapper.offsetHeight;
+              activeTop = !isNaN(top) && offset.top < top;
+
+              // deactivate if wrapper is inside range
+              if (!activeTop && !activeBottom) {
+                deactivate();
+              }
+            }
+            // if not activated
+            else if (media.matches) {
+              // get element offset
+              offset = element.getBoundingClientRect();
+
+              activeBottom = !isNaN(bottom) && offset.top > window.innerHeight - bottom - element.offsetHeight;
+              activeTop = !isNaN(top) && offset.top < top;
+
+              // activate if element is outside range
+              if (activeTop || activeBottom) {
+                activate();
+              }
             }
           }
         }
 
         // window resize listener
         function onresize() {
-          // conditionally deactivate sticky
-          if (activeTop || activeBottom) {
-            deactivate();
-          }
+          // NB: we care only if visible
+          if (el[0].offsetHeight > 0) {
+            // conditionally deactivate sticky
+            if (activeTop || activeBottom) {
+              deactivate();
+            }
 
-          // re-initialize sticky
-          onscroll();
+            // re-initialize sticky
+            onscroll();
+          }
         }
 
         // destroy listener
@@ -661,7 +670,8 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-        text: '='
+        text: '=',
+        direction: '='
       },
       templateUrl: 'src/directives/wizardBalloon.html'
     }

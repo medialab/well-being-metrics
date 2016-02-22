@@ -13,6 +13,11 @@
     region='region'
   ></div>
 
+  <!-- Indicate that you can slide the time -->
+  <div ng-show="topic" class="time-slider-info">
+    <div wizard-balloon text="'Use slider to set time'" direction="'bottom'"></div>
+  </div>
+
   <!-- SLIDER -->
   <div>
     <div
@@ -124,7 +129,7 @@
 
   <!-- PLACEHOLDER for when no region selected -->
   <div ng-show="topic && region === undefined" class="wizard-placeholder">
-    <div wizard-balloon text="'Select a region'"></div>
+    <div wizard-balloon text="'Select a region for more'"></div>
   </div>
 
   <div ng-if="region">
