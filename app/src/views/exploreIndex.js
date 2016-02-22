@@ -22,6 +22,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
 ) {
   var startDate = new Date(seriesMetadata.us.startDate)
 
+  $scope.$parent.pageTitle = 'So Well - Explore the well-being index - PROTOTYPE'
   $scope.colors = colors
   $scope.month = 0
   $scope.regions = d3.keys(regionsMetadata.USA.values)
