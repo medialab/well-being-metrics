@@ -271,7 +271,7 @@ angular.module('app.directives', [])
                 .range([0, width])
               
               var y = d3.scale.linear()
-                .domain([-4, 4])
+                .domain([-5, 5])
                 // .domain(d3.extent(allValues))
                 .range([height, 0])
 

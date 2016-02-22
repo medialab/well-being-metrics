@@ -31,7 +31,12 @@
   <div layout="row" ng-show="topic" style="background-color: #FFFFFF;">
     <div layout layout-padding class="stacked-curves-left">
       <md-list>
-        <h2 class="md-title">{{topicName(topic)}}</h2>
+        <h2 class="md-title">
+            {{topicName(topic)}}
+          <br>
+          <span class="md-subhead">in the US states</span>
+        </h2>
+        
 
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
@@ -122,7 +127,7 @@
   </div>
 
   <div ng-if="region">
-    <div ng-repeat="t in topics" class="single-curve">
+    <div ng-repeat="t in topics" class="single-curve" style="background-color: #FFFFFF;">
       <div layout layout-padding class="stacked-curves-left" ng-show="topicsData[t.topic]">
         <md-list>
           <h2 class="md-title">{{t.name}}</h2>
