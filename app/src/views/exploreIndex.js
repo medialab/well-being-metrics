@@ -35,6 +35,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.topicsStatuses = {}
   $scope.topicsData = {}
   $scope.summary = summarize()
+  $scope.test
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
@@ -82,10 +83,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
       $scope.region = region
       $scope.$apply()
     }, 0);
-  }
-
-  $scope.setTopic = function (topic) {
-    $scope.topic = topic
   }
 
   $scope.unselectRegion = function () {

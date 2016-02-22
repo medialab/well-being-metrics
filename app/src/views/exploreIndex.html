@@ -3,33 +3,11 @@
 </div>
 
 <div ng-show="!loading">
-
-  <div layout="row" layout-xs="column" layout-sm="column" layout-padding md-whiteframe="2">
-    <div layout="column" flex="50" flex-sm="100" flex-xs="100">
-      <div>
-        <h3>What's on people's minds and what are they up to?</h3>
-      </div>
-      <div>
-        <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
-          <md-grid-tile ng-repeat="item in seriesDomain" class="domain-tile" ng-class="{highlight: item.topic == topic}">
-            <md-button ng-click="setTopic(item.topic)">{{item.name}}</md-button>
-          </md-grid-tile>
-        </md-grid-list>
-      </div>
-    </div>
-    <div layout="column" flex="50" flex-sm="100" flex-xs="100">
-      <div>
-        <h3>How are people feeling?</h3>
-      </div>
-      <div>
-        <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
-          <md-grid-tile ng-repeat="item in seriesMeasure" class="measure-tile" ng-class="{highlight: item.topic == topic}">
-            <md-button ng-click="setTopic(item.topic)">{{item.name}}</md-button>
-          </md-grid-tile>
-        </md-grid-list>
-      </div>   
-    </div>
-  </div>
+  <div topic-selector
+    series-domain='seriesDomain'
+    series-measure='seriesMeasure'
+    topic='topic'
+  ></div>
 
   <!-- SLIDER -->
   <div>

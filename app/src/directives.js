@@ -712,3 +712,20 @@ angular.module('app.directives', [])
       }
     }
   })
+
+  .directive('topicSelector', function ($timeout, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+        topic: '=',
+        seriesMeasure: '=',
+        seriesDomain: '='
+      },
+      templateUrl: 'src/directives/topicSelector.html',
+      link: function(scope, el, attrs) {
+        scope.setTopic = function (topic) {
+          scope.topic = topic
+        }
+      }
+    }
+  })
