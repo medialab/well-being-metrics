@@ -14,7 +14,7 @@ div :focus, svg :focus {
 	background-color: #FFECB3;
 }
 .domain-tile.highlight, .measure-tile.highlight {
-	background-color: #90CAF9;
+	background-color: #80CBC4;
 }
 
 /* Time slider */
@@ -38,7 +38,7 @@ div[time-slider] {
 	width: 300px;
 	height: 60px;
 	position: absolute;
-	background-color: #64B5F6;
+	background-color: #B2DFDB;
 }
 @media (max-width: 768px) {	/* Smartphone */
 	.time-slider {

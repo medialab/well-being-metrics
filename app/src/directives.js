@@ -11,7 +11,8 @@ angular.module('app.directives', [])
           data: '=',
           statuses: '=',
           setRegion: '=',
-          region: '='
+          region: '=',
+          month: '='
       },
       link: function($scope, el, attrs) {
 
@@ -19,6 +20,7 @@ angular.module('app.directives', [])
         
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
+        $scope.$watch('month', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -31,24 +33,6 @@ angular.module('app.directives', [])
       
               var regions = usStatesHex.data;
 
-              // Semiotic settings
-              var settings = {
-                color: {
-                  selected:     colors.mapItemHighlight,
-                  hover:        colors.mapItemHighlight,
-                  loading:      colors.mapItemLoading,
-                  available:    colors.mapItemReady,
-                  unavailable:  colors.mapItemUnavailable
-                },
-                opacity: {
-                  selected: 1,
-                  hover: 1,
-                  loading: 1,
-                  available: 1,
-                  unavailable: 1
-                }
-              }
-
               // Setup: dimensions
               var margin = {top: 24, right: 0, bottom: 24, left: 0};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
@@ -57,6 +41,9 @@ angular.module('app.directives', [])
               // Setup: scales
               var size = d3.scale.linear()
                   .range([0, height]);
+              
+              var dotSize = d3.scale.linear()
+                  .range([0, 0.40 * (regions[0].xExtent[1] - regions[0].xExtent[0])])
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -70,6 +57,11 @@ angular.module('app.directives', [])
                 regions.map(function(d) { return d.yExtent[0]; })
                 .concat(regions.map(function(d) { return d.yExtent[1]; }))
               ));
+
+              dotSize.domain(d3.extent(
+                regions.map(function(d) { return d3.extent($scope.data[d.abbr] || [])[0] })
+                .concat(regions.map(function(d) { return d3.extent($scope.data[d.abbr] || [])[1] }))
+              ))
 
               var xExtent = d3.extent(
                 regions.map(function(d) { return d.xExtent[0]; })
@@ -95,10 +87,10 @@ angular.module('app.directives', [])
                 .on('mouseover', function(d) {
                   if (regionValid(d.abbr)) {
                     d3.select(this).select('path.hexagon')
-                      .attr('fill', settings.color.hover)
+                      .attr('fill', colors.mapItemHighlight)
                     d3.select(this).select('text.border')
-                      .attr('stroke', settings.color.hover)
-                      .attr('fill', settings.color.hover)
+                      .attr('stroke', colors.mapItemHighlight)
+                      .attr('fill', colors.mapItemHighlight)
                   }
                 })                  
                 .on('mouseout', function(d) {
@@ -117,12 +109,29 @@ angular.module('app.directives', [])
                   }
                 })
 
+              // Hexagons
               regionGroups.append('path')
                 .attr('class', 'hexagon')
                 .attr('d', function (d) { return lineFunction(d.hex); })
                 .attr('stroke', 'white')
                 .attr('stroke-width', 1)
                 .attr('fill', regionColor)
+
+              // Dots
+              regionGroups.append('circle')
+                .attr('class', 'data-circle')
+                .attr('r', function (d) {
+                  if (regionValid(d.abbr)) {
+                    return dotSize($scope.data[d.abbr][$scope.month])
+                  } else {
+                    return 0
+                  }
+                })
+                .attr('cx', function(d) {return xOffset + size(d.x)})
+                .attr('cy', function(d) {return size(d.y)})
+                .attr('stroke', 'none')
+                .attr('fill', dotColor)
+                .attr('opacity', .8)
 
               // Sparklines
               /*regionGroups.append('path')
@@ -139,33 +148,19 @@ angular.module('app.directives', [])
                 .attr('opacity', .8)*/
 
               // Border text
-              var yTextOffset = 10;
-              regionGroups.append('text')
-                .attr('class', 'border')
-                .text(function (d) { return d.abbr })
-                .attr('x', function(d){ return xOffset + size(d.x) })
-                .attr('y', function(d){ return yTextOffset + size(d.y) })
-                .attr('font-family', 'Roboto')
-                .attr('font-weight', '100')
-                .attr('font-size', '26px')
-                .attr('stroke', regionColor)
-                .attr('stroke-width', 8)
-                .attr('fill', regionColor)
-                .attr('text-anchor', 'middle')
-                .attr('opacity', 0.6)
-
+              var yTextOffset = 6;
               regionGroups.append('text')
                 .text(function (d) { return d.abbr })
                 .attr('x', function(d){ return xOffset + size(d.x) })
                 .attr('y', function(d){ return yTextOffset + size(d.y) })
                 .attr('font-family', 'Roboto')
-                .attr('font-weight', '100')
-                .attr('font-size', '26px')
+                .attr('font-weight', '300')
+                .attr('font-size', '18px')
                 .attr('fill', 'white')
                 .attr('text-anchor', 'middle')
                 .attr('opacity', 1)
 
-              function buildSparklineFunction(region) {
+              /*function buildSparklineFunction(region) {
                 // scales
                 var x = d3.scale.linear()
                   .range([region.hex[4][0] + 1, region.hex[1][0] - 1])
@@ -178,41 +173,37 @@ angular.module('app.directives', [])
                   .x(function(d, i) { return xOffset + size(x(i)); })
                   .y(function(d) { return size(y(d)); })
                   .interpolate('bundle');
-              }
+              }*/
 
               function regionValid(d) {
                 return $scope.statuses[d] && $scope.statuses[d].available
               }
 
               function regionOpacity(d) {
-                if ($scope.region == d.abbr) {
-                  return settings.opacity.selected
-                } else if ($scope.statuses[d.abbr]) {
-                  if ($scope.statuses[d.abbr].loading) {
-                    return settings.opacity.loading
-                  } else if ($scope.statuses[d.abbr].available) {
-                    return settings.opacity.available
-                  } else {
-                    return settings.opacity.unavailable
-                  }
-                } else {
-                  return settings.opacity.loading
-                }
+                return 1
               }
 
               function regionColor(d) {
                 if ($scope.region == d.abbr) {
-                  return settings.color.selected
+                  return colors.mapItemHighlight
                 } else if ($scope.statuses[d.abbr]) {
                   if ($scope.statuses[d.abbr].loading) {
-                    return settings.color.loading
+                    return colors.mapItemLoading
                   } else if ($scope.statuses[d.abbr].available) {
-                    return settings.color.available
+                    return colors.mapItemReady
                   } else {
-                    return settings.color.unavailable
+                    return colors.mapItemUnavailable
                   }
                 } else {
-                  return settings.color.loading
+                  return colors.mapItemLoading
+                }
+              }
+
+              function dotColor(d) {
+                if ($scope.region == d.abbr) {
+                  return colors.mapDotHighlight
+                } else {
+                  return colors.mapDot
                 }
               }
             }, 0, false);
