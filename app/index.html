@@ -24,7 +24,7 @@
   </head>
 
   <body ng-app="app" ng-cloak layout="column">
-    <md-toolbar md-whiteframe="4">
+    <md-toolbar>
       <div class="md-toolbar-tools">
       <span>So Well - PROTOTYPE</span>
       <span flex></span>
@@ -84,12 +84,14 @@ angular
       'default': '300'
     })
     .warnPalette('pink')
-    .backgroundPalette('grey')
+    .backgroundPalette('grey', {
+      'default': '100'
+    })
 })
 
 // Other colors
 .constant('colors', {
-  mapItemLoading: '#EEEEEE',
+  mapItemLoading: '#E0E0E0',
   mapItemReady: '#B2DFDB',
   mapItemUnavailable: '#D7CCC8',
   mapItemHighlight: '#9FA8DA',

@@ -730,3 +730,13 @@ angular.module('app.directives', [])
       }
     }
   })
+
+  .directive('wizardBalloon', function ($timeout, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+        text: '='
+      },
+      templateUrl: 'src/directives/wizardBalloon.html'
+    }
+  })

@@ -6,9 +6,17 @@ div :focus, svg :focus {
 	outline: 0;
 }
 
+.text-center {
+	text-align: center;
+}
+
+
 /* Series tiles */
+div[topic-selector] {
+	background-color: #FFCA28;
+}
 .domain-tile {
-	background-color: #FFF8E1;
+	background-color: #FFFFFF;
 }
 .measure-tile {
 	background-color: #FFECB3;
@@ -92,6 +100,39 @@ div[hex-us] {
 /* -> specific to the page*/
 .single-curve {
 	border-top: 1px solid #EEEEEE;
+}
+
+/* Wizard placeholders*/
+.wizard-placeholder {
+	margin-bottom: 100px;
+}
+
+/* Balloon arrow */
+.balloon-container {
+	margin-top: 50px;
+	margin-left: 50%;
+}
+.balloon-box {
+	border-radius: 6px;
+	margin-left: -100px;
+	width: 200px;
+	position: relative;
+	background: #FFFFFF;
+	color: #BDBDBD;
+}
+.balloon-box:after {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #FFFFFF;
+	border-width: 30px;
+	margin-left: -30px;
 }
 
 /* Misc D3 classes */
