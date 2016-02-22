@@ -20,6 +20,8 @@ angular.module('app.exploreIndex', ['ngRoute'])
   Facets,
   colors
 ) {
+  var startDate = new Date(seriesMetadata.us.startDate)
+
   $scope.colors = colors
   $scope.month = 0
   $scope.regions = d3.keys(regionsMetadata.USA.values)
@@ -169,7 +171,8 @@ angular.module('app.exploreIndex', ['ngRoute'])
       maxRegion: undefined,
       max: -Infinity,
       minRegion: undefined,
-      min: +Infinity
+      min: +Infinity,
+      date: addMonths(startDate, $scope.month)
     }
     var region
     for ( region in $scope.regionsData ) {
@@ -192,6 +195,10 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }
 
     return summary
+
+    function addMonths(d, m) {
+      return new Date(d.getTime()).setMonth(d.getMonth() + m)
+    }
   }
 
 

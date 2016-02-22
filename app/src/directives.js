@@ -322,7 +322,7 @@ angular.module('app.directives', [])
                 overlay.append("circle")
                   .attr("cx", x($scope.month))
                   .attr("cy", y($scope.data[$scope.summary.minRegion][$scope.month]))
-                  .attr("r", 6)
+                  .attr("r", 4)
                   .style("fill", colors.curve);
               }
 
@@ -331,7 +331,7 @@ angular.module('app.directives', [])
                 overlay.append("circle")
                   .attr("cx", x($scope.month))
                   .attr("cy", y($scope.data[$scope.summary.maxRegion][$scope.month]))
-                  .attr("r", 6)
+                  .attr("r", 4)
                   .style("fill", colors.curve);
               }
 
@@ -350,7 +350,7 @@ angular.module('app.directives', [])
                 overlay.append("circle")
                   .attr("cx", x($scope.month))
                   .attr("cy", y($scope.data[$scope.region][$scope.month]))
-                  .attr("r", 6)
+                  .attr("r", 4)
                   .style("fill", colors.regionHighlight);
               }
 
@@ -370,15 +370,17 @@ angular.module('app.directives', [])
       restrict: 'A',
       scope: {
         data: '=',
-        month: '='
+        month: '=',
+        status: '=',
+        highlight: '='
       },
       link: function($scope, el, attrs) {
 
         el.html('<div><center>Loading...</center></div>')
         
         $scope.$watch('status', redraw, true)
-        $scope.$watch('data', redraw)
         $scope.$watch('month', redraw)
+        $scope.$watch('highlight', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -419,11 +421,13 @@ angular.module('app.directives', [])
                 .y(function(d) { return y(d); })
                 .interpolate('cardinal');
 
+              var curveColor = $scope.highlight ? colors.regionHighlight : colors.topicCurve
+
               if ($scope.data) {
                 svg
                   .append("path")
                     .attr('d', lineFunction($scope.data) )
-                    .attr('stroke', colors.regionHighlight)
+                    .attr('stroke', curveColor)
                     .attr('stroke-width', 1)
                     .attr('fill', 'none')
               }
@@ -445,8 +449,8 @@ angular.module('app.directives', [])
               overlay.append("circle")
                 .attr("cx", x($scope.month))
                 .attr("cy", y($scope.data[$scope.month]))
-                .attr("r", 6)
-                .style("fill", colors.regionHighlight);
+                .attr("r", 4)
+                .style("fill", curveColor);
 
             }, 0)
           }
