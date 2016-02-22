@@ -14,7 +14,7 @@ div :focus, svg :focus {
 /* Topic selector */
 div[topic-selector] {
 	background-color: #FFCA28;
-	z-index: 10000;
+	z-index: 80;
 }
 .domain-tile {
 	background-color: #FFFFFF;
@@ -29,7 +29,7 @@ div[topic-selector] {
 /* Time slider */
 
 div[time-slider] {
-	z-index: 10000;
+	z-index: 80;
 }
 .time-slider {
   height: 60px;

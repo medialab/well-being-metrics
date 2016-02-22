@@ -30,7 +30,8 @@
     </div>   
   </div>
 </div>
-<!-- Sticky appearance -->
+
+<!-- Sticky mode -->
 <div
   class="display-when-sticky"
   style="height: {{stickyModeHeight}}px; display: none;"
@@ -42,10 +43,10 @@
       </div>
     </div>
     <div>
-      <md-input-container>
+      <md-input-container class="md-accent">
         <label>Index</label>
-        <md-select ng-model="$parent.topic">
-          <md-option ng-repeat="topic in topics" value="{{topic.topic}}">
+        <md-select ng-model="$parent.topic" class="md-accent">
+          <md-option ng-repeat="topic in topics" value="{{topic.topic}}" class="md-accent">
             {{topic.name}}
           </md-option>
         </md-select>
@@ -54,13 +55,16 @@
     <div>
       <div class="input-proxy-container">
         in
+        <span ng-show="region == undefined">
+          the United States
+        </span>
       </div>
     </div>
-    <div>
-      <md-input-container>
+    <div ng-show="region">
+      <md-input-container class="md-accent">
         <label>Region</label>
-        <md-select ng-model="$parent.region">
-          <md-option ng-repeat="region in regions" value="{{region}}">
+        <md-select ng-model="$parent.region" class="md-accent">
+          <md-option ng-repeat="region in regions" value="{{region}}" class="md-accent">
             {{regionName(region)}}
           </md-option>
         </md-select>

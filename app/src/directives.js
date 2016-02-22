@@ -651,11 +651,13 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('topicSelector', function ($timeout, colors) {
+  .directive('topicSelector', function ($timeout, colors, regionsMetadata) {
     return {
       restrict: 'A',
       scope: {
+        topics: '=',
         topic: '=',
+        regions: '=',
         region: '=',
         seriesMeasure: '=',
         seriesDomain: '='
@@ -667,6 +669,14 @@ angular.module('app.directives', [])
         scope.topModifier = 1000
         scope.setTopic = function (topic) {
           scope.topic = topic
+        }
+
+        scope.regionName = function (r) {
+          if (r === 'US') {
+            return 'the United States'
+          } else {
+            return regionsMetadata.USA.values[r]
+          }
         }
 
         // Update topModifier
