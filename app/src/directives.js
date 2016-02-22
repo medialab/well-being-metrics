@@ -374,7 +374,7 @@ angular.module('app.directives', [])
       },
       link: function($scope, el, attrs) {
 
-        el.html('<div>Loading...</div>')
+        el.html('<div><center>Loading...</center></div>')
         
         $scope.$watch('data', redraw)
         $scope.$watch('month', redraw)

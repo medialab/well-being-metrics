@@ -117,13 +117,28 @@
     </div>
   </div>
 
-  <div ng-if="region">
-    <!-- TODO: THIS FOR EVERY INDICATOR -->
+  <!-- <div ng-if="region">
     <div simple-curve
       data="chartData"
       month="month"
       style="width: 100%; height: 120px;"
     ></div>
+  </div> -->
+
+  <div ng-if="region">
+    <div ng-repeat="t in topics">
+      <div layout layout-padding class="stacked-curves-left" ng-show="topicsData[t.topic]">
+        <md-list>
+          <h2 class="md-title">{{t.name}}</h2>
+
+        </md-list>
+      </div>
+      <div simple-curve
+        data="topicsData[t.topic]"
+        month="month"
+        style="width: 100%; height: 120px;"
+      ></div>
+    </div>
   </div>
 
 </div>

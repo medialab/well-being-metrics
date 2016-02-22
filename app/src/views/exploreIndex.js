@@ -26,11 +26,12 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.region = 'IL'
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
-  $scope.chartData
   $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
   $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
   $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
   $scope.topic = 'happiness'
+  $scope.topicsStatuses = {}
+  $scope.topicsData = {}
   $scope.summary = summarize()
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
@@ -44,7 +45,10 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
   $scope.$watch('region', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
-      updateChartData()
+      $scope.topics.forEach(function (topic) {
+        $scope.topicsStatuses[topic] = {loading: true}
+      })
+      cascadeLoadTopics($scope.region)
     }
   })
 
@@ -62,7 +66,14 @@ angular.module('app.exploreIndex', ['ngRoute'])
     $scope.regionsStatuses[region] = {loading: true}
   })
 
+  $scope.topics.forEach(function (topic) {
+    $scope.topicsStatuses[topic] = {loading: true}
+  })
+
   cascadeLoadRegions($scope.topic)
+  if ($scope.region) {
+    cascadeLoadTopics($scope.region)
+  }
 
   $scope.setState = function (region) {
     $timeout(function () {
@@ -91,10 +102,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
     return seriesMetadata.naming[t]
   }
 
-  function updateChartData() {
-    $scope.chartData = $scope.regionsData[$scope.region]
-  }
-
   function cascadeLoadRegions (serie) {
     if ( serie == $scope.topic ) {
       $scope.regions.some(function (region) {
@@ -108,9 +115,38 @@ angular.module('app.exploreIndex', ['ngRoute'])
                   $scope.regionsStatuses[region].loading = false
                   $scope.regionsStatuses[region].available = data !== undefined && data.length > 0
                   $scope.regionsData[region] = data
-                  if (region == $scope.region) {
-                    updateChartData()
-                  }
+                  cascadeLoadRegions(serie)
+                  $scope.$apply()
+                }, 0);
+              }
+            });
+          } else {
+            console.error('Cannot retrieve series\' facet', 'US', newValues[0], newValues[1]);
+            $scope.regionsStatuses[region].loading = true
+            $scope.regionsStatuses[region].available = false
+            cascadeLoadRegions(serie)
+          }
+          return true
+        }
+        return false
+      })
+    }
+  }
+
+  function cascadeLoadTopics (serie) {
+    return
+    if ( serie == $scope.topic ) {
+      $scope.regions.some(function (region) {
+        if ($scope.regionsStatuses[region].loading) {
+          // Load region data
+          var facet = Facets.getSeries('US', region, serie)
+          if (facet) {
+            facet.retrieveData(function (data) {
+              if ( serie == $scope.topic ) {
+                $timeout(function () {
+                  $scope.regionsStatuses[region].loading = false
+                  $scope.regionsStatuses[region].available = data !== undefined && data.length > 0
+                  $scope.regionsData[region] = data
                   cascadeLoadRegions(serie)
                   $scope.$apply()
                 }, 0);
