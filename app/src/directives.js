@@ -462,80 +462,6 @@ angular.module('app.directives', [])
       }
     }
   })
-  
-  // bar chart: Unused
-  .directive('barChart', function ($timeout, colors) {
-    return {
-      restrict: 'A',
-      scope: {
-          data: '='
-      },
-      link: function($scope, el, attrs) {
-        el.html('<div>Loading...</div>')
-
-        $scope.$watch('data', redraw, true)
-        window.addEventListener('resize', redraw)
-        $scope.$on('$destroy', function(){
-          window.removeEventListener('resize', redraw)
-        })
-
-        function redraw() {
-          if ($scope.data !== undefined) {
-            $timeout(function () {
-              el.html('')
-
-              // Setup: dimensions
-              var margin = {top: 12, right: 12, bottom: 12, left: 46};
-              var width = el[0].offsetWidth - margin.left - margin.right - 12;
-              var height = el[0].offsetHeight - margin.top - margin.bottom;
-
-              // Setup: scales
-              var x = d3.scale.ordinal()
-                .domain(d3.keys($scope.data))
-                .rangeRoundBands([0, width], .2);
-    
-              var y = d3.scale.linear()
-                .domain(d3.extent($scope.data))
-                .range([height, 0]);
-
-              var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left");
-
-              // Draw
-              var svg = d3.select(el[0]).append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-              .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-              svg.selectAll(".bar")
-                .data($scope.data)
-              .enter().append("rect")
-                .attr("class", function(d) { return d < 0 ? "bar negative" : "bar positive"; })
-                .attr('fill', function(d) { return d < 0 ? colors.barNegative : colors.barPositive; })
-                .attr("x", function(d, i) { return x(i); })
-                .attr("y", function(d) { return y(Math.max(0, d)); })
-                .attr("width", x.rangeBand())
-                .attr("height", function(d) { return Math.abs(y(d) - y(0)); })
-
-              svg.append("g")
-                  .attr("class", "x axis")
-                .append("line")
-                  .attr("y1", y(0))
-                  .attr("y2", y(0))
-                  .attr("x2", width);
-
-              svg.append("g")
-                  .attr("class", "y axis")
-                  .call(yAxis);
-
-            })
-          }
-        }
-      }
-    }
-  })
 
   .directive('timeSlider', function ($timeout, colors, seriesMetadata) {
     return {
@@ -718,6 +644,7 @@ angular.module('app.directives', [])
       restrict: 'A',
       scope: {
         topic: '=',
+        region: '=',
         seriesMeasure: '=',
         seriesDomain: '='
       },
