@@ -11,9 +11,10 @@ div :focus, svg :focus {
 }
 
 
-/* Series tiles */
+/* Topic selector */
 div[topic-selector] {
 	background-color: #FFCA28;
+	z-index: 10000;
 }
 .domain-tile {
 	background-color: #FFFFFF;

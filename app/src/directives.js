@@ -2,6 +2,9 @@
 
 /* Services */
 
+// FIXME: clean this dirty hack
+var stickyModeHeight = 80;
+
 angular.module('app.directives', [])
   
   .directive('hexUs', function ($timeout, usStatesHex, colors) {
@@ -511,7 +514,7 @@ angular.module('app.directives', [])
         // get options
         var bottom = parseFloat(attrs[namespace + 'Bottom'])
         var media = window.matchMedia(attrs[namespace + 'Media'] || 'all')
-        var top = document.querySelector('md-toolbar').offsetHeight
+        var top = document.querySelector('md-toolbar').offsetHeight + stickyModeHeight
 
         // initialize regions
         var activeBottom = false
@@ -659,9 +662,185 @@ angular.module('app.directives', [])
       },
       templateUrl: 'src/directives/topicSelector.html',
       link: function(scope, el, attrs) {
+        scope.stickyModeHeight = stickyModeHeight
+        scope.sticking = false
+        scope.topModifier = 1000
         scope.setTopic = function (topic) {
           scope.topic = topic
         }
+
+        // Update topModifier
+        scope.$watch('seriesMeasure', updateTopModifier)
+        scope.$watch('seriesDomain', updateTopModifier)
+
+        function updateTopModifier() {
+          $timeout(function() {
+            scope.topModifier = el[0].offsetHeight - scope.stickyModeHeight
+          }, 0)
+        }
+
+        // Custom sticky behavior
+        var namespace = 'sticky-topics'
+        // get element
+        var element = el[0]
+        // get document
+        var document = element.ownerDocument
+        // get window
+        var window = document.defaultView
+        // get wrapper
+        var wrapper = document.createElement('span')
+        // cache style
+        var style = element.getAttribute('style')
+        // get options
+        var bottom = parseFloat(attrs[namespace + 'Bottom'])
+        var media = window.matchMedia(attrs[namespace + 'Media'] || 'all')
+        var top = document.querySelector('md-toolbar').offsetHeight
+
+        // initialize regions
+        var activeBottom = false
+        var activeTop = false
+        var offset = {}
+
+        // configure wrapper
+        wrapper.className = 'is-' + namespace;
+
+        // activate sticky
+        function activate() {
+          // get element computed style
+          var computedStyle = getComputedStyle(element)
+          var position = activeTop ? 'top:' + top : 'bottom:' + bottom
+          var parentNode = element.parentNode
+          var nextSibling = element.nextSibling
+
+          // replace element with wrapper containing element
+          wrapper.appendChild(element)
+
+          if (parentNode) {
+            parentNode.insertBefore(wrapper, nextSibling)
+          }
+
+          // style wrapper
+          wrapper.setAttribute('style', 'display:' + computedStyle.display + ';height:' + element.offsetHeight + 'px;margin:' + computedStyle.margin + ';width:' + element.offsetWidth + 'px');
+
+          // style element
+          element.setAttribute('style', 'left:' + offset.left + 'px;margin:0;position:fixed;transition:none;' + position + 'px;width:' + computedStyle.width);
+
+          // Hide / show elements
+          element.querySelector('.display-when-sticky').style.display = ''
+          element.querySelector('.display-before-sticky').style.display = 'none'
+
+          // angular state
+          $timeout(function () {
+            scope.sticking = true
+            scope.$apply()
+          }, 0)
+        }
+
+        // deactivate sticky
+        function deactivate() {
+          // NB: we care only if visible
+          if (el[0].offsetHeight > 0) {
+            var parentNode = wrapper.parentNode
+            var nextSibling = wrapper.nextSibling
+
+            // replace wrapper with element
+            parentNode.removeChild(wrapper);
+
+            parentNode.insertBefore(element, nextSibling);
+
+            // unstyle element
+            if (style === null) {
+              element.removeAttribute('style');
+            } else {
+              element.setAttribute('style', style);
+            }
+
+            // unstyle wrapper
+            wrapper.removeAttribute('style');
+
+            activeTop = activeBottom = false;
+
+            // Hide / show elements
+            element.querySelector('.display-when-sticky').style.display = 'none'
+            element.querySelector('.display-before-sticky').style.display = ''
+
+            // angular state
+            $timeout(function () {
+              scope.sticking = false
+              scope.$apply()
+            }, 0)
+          }
+        }
+
+        // window scroll listener
+        function onscroll() {
+          // NB: we care only if visible
+          if (el[0].offsetHeight > 0) {
+            // if activated
+            if (activeTop || activeBottom) {
+              // get wrapper offset
+              offset = wrapper.getBoundingClientRect();
+
+              // Modify offset
+              offset = {top: offset.top + scope.topModifier}
+
+              activeBottom = !isNaN(bottom) && offset.top > window.innerHeight - bottom - wrapper.offsetHeight;
+              activeTop = !isNaN(top) && offset.top < top;
+
+              // deactivate if wrapper is inside range
+              if (!activeTop && !activeBottom) {
+                deactivate();
+              }
+            }
+            // if not activated
+            else if (media.matches) {
+              // get element offset
+              offset = element.getBoundingClientRect();
+
+              // Modify offset
+              offset = {top: offset.top + scope.topModifier}
+
+              activeBottom = !isNaN(bottom) && offset.top > window.innerHeight - bottom - element.offsetHeight;
+              activeTop = !isNaN(top) && offset.top < top;
+
+              // activate if element is outside range
+              if (activeTop || activeBottom) {
+                activate();
+              }
+            }
+          }
+        }
+
+        // window resize listener
+        function onresize() {
+          // NB: we care only if visible
+          if (el[0].offsetHeight > 0) {
+            // conditionally deactivate sticky
+            if (activeTop || activeBottom) {
+              deactivate();
+            }
+
+            // re-initialize sticky
+            onscroll();
+          }
+        }
+
+        // destroy listener
+        function ondestroy() {
+          onresize();
+
+          document.querySelector('md-content').removeEventListener('scroll', onscroll);
+          window.removeEventListener('resize', onresize);
+        }
+
+        // bind listeners TO MD CONTENT
+        document.querySelector('md-content').addEventListener('scroll', onscroll);
+        window.addEventListener('resize', onresize);
+
+        scope.$on('$destroy', ondestroy);
+
+        // initialize sticky
+        onscroll();
       }
     }
   })
