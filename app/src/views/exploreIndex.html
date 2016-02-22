@@ -3,6 +3,8 @@
 </div>
 
 <div ng-show="!loading">
+
+  <!-- Choose a topic -->
   <div topic-selector
     series-domain='seriesDomain'
     series-measure='seriesMeasure'
@@ -11,11 +13,16 @@
 
   <!-- SLIDER -->
   <div>
-    <div time-slider class="time-slider-container" month="month"></div>
+    <div
+      time-slider
+      ng-show="topic"
+      class="time-slider-container"
+      month="month"
+    ></div>
   </div>
 
   <!-- MULTI CURVES -->
-  <div layout="row">
+  <div layout="row" ng-show="topic">
     <div layout layout-padding class="stacked-curves-left">
       <md-list>
         <h2 class="md-title">{{topicName(topic)}}</h2>
@@ -53,6 +60,7 @@
   </div>
 
   <div hex-us
+    ng-show="topic"
     statuses="regionsStatuses"
     data="regionsData"
     set-region="setState"

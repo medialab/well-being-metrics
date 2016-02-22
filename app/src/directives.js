@@ -27,7 +27,7 @@ angular.module('app.directives', [])
         })
 
         function redraw() {
-          if ($scope.statuses !== undefined){
+          if (el[0].offsetWidth > 0 && $scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
       
@@ -236,7 +236,7 @@ angular.module('app.directives', [])
         })
 
         function redraw() {
-          if ($scope.statuses !== undefined){
+          if (el[0].offsetWidth > 0 && $scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
       
@@ -541,7 +541,8 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-        month: '='
+        month: '=',
+        topîc: '='
       },
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {

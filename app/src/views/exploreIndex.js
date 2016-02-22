@@ -25,13 +25,13 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.colors = colors
   $scope.month = 0
   $scope.regions = d3.keys(regionsMetadata.USA.values)
-  $scope.region = 'IL'
+  $scope.region
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
   $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
   $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
   $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
-  $scope.topic = 'happiness'
+  $scope.topic
   $scope.topicsStatuses = {}
   $scope.topicsData = {}
   $scope.summary = summarize()
@@ -102,7 +102,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   }
 
   function cascadeLoadRegions(serie) {
-    if ( serie == $scope.topic ) {
+    if ( $scope.topic && serie == $scope.topic ) {
       $scope.regions.some(function (region) {
         if ($scope.regionsStatuses[region].loading) {
           // Load region data
