@@ -17,10 +17,18 @@ div[topic-selector] {
 	z-index: 80;
 }
 .domain-tile {
-	background-color: #FFFFFF;
+	background-color: #FFECB3;
+	border-radius: 3px;
+	cursor: pointer;
+	text-transform: uppercase;
+	/*color: #FF6F00;*/
 }
 .measure-tile {
-	background-color: #FFECB3;
+	background-color: #FFF8E1;
+	border-radius: 3px;
+	cursor: pointer;
+	text-transform: uppercase;
+	/*color: #FF6F00;*/
 }
 .domain-tile.highlight, .measure-tile.highlight {
 	background-color: #80CBC4;
