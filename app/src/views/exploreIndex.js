@@ -134,7 +134,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   }
 
   function cascadeLoadTopics(region) {
-    if ( region == $scope.region ) {
+    if ( $scope.region && region == $scope.region ) {
       $scope.topics.some(function (t) {
         if ($scope.topicsStatuses[t.topic].loading) {
           // Load topic data

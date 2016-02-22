@@ -390,7 +390,7 @@ angular.module('app.directives', [])
               el.html('');
               
               // Setup: dimensions
-              var margin = {top: 6, right: 12, bottom: 24, left: 300};
+              var margin = {top: 0, right: 12, bottom: 0, left: 300};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
@@ -400,7 +400,7 @@ angular.module('app.directives', [])
                 .range([0, width])
               
               var y = d3.scale.linear()
-                .domain([-4, 4])
+                .domain([-5, 5])
                 .range([height, 0])
 
               var yAxis = d3.svg.axis()
