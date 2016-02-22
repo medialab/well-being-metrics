@@ -134,7 +134,7 @@
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
               <h3>{{regionName(region)}} <small class="md-caption">{{topicsData[t.topic][month]|number}}</small></h3>
-              <p style="color: {{topic == t.topic ? colors.regionHighlight : colors.topicCurve;}};">{{summary.date | monthDate}}</p>
+              <p style="color: {{false ? colors.regionHighlight : colors.topicCurve;}};">{{summary.date | monthDate}}</p>
             </div>
           </md-list-item>
         </md-list>
@@ -143,7 +143,7 @@
         data="topicsData[t.topic]"
         status="topicsStatuses[t.topic]"
         month="month"
-        highlight="topic == t.topic"
+        highlight="false"
         style="width: 100%; height: 180px;"
       ></div>
     </div>
