@@ -541,8 +541,7 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-        month: '=',
-        topîc: '='
+        month: '='
       },
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
