@@ -66,8 +66,8 @@ angular.module('app.exploreIndex', ['ngRoute'])
     $scope.regionsStatuses[region] = {loading: true}
   })
 
-  $scope.topics.forEach(function (topic) {
-    $scope.topicsStatuses[topic] = {loading: true}
+  $scope.topics.forEach(function (t) {
+    $scope.topicsStatuses[t.topic] = {loading: true}
   })
 
   cascadeLoadRegions($scope.topic)
@@ -102,7 +102,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
     return seriesMetadata.naming[t]
   }
 
-  function cascadeLoadRegions (serie) {
+  function cascadeLoadRegions(serie) {
     if ( serie == $scope.topic ) {
       $scope.regions.some(function (region) {
         if ($scope.regionsStatuses[region].loading) {
@@ -121,7 +121,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
               }
             });
           } else {
-            console.error('Cannot retrieve series\' facet', 'US', newValues[0], newValues[1]);
+            console.error('Cannot retrieve series\' facet', newValues[0], newValues[1]);
             $scope.regionsStatuses[region].loading = true
             $scope.regionsStatuses[region].available = false
             cascadeLoadRegions(serie)
@@ -133,30 +133,29 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }
   }
 
-  function cascadeLoadTopics (serie) {
-    return
-    if ( serie == $scope.topic ) {
-      $scope.regions.some(function (region) {
-        if ($scope.regionsStatuses[region].loading) {
-          // Load region data
-          var facet = Facets.getSeries('US', region, serie)
+  function cascadeLoadTopics(region) {
+    if ( region == $scope.region ) {
+      $scope.topics.some(function (t) {
+        if ($scope.topicsStatuses[t.topic].loading) {
+          // Load topic data
+          var facet = Facets.getSeries('US', region, t.topic)
           if (facet) {
             facet.retrieveData(function (data) {
-              if ( serie == $scope.topic ) {
+              if ( region == $scope.region ) {
                 $timeout(function () {
-                  $scope.regionsStatuses[region].loading = false
-                  $scope.regionsStatuses[region].available = data !== undefined && data.length > 0
-                  $scope.regionsData[region] = data
-                  cascadeLoadRegions(serie)
+                  $scope.topicsStatuses[t.topic].loading = false
+                  $scope.topicsStatuses[t.topic].available = data !== undefined && data.length > 0
+                  $scope.topicsData[t.topic] = data
+                  cascadeLoadTopics(region)
                   $scope.$apply()
                 }, 0);
               }
             });
           } else {
-            console.error('Cannot retrieve series\' facet', 'US', newValues[0], newValues[1]);
-            $scope.regionsStatuses[region].loading = true
-            $scope.regionsStatuses[region].available = false
-            cascadeLoadRegions(serie)
+            console.error('Cannot retrieve series\' facet', newValues[0], newValues[1]);
+            $scope.topicsStatuses[t.topic].loading = true
+            $scope.topicsStatuses[t.topic].available = false
+            cascadeLoadTopics(region)
           }
           return true
         }
