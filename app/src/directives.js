@@ -43,7 +43,7 @@ angular.module('app.directives', [])
                   .range([0, height]);
               
               var dotSize = d3.scale.linear()
-                  .range([0, 0.40 * (regions[0].xExtent[1] - regions[0].xExtent[0])])
+                  .range([0, 0.5 * (regions[0].xExtent[1] - regions[0].xExtent[0])])
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -122,7 +122,7 @@ angular.module('app.directives', [])
                 .attr('class', 'data-circle')
                 .attr('r', function (d) {
                   if (regionValid(d.abbr)) {
-                    return dotSize($scope.data[d.abbr][$scope.month])
+                    return size(dotSize($scope.data[d.abbr][$scope.month]))
                   } else {
                     return 0
                   }
