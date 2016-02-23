@@ -44,7 +44,7 @@ div[time-slider] {
   height: 60px;
   background-color: #FFF;
 }
-.time-slider-slider{
+.time-slider-slider {
   width: 100%;
 	margin-top: 6px;
 	margin-bottom: 6px;
@@ -58,6 +58,10 @@ div[time-slider] {
 	position: absolute;
 	background-color: #B2DFDB;
 }
+.time-slider-left .time-button {
+	margin-top: -7px;
+	text-align: right;
+}
 @media (max-width: 768px) {	/* Smartphone */
 	.time-slider {
 	  height: 36px;
@@ -65,10 +69,13 @@ div[time-slider] {
 	.time-slider-left {
 		height: 36px;
 	}
-	.time-slider-left span{
+	.time-slider-left .time-tag {
 		margin-top: -12px;
 	}
-	.time-slider-slider{
+	.time-slider-left .time-button {
+		margin-top: -19px;
+	}
+	.time-slider-slider {
 		margin-top: -6px;
 		margin-bottom: 0px;
 	}

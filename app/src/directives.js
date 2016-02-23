@@ -480,8 +480,19 @@ angular.module('app.directives', [])
         scope.endDate = new Date(seriesMetadata.us.endDate)
         scope.monthMax = monthDiff(scope.startDate, scope.endDate) + 1
         scope.date = getDate()
+        scope.timePlaying = false
 
         scope.$watch('month', getDate)
+
+        scope.playPauseTime = function () {
+          if (scope.timePlaying) {
+            // Stop
+            scope.timePlaying = false
+          } else {
+            // Play
+            scope.timePlaying = true
+          }
+        }
 
         function getDate() {
           scope.date = addMonths(scope.startDate, scope.month)

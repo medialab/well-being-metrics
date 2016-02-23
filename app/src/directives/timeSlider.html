@@ -1,9 +1,16 @@
 <div class="time-slider" ng-class="{'md-whiteframe-4dp':sticking}">
 	<div layout="row">
 	  <div layout="row" layout-padding class="time-slider-left" >
-	    <div class="md-body-2" flex="60">{{date | monthDate}}</div>
-	    <div flex="40">
-	    	<md-button ng-click="playTime()">PLAY</md-button>
+	    <div class="md-body-2 time-tag" flex="60">{{date | monthDate}}</div>
+	    <div flex="40" class="time-button">
+		    <md-button
+		    	class="md-icon-button"
+		    	ng-click="playPauseTime()"
+		    >
+	         <i class="material-icons md-48" ng-show="!timePlaying">play_arrow</i>
+	         <i class="material-icons md-48" ng-show="timePlaying">pause</i>
+	      </md-button>
+	    	<!-- <md-button ng-click="playTime()">PLAY</md-button> -->
 	    </div>
 	  </div>
 	  <md-slider

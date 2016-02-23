@@ -36,8 +36,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.topicsStatuses = {}
   $scope.topicsData = {}
   $scope.summary = summarize()
-  $scope.test
-  $scope.timePlaying = false
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
@@ -101,15 +99,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
   $scope.topicName = function (t) {
     return seriesMetadata.naming[t]
-  }
-
-  $scope.playTime = function () {
-    $scope.timePlaying = true
-  }
-
-  $scope.stopTime = function () {
-    $scope.timePlaying = false
-
   }
 
   function cascadeLoadRegions(serie) {
