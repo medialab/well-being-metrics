@@ -22,7 +22,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
 ) {
   var startDate = new Date(seriesMetadata.us.startDate)
 
-  $scope.$parent.pageTitle = 'So Well - Explore the well-being index - PROTOTYPE'
+  $scope.$parent.pageTitle = 'So Well - Explore the well-being index - ALPHA'
   $scope.colors = colors
   $scope.month = 0
   $scope.regions = d3.keys(regionsMetadata.USA.values)
@@ -37,6 +37,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.topicsData = {}
   $scope.summary = summarize()
   $scope.test
+  $scope.timePlaying = false
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
@@ -100,6 +101,15 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
   $scope.topicName = function (t) {
     return seriesMetadata.naming[t]
+  }
+
+  $scope.playTime = function () {
+    $scope.timePlaying = true
+  }
+
+  $scope.stopTime = function () {
+    $scope.timePlaying = false
+
   }
 
   function cascadeLoadRegions(serie) {
