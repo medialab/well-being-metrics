@@ -458,7 +458,7 @@ angular.module('app.services', [])
   // Namespace
   var ns = {};
   
-  Facettage.debug = true;
+  // Facettage.debug = true;
 
   // Retrieve data from cache
   ns.coeffs = Facettage.newFacet('coefficients.csv', {
