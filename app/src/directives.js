@@ -475,7 +475,7 @@ angular.module('app.directives', [])
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
         var timeTick
-        var timeIntervalMilliseconds = 150
+        var timeIntervalMilliseconds = 180
         scope.colors = colors
         scope.sticking = false
         scope.startDate = new Date(seriesMetadata.us.startDate)
@@ -489,7 +489,6 @@ angular.module('app.directives', [])
         scope.playPauseTime = function () {
           if (scope.timePlaying) {
             // Stop
-            scope.timePlaying = false
             stopTimeTick()
           } else {
             // Play
@@ -518,6 +517,7 @@ angular.module('app.directives', [])
         }
 
         function stopTimeTick() {
+          scope.timePlaying = false
           if (angular.isDefined(timeTick)) {
             $interval.cancel(timeTick);
             timeTick = undefined;
