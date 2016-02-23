@@ -16,19 +16,20 @@ div[topic-selector] {
 	background-color: #FFCA28;
 	z-index: 80;
 }
-.domain-tile {
-	background-color: #FFECB3;
+.domain-tile, .measure-tile {
 	border-radius: 3px;
 	cursor: pointer;
 	text-transform: uppercase;
-	/*color: #FF6F00;*/
+	color: #616161;
+}
+.domain-tile:hover, .measure-tile:hover {
+	color: #000000;
+}
+.domain-tile {
+	background-color: #FFECB3;
 }
 .measure-tile {
 	background-color: #FFF8E1;
-	border-radius: 3px;
-	cursor: pointer;
-	text-transform: uppercase;
-	/*color: #FF6F00;*/
 }
 .domain-tile.highlight, .measure-tile.highlight {
 	background-color: #80CBC4;
