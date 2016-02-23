@@ -466,7 +466,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('timeSlider', function ($timeout, colors, seriesMetadata) {
+  .directive('timeSlider', function ($timeout, $interval, colors, seriesMetadata) {
     return {
       restrict: 'A',
       scope: {
@@ -474,6 +474,8 @@ angular.module('app.directives', [])
       },
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
+        var timeTick
+        var timeIntervalMilliseconds = 150
         scope.colors = colors
         scope.sticking = false
         scope.startDate = new Date(seriesMetadata.us.startDate)
@@ -488,14 +490,38 @@ angular.module('app.directives', [])
           if (scope.timePlaying) {
             // Stop
             scope.timePlaying = false
+            stopTimeTick()
           } else {
             // Play
             scope.timePlaying = true
+            timeTick = $interval(function() {
+              nextTimeTick()
+            }, timeIntervalMilliseconds)
           }
         }
 
+        scope.$on('$destroy', function() {
+          // Make sure that the interval is destroyed
+          stopTimeTick()
+        });
+
         function getDate() {
           scope.date = addMonths(scope.startDate, scope.month)
+        }
+
+        function nextTimeTick() {
+          scope.month += 1
+          if (scope.month > scope.monthMax) {
+            scope.month = 0
+            stopTimeTick()
+          }
+        }
+
+        function stopTimeTick() {
+          if (angular.isDefined(timeTick)) {
+            $interval.cancel(timeTick);
+            timeTick = undefined;
+          }
         }
 
         function addMonths(d, m) {
