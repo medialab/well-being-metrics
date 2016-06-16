@@ -8,17 +8,22 @@ angular.module('app.home', ['ngRoute'])
   , controller: 'HomeController'
   })
 
-  $translateProvider.translations('en', {
+  var translationEn = {
     'TITLE': 'Hello',
     'FOO': 'This is a paragraph'
-  });
+  }
+
+  $translateProvider.translations('en', translationEn);
  
   $translateProvider.translations('de', {
     'TITLE': 'Hallo',
     'FOO': 'Dies ist ein Absatz'
   });
  
-  $translateProvider.preferredLanguage('en');
+  $translateProvider
+  	.preferredLanguage('en')
+  	// .determinePreferredLanguage()
+  	.fallbackLanguage('en');
 })
 
 .controller('HomeController', function($scope, $location) {
