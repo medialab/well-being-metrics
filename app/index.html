@@ -90,9 +90,9 @@ angular
   $translateProvider
     .useLoader('$translatePartialLoader', {
       // urlTemplate: 'src/views/home-locale-en.json'
-      urlTemplate: 'src/views/{part}-locale-{lang}.json'
+      urlTemplate: 'src/locale/{part}-{lang}.json'
     })
-    .preferredLanguage('en')
+    .preferredLanguage('fr')
     // .determinePreferredLanguage()
     .fallbackLanguage('en');
 

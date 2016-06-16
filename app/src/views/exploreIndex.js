@@ -18,7 +18,9 @@ angular.module('app.exploreIndex', ['ngRoute'])
   seriesMetadata,
   regionsMetadata,
   Facets,
-  colors
+  colors,
+  $translate,
+  $translatePartialLoader
 ) {
   var startDate = new Date(seriesMetadata.us.startDate)
 
@@ -29,13 +31,27 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.region
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
-  $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
-  $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: seriesMetadata.naming[d]} })
+  $scope.seriesDomain = []
+  $scope.seriesMeasure = []
   $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
   $scope.topic
   $scope.topicsStatuses = {}
   $scope.topicsData = {}
   $scope.summary = summarize()
+  $scope.loading = false
+
+  // Translation
+  $translatePartialLoader.addPart('exploreIndex');
+  $translatePartialLoader.addPart('data');
+  $translate.refresh();
+  $timeout(function(){
+    $translate(swbCategories).then(function (translations) {
+      $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: translations[d]} })
+    });
+    $translate(swbSeries).then(function (translations) {
+      $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: translations[d]} })
+    });
+  },0)
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {

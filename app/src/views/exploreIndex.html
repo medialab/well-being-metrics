@@ -1,9 +1,8 @@
 <div ng-show="loading">
-  LOADING
+  <span translate>LOADING</span>
 </div>
 
 <div ng-show="!loading">
-
   <!-- Choose a topic -->
   <div topic-selector
     series-domain='seriesDomain'
@@ -13,7 +12,7 @@
     regions='regions'
     region='region'
   ></div>
-
+  
   <!-- Indicate that you can slide the time -->
   <div ng-show="topic" class="time-slider-info">
     <div wizard-balloon text="'Use slider to set time'" direction="'bottom'"></div>
