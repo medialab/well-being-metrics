@@ -1,3 +1,9 @@
 {
-	"LOADING": "Loading"
+	"LOADING": "Loading",
+	"IN THE US STATES": "in the US states",
+	"MAX AT SELECTION": "Max at selection",
+	"CURRENT REGION": "Current region",
+	"MIN AT SELECTION": "Min at selection",
+	"SELECT A TOPIC": "Select a topic",
+	"SELECT A REGION": "Select a region for more"
 }

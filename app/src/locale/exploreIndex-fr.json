@@ -1,3 +1,9 @@
 {
-	"LOADING": "Chargement"
+	"LOADING": "Chargement",
+	"IN THE US STATES": "dans les différents Etats",
+	"MAX AT SELECTION": "Max à la sélection",
+	"CURRENT REGION": "Région visualisée",
+	"MIN AT SELECTION": "Min à la sélection",
+	"SELECT A TOPIC": "Choisissez un sujet",
+	"SELECT A REGION": "Choisissez une région pour en voire plus"
 }

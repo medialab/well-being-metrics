@@ -12,7 +12,7 @@
     regions='regions'
     region='region'
   ></div>
-  
+
   <!-- Indicate that you can slide the time -->
   <div ng-show="topic" class="time-slider-info">
     <div wizard-balloon text="'Use slider to set time'" direction="'bottom'"></div>
@@ -30,7 +30,7 @@
 
   <!-- PLACEHOLDER for when no topic selected -->
   <div ng-show="topic === undefined" class="wizard-placeholder">
-    <div wizard-balloon text="'Select a topic'"></div>
+    <div wizard-balloon text="'SELECT A TOPIC'|translate"></div>
   </div>
 
   <!-- MULTI CURVES -->
@@ -40,28 +40,28 @@
         <h2 class="md-title">
             {{topicName(topic)}}
           <br>
-          <span class="md-subhead">in the US states</span>
+          <span class="md-subhead" translate>IN THE US STATES</span>
         </h2>
         
 
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
             <h3>{{regionName(summary.maxRegion)}} <small class="md-caption">{{summary.max|number}}</small></h3>
-            <p style="color: {{colors.curve;}};">Max at selection</p>
+            <p style="color: {{colors.curve;}};" translate>MAX AT SELECTION</p>
           </div>
         </md-list-item>
                 
         <md-list-item class="md-2-line" ng-if="region">
           <div class="md-list-item-text" layout="column">
             <h3>{{regionName(region)}} <small class="md-caption">{{summary.currentScore|number}}</small></h3>
-            <p>Current region</p>
+            <p translate>CURRENT REGION</p>
           </div>
         </md-list-item>
                 
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
             <h3>{{regionName(summary.minRegion)}} <small class="md-caption">{{summary.min|number}}</small></h3>
-            <p style="color: {{colors.curve;}};">Min at selection</p>
+            <p style="color: {{colors.curve;}};" translate>MIN AT SELECTION</p>
           </div>
         </md-list-item>
 
@@ -88,7 +88,7 @@
 
   <!-- PLACEHOLDER for when no region selected -->
   <div ng-show="topic && !region" class="wizard-placeholder">
-    <div wizard-balloon text="'Select a region for more'"></div>
+    <div wizard-balloon text="'SELECT A REGION'|translate"></div>
   </div>
 
   <div ng-if="region">
