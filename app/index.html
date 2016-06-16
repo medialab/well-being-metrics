@@ -51,6 +51,8 @@
     <script type="text/javascript" src="assets/angular-route.min.js"></script>
     <!-- <script type="text/javascript" src="../node_modules/angular-translate/dist/angular-translate.min.js"></script> -->
     <script type="text/javascript" src="assets/angular-translate.min.js"></script>
+    <!-- <script type="text/javascript" src="../node_modules/angular-translate/dist/angular-translate-loader-partial.min.js"></script> -->
+    <script type="text/javascript" src="assets/angular-translate-loader-partial.min.js"></script>
 
     <!-- <script type="text/javascript" src="../node_modules/d3/d3.js"></script> -->
     <script type="text/javascript" src="assets/d3.min.js"></script>
@@ -79,11 +81,22 @@ angular
   'app.exploreIndex',
   'app.populationData'
 ])
-  
-// Material theme
-.config(function($mdThemingProvider, $routeProvider){
+
+.config(function($mdThemingProvider, $routeProvider, $translateProvider, $translatePartialLoaderProvider){
+  // Route
   $routeProvider.otherwise({redirectTo: '/'});
 
+  // Locale
+  $translateProvider
+    .useLoader('$translatePartialLoader', {
+      // urlTemplate: 'src/views/home-locale-en.json'
+      urlTemplate: 'src/views/{part}-locale-{lang}.json'
+    })
+    .preferredLanguage('en')
+    // .determinePreferredLanguage()
+    .fallbackLanguage('en');
+
+  // Material theme
   $mdThemingProvider.theme('default')
     .primaryPalette('amber', {
       'default': '400',   // by default use shade 400 from the pink palette for primary intentions
