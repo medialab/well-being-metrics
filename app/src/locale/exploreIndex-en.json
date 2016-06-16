@@ -4,6 +4,20 @@
 	"MAX AT SELECTION": "Max at selection",
 	"CURRENT REGION": "Current region",
 	"MIN AT SELECTION": "Min at selection",
+	"USE SLIDER TO SET TIME": "Use slider to set time",
 	"SELECT A TOPIC": "Select a topic",
-	"SELECT A REGION": "Select a region for more"
+	"SELECT A REGION": "Select a region for more",
+	
+  "JANUARY": "January",
+  "FEBRUARY": "February",
+  "MARCH": "March",
+  "APRIL": "April",
+  "MAY": "May",
+  "JUNE": "June",
+  "JULY": "July",
+  "AUGUST": "August",
+  "SEPTEMBER": "September",
+  "OCTOBER": "October",
+  "NOVEMBER": "November",
+  "DECEMBER": "December"
 }

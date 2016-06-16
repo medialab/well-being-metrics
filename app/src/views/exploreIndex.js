@@ -27,6 +27,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.$parent.pageTitle = 'So Well - Explore the well-being index - ALPHA'
   $scope.colors = colors
   $scope.month = 0
+  $scope.monthNames = []
   $scope.regions = d3.keys(regionsMetadata.USA.values)
   $scope.region
   $scope.regionsStatuses = {}
@@ -45,11 +46,28 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $translatePartialLoader.addPart('data');
   $translate.refresh();
   $timeout(function(){
+    var monthCodes = [
+      "JANUARY",
+      "FEBRUARY",
+      "MARCH",
+      "APRIL",
+      "MAY",
+      "JUNE",
+      "JULY",
+      "AUGUST",
+      "SEPTEMBER",
+      "OCTOBER",
+      "NOVEMBER",
+      "DECEMBER"
+    ]
     $translate(swbCategories).then(function (translations) {
       $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: translations[d]} })
     });
     $translate(swbSeries).then(function (translations) {
       $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: translations[d]} })
+    });
+    $translate(monthCodes).then(function (translations) {
+      $scope.monthNames = monthCodes.map(function(d){ return translations[d] })
     });
   },0)
 

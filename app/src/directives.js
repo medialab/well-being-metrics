@@ -470,7 +470,8 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-        month: '='
+        month: '=',
+        monthNames: '='
       },
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
@@ -481,10 +482,12 @@ angular.module('app.directives', [])
         scope.startDate = new Date(seriesMetadata.us.startDate)
         scope.endDate = new Date(seriesMetadata.us.endDate)
         scope.monthMax = monthDiff(scope.startDate, scope.endDate) + 1
+        scope.monthDate = ''
         scope.date = getDate()
         scope.timePlaying = false
 
         scope.$watch('month', getDate)
+        scope.$watch('monthNames', getDate)
 
         scope.playPauseTime = function () {
           if (scope.timePlaying) {
@@ -506,6 +509,10 @@ angular.module('app.directives', [])
 
         function getDate() {
           scope.date = addMonths(scope.startDate, scope.month)
+          console.log('scope.monthNames', scope.monthNames)
+          var d = new Date(scope.date)
+          var monthName = scope.monthNames[d.getMonth()] || ''
+          scope.monthDate = monthName + ' ' + d.getFullYear()
         }
 
         function nextTimeTick() {

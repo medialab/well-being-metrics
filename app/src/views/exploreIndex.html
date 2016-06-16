@@ -15,7 +15,7 @@
 
   <!-- Indicate that you can slide the time -->
   <div ng-show="topic" class="time-slider-info">
-    <div wizard-balloon text="'Use slider to set time'" direction="'bottom'"></div>
+    <div wizard-balloon text="'USE SLIDER TO SET TIME'|translate" direction="'bottom'"></div>
   </div>
 
   <!-- SLIDER -->
@@ -25,6 +25,7 @@
       ng-show="topic"
       class="time-slider-container"
       month="month"
+      month-names="monthNames"
     ></div>
   </div>
 

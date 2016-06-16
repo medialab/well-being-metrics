@@ -4,6 +4,20 @@
 	"MAX AT SELECTION": "Max à la sélection",
 	"CURRENT REGION": "Région visualisée",
 	"MIN AT SELECTION": "Min à la sélection",
+	"USE SLIDER TO SET TIME": "Choissez un mois avec le curseur",
 	"SELECT A TOPIC": "Choisissez un sujet",
-	"SELECT A REGION": "Choisissez une région pour en voire plus"
+	"SELECT A REGION": "Choisissez une région pour en voire plus",
+
+  "JANUARY": "Janvier",
+  "FEBRUARY": "Février",
+  "MARCH": "Mars",
+  "APRIL": "Avril",
+  "MAY": "Mai",
+  "JUNE": "Juin",
+  "JULY": "Juillet",
+  "AUGUST": "Août",
+  "SEPTEMBER": "Septembre",
+  "OCTOBER": "Octobre",
+  "NOVEMBER": "Novembre",
+  "DECEMBER": "Decembre"
 }
