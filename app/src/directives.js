@@ -509,7 +509,6 @@ angular.module('app.directives', [])
 
         function getDate() {
           scope.date = addMonths(scope.startDate, scope.month)
-          console.log('scope.monthNames', scope.monthNames)
           var d = new Date(scope.date)
           var monthName = scope.monthNames[d.getMonth()] || ''
           scope.monthDate = monthName + ' ' + d.getFullYear()

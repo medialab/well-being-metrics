@@ -34,7 +34,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.regionsData = {}
   $scope.seriesDomain = []
   $scope.seriesMeasure = []
-  $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
+  $scope.topics = []
   $scope.topic
   $scope.topicsStatuses = {}
   $scope.topicsData = {}
@@ -62,9 +62,10 @@ angular.module('app.exploreIndex', ['ngRoute'])
     ]
     $translate(swbCategories).then(function (translations) {
       $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: translations[d]} })
-    });
-    $translate(swbSeries).then(function (translations) {
-      $scope.seriesMeasure = swbSeries.map(   function (d) { return {topic: d, name: translations[d]} })
+      $translate(swbSeries).then(function (translations) {
+        $scope.seriesMeasure = swbSeries.map(function (d) { return {topic: d, name: translations[d]} })
+        $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
+      });
     });
     $translate(monthCodes).then(function (translations) {
       $scope.monthNames = monthCodes.map(function(d){ return translations[d] })
@@ -132,7 +133,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   }
 
   $scope.topicName = function (t) {
-    return seriesMetadata.naming[t]
+    return $translate.instant(t)
   }
 
   function cascadeLoadRegions(serie) {
@@ -198,12 +199,17 @@ angular.module('app.exploreIndex', ['ngRoute'])
   }
 
   function summarize() {
+    var date = addMonths(startDate, $scope.month)
+    var d = new Date(date)
+    var monthName = $scope.monthNames[d.getMonth()] || ''
+    var monthDate = monthName + ' ' + d.getFullYear()
     var summary = {
       maxRegion: undefined,
       max: -Infinity,
       minRegion: undefined,
       min: +Infinity,
-      date: addMonths(startDate, $scope.month)
+      date: date,
+      monthDate: monthDate
     }
     var region
     for ( region in $scope.regionsData ) {
