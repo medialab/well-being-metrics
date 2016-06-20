@@ -1,13 +1,22 @@
 {
 	"LOADING": "Loading",
+	"INDEX": "Index",
 	"IN THE US STATES": "in the US states",
 	"MAX AT SELECTION": "Max at selection",
+	"REGION": "Region",
 	"CURRENT REGION": "Current region",
 	"MIN AT SELECTION": "Min at selection",
 	"USE SLIDER TO SET TIME": "Use slider to set time",
 	"SELECT A TOPIC": "Select a topic",
 	"SELECT A REGION": "Select a region for more",
-	
+
+	"TOP_SENTENCE: EVOLUTION OF": "Evolution of",
+	"TOP_SENTENCE: IN": "in",
+	"TOP_SENTENCE: THE US": "the United States",
+
+	"SERIES_DOMAIN_INTRO": "What's on people's minds and what are they up to?",
+	"SERIES_MEASURE_INTRO": "How are people feeling?",
+
   "JANUARY": "January",
   "FEBRUARY": "February",
   "MARCH": "March",

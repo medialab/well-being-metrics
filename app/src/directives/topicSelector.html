@@ -7,7 +7,7 @@
 >
   <div layout="column" flex="50" flex-sm="100" flex-xs="100">
     <div>
-      <h3>What's on people's minds and what are they up to?</h3>
+      <h3 translate>SERIES_DOMAIN_INTRO</h3>
     </div>
     <div>
       <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
@@ -25,7 +25,7 @@
   </div>
   <div layout="column" flex="50" flex-sm="100" flex-xs="100">
     <div>
-      <h3>How are people feeling?</h3>
+      <h3 translate>SERIES_MEASURE_INTRO</h3>
     </div>
     <div>
       <md-grid-list md-cols="2" md-cols-lg="3" md-gutter="6px" md-row-height="50px">
@@ -50,13 +50,13 @@
 >
   <div layout="row" layout-padding>
     <div>
-      <div class="input-proxy-container">
-        Evolution of
+      <div class="input-proxy-container" translate>
+        TOP_SENTENCE: EVOLUTION OF
       </div>
     </div>
     <div>
       <md-input-container class="md-accent">
-        <label>Index</label>
+        <label translate>INDEX</label>
         <md-select ng-model="$parent.topic" class="md-accent">
           <md-option ng-repeat="topic in topics" value="{{topic.topic}}" class="md-accent">
             {{topic.name}}
@@ -66,15 +66,15 @@
     </div>
     <div>
       <div class="input-proxy-container">
-        in
-        <span ng-show="!region">
-          the United States
+        <span translate>TOP_SENTENCE: IN</span>
+        <span ng-show="!region" translate>
+          TOP_SENTENCE: THE US
         </span>
       </div>
     </div>
     <div ng-show="region">
       <md-input-container class="md-accent">
-        <label>Region</label>
+        <label translate>REGION</label>
         <md-select ng-model="$parent.region" class="md-accent">
           <md-option ng-repeat="region in regions" value="{{region}}" class="md-accent">
             {{regionName(region)}}
