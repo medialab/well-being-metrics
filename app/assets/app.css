@@ -189,6 +189,20 @@ div[hex-us] {
   padding-left: 10px;
 }
 
+.profile-sidebar-content {
+	padding: 12px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.profile-form-title {
+	
+}
+
+.profile-form-subtitle {
+	opacity: 0.6;
+}
+
 /* Misc D3 classes */
 
 .axis text {

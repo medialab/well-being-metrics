@@ -23,6 +23,7 @@
 	"AGE": "Age",
 	"GENDER": "Gender",
 	"INCOME": "Income",
+	"INCOME DETAILS": "in € per months",
 	"DIPLOMA": "Diploma",
 	"FRENCH": "French",
 	"NOT FRENCH": "Not French",
@@ -31,5 +32,8 @@
 	"WORK SITUATION": "Work situation",
 	"MARITAL SITUATION": "Marital situation",
 	"PARTNER IS WORKING": "Partner is working",
-	"PARTNER IS NOT WORKING": "Partner is not working"
+	"PARTNER IS NOT WORKING": "Partner is not working",
+	"CHILDREN": "Children in your home",
+	"ENGAGED IN CHARITY": "Engaged in a charity",
+	"NOT ENGAGED IN CHARITY": "Not engaged in a charity"
 }

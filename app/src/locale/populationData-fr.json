@@ -18,5 +18,22 @@
 	"children_0": "Sans enfant",
 	"children_1": "1 enfant",
 	"children_2": "2 enfants",
-	"children_3": "3 enfants ou plus"
+	"children_3": "3 enfants ou plus",
+
+	"AGE": "Age",
+	"GENDER": "Genre",
+	"INCOME": "Revenus",
+	"INCOME DETAILS": "en € par mois",
+	"DIPLOMA": "Diplôme",
+	"FRENCH": "Français",
+	"NOT FRENCH": "Non français",
+	"OWNER": "Propriétaire",
+	"NOT OWNER": "Non propriétaire",
+	"WORK SITUATION": "Situation professionnelle",
+	"MARITAL SITUATION": "Situation maritale",
+	"PARTNER IS WORKING": "Conjoint travaillant",
+	"PARTNER IS NOT WORKING": "Conjoint ne travaillant pas",
+	"CHILDREN": "Enfants dans votre foyer",
+	"ENGAGED IN CHARITY": "Participe à une association",
+	"NOT ENGAGED IN CHARITY": "Ne participe pas à une association"
 }
