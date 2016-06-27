@@ -21,8 +21,9 @@
 	"children_3": "3 enfants ou plus",
 
 	"AGE": "Age",
+	"AGE DETAILS": "en années",
 	"GENDER": "Genre",
-	"INCOME": "Revenus",
+	"INCOME": "Revenus du foyer",
 	"INCOME DETAILS": "en € par mois",
 	"DIPLOMA": "Diplôme",
 	"FRENCH": "Français",
@@ -35,5 +36,6 @@
 	"PARTNER IS NOT WORKING": "Conjoint ne travaillant pas",
 	"CHILDREN": "Enfants dans votre foyer",
 	"ENGAGED IN CHARITY": "Participe à une association",
-	"NOT ENGAGED IN CHARITY": "Ne participe pas à une association"
+	"NOT ENGAGED IN CHARITY": "Pas de vie associative",
+	"HOME FINANCE": "Finances du foyer"
 }

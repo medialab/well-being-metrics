@@ -189,10 +189,18 @@ div[hex-us] {
   padding-left: 10px;
 }
 
+#pop-data-sidebar h4 {
+	margin-top: 48px;
+}
+
 .profile-sidebar-content {
-	padding: 12px;
+	padding: 24px;
 	overflow-x: hidden;
 	overflow-y: auto;
+}
+
+.profile-sidebar-content md-input-container {
+	width: 100%;
 }
 
 .profile-form-title {

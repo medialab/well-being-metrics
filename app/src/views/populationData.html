@@ -7,21 +7,12 @@
     md-whiteframe="4"
     id="pop-data-sidebar"
    >
-    <md-content layout="column" class="profile-sidebar-content">
+    <div class="profile-sidebar-content">
       
       <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
       <md-button ng-click="close()" class="md-primary" hide-gt-md>
         Close Sidenav Left
       </md-button>
-
-      <span class="profile-form-title" translate>AGE</span>
-      <div layout>
-	      <md-slider flex min="1" max="100" ng-model="age" aria-label="age" id="age-slider" class>
-	      </md-slider>
-	      <div flex="30" layout layout-align="center center">
-	        <input flex type="number" ng-model="age" aria-label="age" aria-controls="age-slider">
-	      </div>
-	    </div>
 
 	    <md-input-container>
         <label translate>GENDER</label>
@@ -32,15 +23,14 @@
         </md-select>
       </md-input-container>
 
-      <span class="profile-form-title"><span translate>INCOME</span> <span class="profile-form-subtitle" translate>INCOME DETAILS</span></span>
+      <span class="profile-form-title"><span translate>AGE</span> <span class="profile-form-subtitle" translate>AGE DETAILS</span></span>
       <div layout>
-	      <md-slider flex min="0" max="10000" ng-model="income" aria-label="income" id="income-slider" class>
+	      <md-slider flex min="1" max="100" ng-model="age" aria-label="age" id="age-slider" class>
 	      </md-slider>
 	      <div flex="30" layout layout-align="center center">
-	        <input flex type="number" ng-model="income" aria-label="income" aria-controls="income-slider">
+	        <input flex type="number" ng-model="age" aria-label="age" aria-controls="age-slider">
 	      </div>
 	    </div>
-
 	    <md-input-container>
         <label translate>DIPLOMA</label>
         <md-select ng-model="diploma">
@@ -49,14 +39,6 @@
           </md-option>
         </md-select>
       </md-input-container>
-
-      <md-switch ng-model="french" aria-label="French">
-  	  	{{ (french ? 'FRENCH' : 'NOT FRENCH')|translate }}
-  		</md-switch>
-
-  		<md-switch ng-model="owner" aria-label="Owner">
-  	  	{{ (owner ? 'OWNER' : 'NOT OWNER')|translate }}
-  		</md-switch>
 
 	    <md-input-container>
         <label translate>WORK SITUATION</label>
@@ -76,10 +58,6 @@
         </md-select>
       </md-input-container>
 
-	    <md-switch ng-model="partnerWorks" aria-label="Partner works">
-  	  	{{ (partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
-  		</md-switch>
-
   		<md-input-container>
         <label translate>CHILDREN</label>
         <md-select ng-model="children">
@@ -89,11 +67,34 @@
         </md-select>
       </md-input-container>
 
+	    <md-switch ng-model="french" aria-label="French">
+  	  	{{ (french ? 'FRENCH' : 'NOT FRENCH')|translate }}
+  		</md-switch>
+
 	    <md-switch ng-model="charity" aria-label="Engaged in a charity">
   	  	{{ (charity ? 'ENGAGED IN CHARITY' : 'NOT ENGAGED IN CHARITY')|translate }}
   		</md-switch>
 
-    </md-content>
+	    <h4 layout-align="center" translate>HOME FINANCE</h4>
+
+      <span class="profile-form-title"><span translate>INCOME</span> <span class="profile-form-subtitle" translate>INCOME DETAILS</span></span>
+      <div layout>
+	      <md-slider flex min="0" max="10000" ng-model="income" aria-label="income" id="income-slider" class>
+	      </md-slider>
+	      <div flex="30" layout layout-align="center center">
+	        <input flex type="number" ng-model="income" aria-label="income" aria-controls="income-slider">
+	      </div>
+	    </div>
+
+	    <md-switch ng-model="partnerWorks" aria-label="Partner works">
+  	  	{{ (partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
+  		</md-switch>
+
+  		<md-switch ng-model="owner" aria-label="Owner">
+  	  	{{ (owner ? 'OWNER' : 'NOT OWNER')|translate }}
+  		</md-switch>
+
+    </div>
   </md-sidenav>
   <md-content flex layout-padding>
     <div layout="column" layout-fill layout-align="top center">

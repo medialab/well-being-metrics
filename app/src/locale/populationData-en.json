@@ -21,8 +21,9 @@
 	"children_3": "3 children or more",
 
 	"AGE": "Age",
+	"AGE DETAILS": "in years",
 	"GENDER": "Gender",
-	"INCOME": "Income",
+	"INCOME": "Home income",
 	"INCOME DETAILS": "in € per months",
 	"DIPLOMA": "Diploma",
 	"FRENCH": "French",
@@ -35,5 +36,6 @@
 	"PARTNER IS NOT WORKING": "Partner is not working",
 	"CHILDREN": "Children in your home",
 	"ENGAGED IN CHARITY": "Engaged in a charity",
-	"NOT ENGAGED IN CHARITY": "Not engaged in a charity"
+	"NOT ENGAGED IN CHARITY": "Not engaged in a charity",
+	"HOME FINANCE": "Home finance"
 }
