@@ -20,5 +20,16 @@
 	"children_2": "2 children",
 	"children_3": "3 children or more",
 
-	"FORM: AGE": "Age"
+	"AGE": "Age",
+	"GENDER": "Gender",
+	"INCOME": "Income",
+	"DIPLOMA": "Diploma",
+	"FRENCH": "French",
+	"NOT FRENCH": "Not French",
+	"OWNER": "Owner",
+	"NOT OWNER": "Not Owner",
+	"WORK SITUATION": "Work situation",
+	"MARITAL SITUATION": "Marital situation",
+	"PARTNER IS WORKING": "Partner is working",
+	"PARTNER IS NOT WORKING": "Partner is not working"
 }

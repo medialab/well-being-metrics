@@ -16,7 +16,7 @@
 
       <div layout>
 	      <div flex="30" layout layout-align="left center">
-	        <span class="md-body-1" translate>FORM: AGE</span>
+	        <span class="md-body-1" translate>AGE</span>
 	      </div>
 	      <md-slider flex min="1" max="100" ng-model="age" aria-label="age" id="age-slider" class>
 	      </md-slider>
@@ -26,7 +26,7 @@
 	    </div>
 
 	    <md-input-container>
-        <label>Gender</label>
+        <label translate>GENDER</label>
         <md-select ng-model="gender">
           <md-option ng-repeat="gen in gender_list" value="{{gen.value}}">
             {{gen.label}}
@@ -36,7 +36,7 @@
 
       <div layout>
 	      <div flex="30" layout layout-align="left center">
-	        <span class="md-body-1">Income</span>
+	        <span class="md-body-1" translate>INCOME</span>
 	      </div>
 	      <md-slider flex min="0" max="10000" ng-model="income" aria-label="income" id="income-slider" class>
 	      </md-slider>
@@ -46,7 +46,7 @@
 	    </div>
 
 	    <md-input-container>
-        <label>Diploma</label>
+        <label translate>DIPLOMA</label>
         <md-select ng-model="diploma">
           <md-option ng-repeat="dip in diploma_list" value="{{dip.value}}">
             {{dip.label}}
@@ -55,15 +55,15 @@
       </md-input-container>
 
       <md-switch ng-model="french" aria-label="French">
-  	  	{{ french ? 'French' : 'Not French'}}
+  	  	{{ (french ? 'FRENCH' : 'NOT FRENCH')|translate }}
   		</md-switch>
 
   		<md-switch ng-model="owner" aria-label="Owner">
-  	  	{{ owner ? 'Owner' : 'Not owner'}}
+  	  	{{ (owner ? 'OWNER' : 'NOT OWNER')|translate }}
   		</md-switch>
 
 	    <md-input-container>
-        <label>Work situation</label>
+        <label translate>WORK SITUATION</label>
         <md-select ng-model="work">
           <md-option ng-repeat="w in work_list" value="{{w.value}}">
             {{w.label}}
@@ -72,7 +72,7 @@
       </md-input-container>
 
       <md-input-container>
-        <label>Marital situation</label>
+        <label translate>MARITAL SITUATION</label>
         <md-select ng-model="wedding">
           <md-option ng-repeat="w in wedding_list" value="{{w.value}}">
             {{w.label}}
@@ -81,7 +81,7 @@
       </md-input-container>
 
 	    <md-switch ng-model="partnerWorks" aria-label="Partner works">
-  	  	{{ partnerWorks ? 'Partner is working' : 'Partner is not working'}}
+  	  	{{ (partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
   		</md-switch>
 
   		<md-input-container>
