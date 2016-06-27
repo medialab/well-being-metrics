@@ -1,0 +1,22 @@
+{
+	"gender_male": "Homme",
+	"gender_female": "Femme",
+	"diploma_none": "Aucun diplôme",
+	"diploma_pro": "Diplôme professionnel",
+	"diploma_bac": "Baccalauréat",
+	"diploma_postbac": "Diplôme post-Bac",
+	"work_worker": "Au travail",
+	"work_student": "Etudiant",
+	"work_retired": "Retraité",
+	"work_athome": "Au foyer",
+	"work_unemployed": "Au chomage",
+	"work_disabled": "Invalide",
+	"marital_single": "Célibataire",
+	"marital_couple": "En couple",
+	"marital_divorced": "Divorcé vivant seul",
+	"marital_widow": "Veuf vivant seul",
+	"children_0": "Sans enfant",
+	"children_1": "1 enfant",
+	"children_2": "2 enfants",
+	"children_3": "3 enfants ou plus"
+}

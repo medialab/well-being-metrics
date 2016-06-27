@@ -9,54 +9,88 @@ angular.module('app.populationData', ['ngRoute'])
   })
 }])
 
-.controller('PopulationDataController', function($scope, $location, Facets, $mdSidenav, $timeout) {
+.controller('PopulationDataController', function(
+	$scope,
+	$location,
+	Facets,
+	$mdSidenav,
+	$timeout,
+	$translate,
+	$translatePartialLoader
+) {
 	var income_deciles = [1000, 1500, 2000, 2400, 2800, 3300, 3800, 4500, 5700]
 	$scope.age = 18
-	$scope.gender_list = [
-		{label:'Male', value:'m'},
-		{label:'Female', value:'f'}
+	var gender_codes = [
+		'gender_male',
+		'gender_female'
 	]
+	$scope.gender_list = []
 	$scope.gender
 	$scope.income = (income_deciles[3] + income_deciles[4])/2
 	$scope.incomeDecile = 3
-	$scope.diploma_list = [
-		{label:'Aucun diplôme', value:'none'},
-		{label:'Diplôme professionnel', value:'pro'},
-		{label:'Bac', value:'bac'},
-		{label:'> Bac', value:'postbac'}
+	var diploma_codes = [
+		'diploma_none',
+		'diploma_pro',
+		'diploma_bac',
+		'diploma_postbac'
 	]
+	$scope.diploma_list = []
 	$scope.diploma
 	$scope.french = false
 	$scope.owner = false
-	$scope.work_list = [
-		{label:'Au travail', value:'worker'},
-		{label:'Etudiant', value:'student'},
-		{label:'Retraité', value:'retired'},
-		{label:'Au foyer', value:'athome'},
-		{label:'Au chomage', value:'unemployed'},
-		{label:'Invalide', value:'disabled'}
+	var work_codes = [
+		'work_worker',
+		'work_student',
+		'work_retired',
+		'work_athome',
+		'work_unemployed',
+		'work_disabled'
 	]
+	$scope.work_list = []
 	$scope.work
-	$scope.wedding_list = [
-		{label:'Célibataire', value:'single'},
-		{label:'En couple', value:'couple'},
-		{label:'Divorcé vivant seul', value:'divorced'},
-		{label:'Veuf vivant seul', value:'widow'}
+	var wedding_codes = [
+		'marital_single',
+		'marital_couple',
+		'marital_divorced',
+		'marital_widow'
 	]
+	$scope.wedding_list = []
 	$scope.wedding
 	$scope.partnerWorks = false
-	$scope.children_list = [
-		{label:'Pas d\'enfant', value:'0'},
-		{label:'1 enfant', value:'1'},
-		{label:'2 enfants', value:'2'},
-		{label:'3 enfants ou plus', value:'3'}
+	var children_codes = [
+		'children_0',
+		'children_1',
+		'children_2',
+		'children_3'
 	]
+	$scope.children_list = []
 	$scope.children
 	$scope.charity = false
 	
-
 	$scope.toggleLeft = buildDelayedToggler('left');
 
+	// Translation
+  $translatePartialLoader.addPart('populationData');
+  $translatePartialLoader.addPart('data');
+  $translate.refresh();
+  $timeout(function(){
+  	$translate(gender_codes).then(function (translations) {
+      $scope.gender_list = gender_codes.map(function(d){ return {value:d, label:translations[d]} })
+    });
+  	$translate(diploma_codes).then(function (translations) {
+      $scope.diploma_list = diploma_codes.map(function(d){ return {value:d, label:translations[d]} })
+    });
+  	$translate(work_codes).then(function (translations) {
+      $scope.work_list = work_codes.map(function(d){ return {value:d, label:translations[d]} })
+    });
+  	$translate(wedding_codes).then(function (translations) {
+      $scope.wedding_list = wedding_codes.map(function(d){ return {value:d, label:translations[d]} })
+    });
+  	$translate(children_codes).then(function (translations) {
+      $scope.children_list = children_codes.map(function(d){ return {value:d, label:translations[d]} })
+    });
+  })
+  
   Facets.coeffs.retrieveData( function (data) {
     $scope.coeffs = data;
     $scope.$apply();
