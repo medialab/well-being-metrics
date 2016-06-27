@@ -1,3 +1,7 @@
+/*
+ * Explore index page
+ */
+
 .input-proxy-container {
   padding-top: 27px;
 }
@@ -174,6 +178,15 @@ div[hex-us] {
 	border-top-color: #FFFFFF;
 	border-width: 30px;
 	margin-left: -30px;
+}
+
+ /*
+ * Explore index page
+ */
+
+#pop-data-sidebar input[type="number"] {
+  text-align: center;
+  padding-left: 10px;
 }
 
 /* Misc D3 classes */

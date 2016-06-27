@@ -1,10 +1,12 @@
 <section layout="row" flex>
   <md-sidenav
-      class="md-sidenav-left"
-      md-component-id="left"
-      md-is-locked-open="$mdMedia('gt-md')"
-      md-disable-backdrop
-      md-whiteframe="4">
+    class="md-sidenav-left"
+    md-component-id="left"
+    md-is-locked-open="$mdMedia('gt-md')"
+    md-disable-backdrop
+    md-whiteframe="4"
+    id="pop-data-sidebar"
+   >
     <md-content layout-padding layout="column">
       
       <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
@@ -12,13 +14,16 @@
         Close Sidenav Left
       </md-button>
 
-      <md-slider-container>
-	      <md-slider min="1" max="100" ng-model="age" aria-label="age" id="age-slider">
+      <div layout>
+	      <div flex="20" layout layout-align="center center">
+	        <span class="md-body-1">Age</span>
+	      </div>
+	      <md-slider flex min="1" max="100" ng-model="color.age" aria-label="age" id="age-slider" class>
 	      </md-slider>
-	      <md-input-container>
-	        <input type="number" ng-model="age" aria-label="age" aria-controls="age-slider">
-	      </md-input-container>
-	    </md-slider-container>
+	      <div flex="30" layout layout-align="center center">
+	        <input flex type="number" ng-model="color.age" aria-label="age" aria-controls="age-slider">
+	      </div>
+	    </div>
 
     </md-content>
   </md-sidenav>
