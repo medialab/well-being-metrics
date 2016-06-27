@@ -15,15 +15,87 @@
       </md-button>
 
       <div layout>
-	      <div flex="20" layout layout-align="center center">
+	      <div flex="30" layout layout-align="left center">
 	        <span class="md-body-1">Age</span>
 	      </div>
-	      <md-slider flex min="1" max="100" ng-model="color.age" aria-label="age" id="age-slider" class>
+	      <md-slider flex min="1" max="100" ng-model="age" aria-label="age" id="age-slider" class>
 	      </md-slider>
 	      <div flex="30" layout layout-align="center center">
-	        <input flex type="number" ng-model="color.age" aria-label="age" aria-controls="age-slider">
+	        <input flex type="number" ng-model="age" aria-label="age" aria-controls="age-slider">
 	      </div>
 	    </div>
+
+	    <md-input-container>
+        <label>Gender</label>
+        <md-select ng-model="gender">
+          <md-option ng-repeat="gen in gender_list" value="{{gen.value}}">
+            {{gen.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <div layout>
+	      <div flex="30" layout layout-align="left center">
+	        <span class="md-body-1">Income</span>
+	      </div>
+	      <md-slider flex min="0" max="10000" ng-model="income" aria-label="income" id="income-slider" class>
+	      </md-slider>
+	      <div flex="30" layout layout-align="center center">
+	        <input flex type="number" ng-model="income" aria-label="income" aria-controls="income-slider">
+	      </div>
+	    </div>
+
+	    <md-input-container>
+        <label>Diploma</label>
+        <md-select ng-model="diploma">
+          <md-option ng-repeat="dip in diploma_list" value="{{dip.value}}">
+            {{dip.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-switch ng-model="french" aria-label="French">
+  	  	{{ french ? 'French' : 'Not French'}}
+  		</md-switch>
+
+  		<md-switch ng-model="owner" aria-label="Owner">
+  	  	{{ owner ? 'Owner' : 'Not owner'}}
+  		</md-switch>
+
+	    <md-input-container>
+        <label>Work situation</label>
+        <md-select ng-model="work">
+          <md-option ng-repeat="w in work_list" value="{{w.value}}">
+            {{w.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container>
+        <label>Marital situation</label>
+        <md-select ng-model="wedding">
+          <md-option ng-repeat="w in wedding_list" value="{{w.value}}">
+            {{w.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+	    <md-switch ng-model="partnerWorks" aria-label="Partner works">
+  	  	{{ partnerWorks ? 'Partner is working' : 'Partner is not working'}}
+  		</md-switch>
+
+  		<md-input-container>
+        <label>Children at your home</label>
+        <md-select ng-model="children">
+          <md-option ng-repeat="ch in children_list" value="{{ch.value}}">
+            {{ch.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+	    <md-switch ng-model="charity" aria-label="Engaged in a charity">
+  	  	{{ charity ? 'Engaged in a charity' : 'Not engaged in a charity'}}
+  		</md-switch>
 
     </md-content>
   </md-sidenav>
