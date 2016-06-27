@@ -10,6 +10,8 @@ angular.module('app.populationData', ['ngRoute'])
 }])
 
 .controller('PopulationDataController', function($scope, $location, Facets, $mdSidenav, $timeout) {
+	$scope.age = 18
+
 	$scope.toggleLeft = buildDelayedToggler('left');
 
   Facets.coeffs.retrieveData( function (data) {
