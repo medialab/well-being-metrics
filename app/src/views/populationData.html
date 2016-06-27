@@ -14,14 +14,13 @@
         Close Sidenav Left
       </md-button>
 
-	    <md-input-container>
-        <label translate>GENDER</label>
-        <md-select ng-model="gender">
-          <md-option ng-repeat="gen in gender_list" value="{{gen.value}}">
-            {{gen.label}}
-          </md-option>
-        </md-select>
-      </md-input-container>
+      <md-radio-group ng-model="gender" layout="row">
+			  <md-radio-button flex ng-repeat="gen in gender_list" ng-value="gen.value" aria-label="{{ gen.label }}">
+	        {{ gen.label }}
+			  </md-radio-button>
+			</md-radio-group>
+			<br>
+			<br>
 
       <span class="profile-form-title"><span translate>AGE</span> <span class="profile-form-subtitle" translate>AGE DETAILS</span></span>
       <div layout>
