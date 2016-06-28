@@ -69,6 +69,8 @@ angular.module('app.populationData', ['ngRoute'])
 	$scope.children_list = []
 	$scope.children
 	$scope.charity = false
+
+	$scope.modelVars = {}
 	
 	$scope.toggleLeft = buildDelayedToggler('left');
 
@@ -124,6 +126,57 @@ angular.module('app.populationData', ['ngRoute'])
   		}
   	})
   	$scope.incomeDecileMessage = $scope.incomeDecileMessage_list[$scope.incomeDecile - 1]
+  }
+
+  // Update happiness variables and models after user variables
+  var userModelVars = ['gender', 'age', 'diploma', 'work', 'wedding', 'children', 'french', 'charity', 'incomeDecile', 'partnerWorks', 'owner']
+  $scope.$watchGroup(userModelVars, updateHappinessModel)
+  function updateHappinessModel () {
+  	// Are variables filled?
+  	$scope.incompleteModel = userModelVars.some(function(d){
+  		return $scope[d] === undefined
+  	})
+
+		$scope.modelVars = {}
+  	if (!$scope.incompleteModel) {
+  		// Note: these have to match the coeffs
+  		$scope.modelVars['age'] = $scope.age
+  		$scope.modelVars['age-square'] = $scope.age * $scope.age
+  		$scope.modelVars['age-cube'] = $scope.age * $scope.age * $scope.age
+  		$scope.modelVars['is-woman'] = ($scope.gender == 'gender_female') ? (1) : (0)
+  		$scope.modelVars['woman-by-age'] = $scope.modelVars['is-woman'] * $scope.modelVars['age']
+  		$scope.modelVars['is-french'] = ($scope.french) ? (1) : (0)
+  		$scope.modelVars['income-decile'] = $scope.incomeDecile
+  		$scope.modelVars['income-decile-square'] = $scope.incomeDecile * $scope.incomeDecile
+  		$scope.modelVars['is-owner'] = ($scope.owner) ? (1) : (0)
+  		$scope.modelVars['partner-working'] = ($scope.partnerWorks) ? (1) : (0)
+  		$scope.modelVars['has-children-1'] = ($scope.children == 'children_1') ? (1) : (0)
+  		$scope.modelVars['has-children-2'] = ($scope.children == 'children_2') ? (1) : (0)
+  		$scope.modelVars['has-children-3'] = ($scope.children == 'children_3') ? (1) : (0)
+  		$scope.modelVars['is-working'] = ($scope.work == 'work_worker') ? (1) : (0)
+  		$scope.modelVars['is-student'] = ($scope.work == 'work_student') ? (1) : (0)
+  		$scope.modelVars['is-retired'] = ($scope.work == 'work_retired') ? (1) : (0)
+  		$scope.modelVars['is-at-home'] = ($scope.work == 'work_athome') ? (1) : (0)
+  		$scope.modelVars['has-dip-pro'] = ($scope.diploma == 'diploma_pro') ? (1) : (0)
+  		$scope.modelVars['has-bac'] = ($scope.diploma == 'diploma_bac') ? (1) : (0)
+  		$scope.modelVars['has-bac-plus'] = ($scope.diploma == 'diploma_postbac') ? (1) : (0)
+  		$scope.modelVars['is-in-couple'] = ($scope.wedding == 'marital_couple') ? (1) : (0)
+  		$scope.modelVars['is-divorced'] = ($scope.wedding == 'marital_divorced') ? (1) : (0)
+  		$scope.modelVars['is-widow'] = ($scope.wedding == 'marital_widow') ? (1) : (0)
+  		$scope.modelVars['has-children'] = ($scope.children && $scope.children != 'children_0') ? (1) : (0)
+  		$scope.modelVars['partner-working-by-children'] = $scope.modelVars['partner-working'] * $scope.modelVars['has-children']
+  		$scope.modelVars['at-home-by-children'] = $scope.modelVars['is-at-home'] * $scope.modelVars['has-children']
+  		$scope.modelVars['woman-by-unemployed'] = $scope.modelVars['is-woman'] * (($scope.work == 'work_unemployed') ? (1) : (0))
+  		$scope.modelVars['at-work-by-dip-pro'] = $scope.modelVars['is-working'] * $scope.modelVars['has-dip-pro']
+  		$scope.modelVars['at-work-by-bac'] = $scope.modelVars['is-working'] * $scope.modelVars['has-bac']
+  		$scope.modelVars['at-work-by-bac-plus'] = $scope.modelVars['is-working'] * $scope.modelVars['has-bac-plus']
+  		$scope.modelVars['at-work-by-in-couple'] = $scope.modelVars['is-working'] * $scope.modelVars['is-in-couple']
+  		$scope.modelVars['woman-by-in-couple'] = $scope.modelVars['is-woman'] * $scope.modelVars['is-in-couple']
+  		$scope.modelVars['at-work-by-children'] = $scope.modelVars['is-working'] * $scope.modelVars['has-children']
+  		$scope.modelVars['in-couple-by-children'] = $scope.modelVars['is-in-couple'] * $scope.modelVars['has-children']
+  		$scope.modelVars['charity'] = ($scope.charity) ? (1) : (0)
+  		$scope.modelVars['baseline'] = 1 // Constant
+  	}
   }
 
   /**
