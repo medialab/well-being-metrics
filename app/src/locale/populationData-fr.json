@@ -20,6 +20,17 @@
 	"children_2": "2 enfants",
 	"children_3": "3 enfants ou plus",
 
+	"DECILE 1" : "10% des foyers gagnent autant ou moins",
+	"DECILE 2" : "20% des foyers gagnent autant ou moins",
+	"DECILE 3" : "30% des foyers gagnent autant ou moins",
+	"DECILE 4" : "40% des foyers gagnent autant ou moins",
+	"DECILE 5" : "Presque dans la moyenne",
+	"DECILE 6" : "Au-dessus de la moyenne",
+	"DECILE 7" : "40% des foyers gagnent autant ou plus",
+	"DECILE 8" : "30% des foyers gagnent autant ou plus",
+	"DECILE 9" : "20% des foyers gagnent autant ou plus",
+	"DECILE 10": "10% des foyers gagnent autant ou plus",	
+
 	"AGE": "Age",
 	"AGE DETAILS": "en années",
 	"GENDER": "Genre",

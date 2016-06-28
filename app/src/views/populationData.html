@@ -22,7 +22,7 @@
 			<br>
 			<br>
 
-      <span class="profile-form-title"><span translate>AGE</span> <span class="profile-form-subtitle" translate>AGE DETAILS</span></span>
+      <div class="profile-form-title"><span translate>AGE</span> <span class="profile-form-subtitle" translate>AGE DETAILS</span></div>
       <div layout>
 	      <md-slider flex min="1" max="100" ng-model="age" aria-label="age" id="age-slider" class>
 	      </md-slider>
@@ -76,14 +76,15 @@
 
 	    <h4 layout-align="center" translate>HOME FINANCE</h4>
 
-      <span class="profile-form-title"><span translate>INCOME</span> <span class="profile-form-subtitle" translate>INCOME DETAILS</span></span>
+      <div class="profile-form-title"><span translate>INCOME</span> <span class="profile-form-subtitle" translate>INCOME DETAILS</span></div>
       <div layout>
-	      <md-slider flex min="0" max="10000" ng-model="income" aria-label="income" id="income-slider" class>
+	      <md-slider flex min="0" max="8000" ng-model="income" aria-label="income" id="income-slider" class>
 	      </md-slider>
 	      <div flex="30" layout layout-align="center center">
 	        <input flex type="number" ng-model="income" aria-label="income" aria-controls="income-slider">
 	      </div>
 	    </div>
+      <div class="profile-form-message">{{incomeDecileMessage}}</div>
 
 	    <md-switch ng-model="partnerWorks" aria-label="Partner works">
   	  	{{ (partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}

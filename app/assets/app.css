@@ -204,12 +204,19 @@ div[hex-us] {
 }
 
 .profile-form-title {
-	
 }
 
 .profile-form-subtitle {
 	opacity: 0.6;
 }
+
+.profile-form-message {
+	text-align: right;
+  color: #36827a;
+  font-size: 0.8em;
+  font-weight: 500;
+  margin-top: -6px;
+ }
 
 /* Misc D3 classes */
 

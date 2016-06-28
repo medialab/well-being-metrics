@@ -19,6 +19,7 @@ angular.module('app.populationData', ['ngRoute'])
 	$translatePartialLoader
 ) {
 	var income_deciles = [1000, 1500, 2000, 2400, 2800, 3300, 3800, 4500, 5700]
+	var deciles_codes = [1,2,3,4,5,6,7,8,9,10].map(function(d){ return 'DECILE ' + d })
 	$scope.age = 18
 	var gender_codes = [
 		'gender_male',
@@ -27,7 +28,9 @@ angular.module('app.populationData', ['ngRoute'])
 	$scope.gender_list = []
 	$scope.gender
 	$scope.income = (income_deciles[3] + income_deciles[4])/2
-	$scope.incomeDecile = 3
+	$scope.incomeDecile
+	$scope.incomeDecileMessage_list = []
+	$scope.incomeDecileMessage
 	var diploma_codes = [
 		'diploma_none',
 		'diploma_pro',
@@ -89,6 +92,10 @@ angular.module('app.populationData', ['ngRoute'])
   	$translate(children_codes).then(function (translations) {
       $scope.children_list = children_codes.map(function(d){ return {value:d, label:translations[d]} })
     });
+    $translate(deciles_codes).then(function (translations) {
+      $scope.incomeDecileMessage_list = deciles_codes.map(function(d){ return translations[d] })
+      updateDecileFromIncome()
+    });
   })
   
   Facets.coeffs.retrieveData( function (data) {
@@ -103,6 +110,21 @@ angular.module('app.populationData', ['ngRoute'])
         // $log.debug("close LEFT is done");
       });
   };
+
+  // Update income deciles after chosen income
+  $scope.$watch('income', updateDecileFromIncome)
+	updateDecileFromIncome()
+  
+  function updateDecileFromIncome() {
+  	// Note: the deciles range from 1 to 10 as in statistics
+  	$scope.incomeDecile = 1
+  	income_deciles.forEach(function(max, i) {
+  		if ($scope.income > max) {
+  			$scope.incomeDecile = i+2
+  		}
+  	})
+  	$scope.incomeDecileMessage = $scope.incomeDecileMessage_list[$scope.incomeDecile - 1]
+  }
 
   /**
    * Supplies a function that will continue to operate until the

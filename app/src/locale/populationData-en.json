@@ -20,6 +20,17 @@
 	"children_2": "2 children",
 	"children_3": "3 children or more",
 
+	"DECILE 1": "Lowest 10% income",
+	"DECILE 2": "Lowest 20% income",
+	"DECILE 3": "Lowest 30% income",
+	"DECILE 4": "Lowest 40% income",
+	"DECILE 5": "Almost average income ",
+	"DECILE 6": "Above average income",
+	"DECILE 7": "Highest 40% income",
+	"DECILE 8": "Highest 30% income",
+	"DECILE 9": "Highest 20% income",
+	"DECILE 10": "Highest 10% income",	
+
 	"AGE": "Age",
 	"AGE DETAILS": "in years",
 	"GENDER": "Gender",
