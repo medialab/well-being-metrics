@@ -216,7 +216,24 @@ div[hex-us] {
   font-size: 0.8em;
   font-weight: 500;
   margin-top: -6px;
- }
+}
+
+.profile-tile {
+	cursor: pointer;
+}
+
+.profile-tile-content {
+	font-size: 0.8em;
+	padding: 12px;
+}
+
+.profile-tile-content h3 {
+	font-weight: 300;
+}
+
+.profile-tile-content h3 strong {
+	font-weight: 500;
+}
 
 /* Misc D3 classes */
 
