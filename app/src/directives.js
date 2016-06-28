@@ -931,6 +931,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
               
+              el.html('TODO: display dimension: ' + $scope.dimension)
 
             }, 0)
           }
