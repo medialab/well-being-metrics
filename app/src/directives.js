@@ -908,3 +908,34 @@ angular.module('app.directives', [])
       templateUrl: 'src/directives/wizardBalloon.html'
     }
   })
+
+  .directive('happinessDiagram', function ($timeout, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+        dimension: '='
+      },
+      link: function($scope, el, attrs) {
+
+        el.html('<div><center>Loading...</center></div>')
+        
+        $scope.$watch('dimension', redraw)
+        window.addEventListener('resize', redraw)
+        $scope.$on('$destroy', function(){
+          window.removeEventListener('resize', redraw)
+        })
+
+        function redraw() {
+          // FIXME: use a relevant 'if' condition
+          if (true || $scope.data !== undefined){
+            $timeout(function () {
+              el.html('');
+              
+
+            }, 0)
+          }
+        }
+      }
+    }
+  })
+

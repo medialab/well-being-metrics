@@ -340,6 +340,8 @@ angular.module('app.populationData', ['ngRoute'])
 
 	$scope.happinessModel = {}
 	$scope.modelVars = {}
+	$scope.introMode = true
+	$scope.choosePresetMode = true
 	
 	$scope.toggleLeft = buildDelayedToggler('left');
 
@@ -381,6 +383,15 @@ angular.module('app.populationData', ['ngRoute'])
         // $log.debug("close LEFT is done");
       });
   };
+
+  $scope.setPreset = function (preset) {
+  	$scope.introMode = false
+  	$scope.choosePresetMode = false
+		var k
+  	for(k in preset.data) {
+  		$scope[k] = preset.data[k]
+  	}
+  }
 
   // Update income deciles after chosen income
   $scope.$watch('income', updateDecileFromIncome)
