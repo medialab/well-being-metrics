@@ -69,6 +69,221 @@ angular.module('app.populationData', ['ngRoute'])
 	$scope.children_list = []
 	$scope.children
 	$scope.charity = false
+	$scope.presets = [
+		// First names found via https://dataaddict.fr/prenoms
+		{
+			id: 'student',
+			name: 'Camille',
+			data: {
+				'age': 19,
+				'work': 'work_student',
+				'income': 4000, // Income decile: 8 (lives at home)
+				'diploma': 'diploma_bac',
+				'owner': true, // lives at home
+				'wedding': 'marital_single',
+				'children': 'children_0',
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'young-single',
+			name: 'Julien',
+			data: {
+				'gender': 'gender_male',
+				'age': 30,
+				'work': 'work_worker',
+				'income': 2200, // Income decile: 4
+				'diploma': 'diploma_pro',
+				'owner': false,
+				'wedding': 'marital_single',
+				'children': 'children_0',
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'young-active-mom',
+			name: 'Elodie',
+			data: {
+				'gender': 'gender_female',
+				'age': 25,
+				'work': 'work_worker',
+				'income': 3500, // Income decile: 7
+				'diploma': 'diploma_none',
+				'owner': true,
+				'wedding': 'marital_couple',
+				'children': 'children_2',
+				'partnerWorks': true,
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'comfortable-father',
+			name: 'Frédéric',
+			data: {
+				'gender': 'gender_male',
+				'age': 40,
+				'work': 'work_worker',
+				'income': 4000, // Income decile: 8
+				'diploma': 'diploma_postbac',
+				'owner': true,
+				'wedding': 'marital_couple',
+				'children': 'children_2',
+				'partnerWorks': true,
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'modest-father',
+			name: 'Jérôme',
+			data: {
+				'gender': 'gender_male',
+				'age': 40,
+				'work': 'work_worker',
+				'income': 1800, // Income decile: 3
+				'diploma': 'diploma_pro',
+				'owner': false,
+				'wedding': 'marital_couple',
+				'children': 'children_2',
+				'partnerWorks': false,
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'single-mother',
+			name: 'Virginie',
+			data: {
+				'gender': 'gender_female',
+				'age': 35,
+				'work': 'work_worker',
+				'income': 1800, // Income decile: 3
+				'diploma': 'diploma_pro',
+				'owner': false,
+				'wedding': 'marital_single',
+				'children': 'children_1',
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'mother-at-home',
+			name: 'Aurélie',
+			data: {
+				'gender': 'gender_female',
+				'age': 35,
+				'work': 'work_athome',
+				'income': 2200, // Income decile: 4
+				'diploma': 'diploma_pro',
+				'owner': false,
+				'wedding': 'marital_couple',
+				'children': 'children_3',
+				'partnerWorks': true,
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'longterm-unemployed-woman',
+			name: 'Stéphanie',
+			data: {
+				'gender': 'gender_female',
+				'age': 40,
+				'work': 'work_unemployed',
+				'income': 2600, // Income decile: 5
+				'diploma': 'diploma_pro',
+				'owner': false,
+				'wedding': 'marital_couple',
+				'children': 'children_1',
+				'partnerWorks': true,
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'single-unemployed-man',
+			name: 'Jérémy',
+			data: {
+				'gender': 'gender_male',
+				'age': 30,
+				'work': 'work_unemployed',
+				'income': 1300, // Income decile: 2
+				'diploma': 'diploma_pro',
+				'owner': false,
+				'wedding': 'marital_single',
+				'children': 'children_0',
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'active-citizen',
+			name: 'Stéphan(i)e',
+			data: {
+				'age': 45,
+				'work': 'work_worker',
+				'income': 3500, // Income decile: 7
+				'diploma': 'diploma_postbac',
+				'owner': true,
+				'wedding': 'marital_couple',
+				'children': 'children_0',
+				'partnerWorks': true,
+				'charity': true,
+				'french': true
+			}
+		},
+		{
+			id: 'retired-citizen',
+			name: 'Christian(e)',
+			data: {
+				'age': 70,
+				'work': 'work_retired',
+				'income': 3000, // Income decile: 6
+				'diploma': 'diploma_none',
+				'owner': true,
+				'wedding': 'marital_couple',
+				'children': 'children_0',
+				'partnerWorks': false,
+				'charity': true,
+				'french': true
+			}
+		},
+		{
+			id: 'retired',
+			name: 'Michel(e)',
+			data: {
+				'age': 70,
+				'work': 'work_retired',
+				'income': 2600, // Income decile: 5
+				'diploma': 'diploma_pro',
+				'owner': true,
+				'wedding': 'marital_couple',
+				'children': 'children_0',
+				'partnerWorks': false,
+				'charity': false,
+				'french': true
+			}
+		},
+		{
+			id: 'immigrant',
+			data: {
+				'gender': 'gender_male',
+				'age': 50,
+				'work': 'work_worker',
+				'income': 2200, // Income decile: 4
+				'diploma': 'diploma_none',
+				'owner': false,
+				'wedding': 'marital_couple',
+				'children': 'children_0',
+				'partnerWorks': true,
+				'charity': false,
+				'french': false
+			}
+		}
+	]
 
 	$scope.happinessModel = {}
 	$scope.modelVars = {}
@@ -150,7 +365,6 @@ angular.module('app.populationData', ['ngRoute'])
   		$scope.modelVars['income-decile'] = $scope.incomeDecile
   		$scope.modelVars['income-decile-square'] = $scope.incomeDecile * $scope.incomeDecile
   		$scope.modelVars['is-owner'] = ($scope.owner) ? (1) : (0)
-  		$scope.modelVars['partner-working'] = ($scope.partnerWorks) ? (1) : (0)
   		$scope.modelVars['has-children-1'] = ($scope.children == 'children_1') ? (1) : (0)
   		$scope.modelVars['has-children-2'] = ($scope.children == 'children_2') ? (1) : (0)
   		$scope.modelVars['has-children-3'] = ($scope.children == 'children_3') ? (1) : (0)
@@ -165,6 +379,7 @@ angular.module('app.populationData', ['ngRoute'])
   		$scope.modelVars['is-divorced'] = ($scope.wedding == 'marital_divorced') ? (1) : (0)
   		$scope.modelVars['is-widow'] = ($scope.wedding == 'marital_widow') ? (1) : (0)
   		$scope.modelVars['has-children'] = ($scope.children && $scope.children != 'children_0') ? (1) : (0)
+  		$scope.modelVars['partner-working'] = ($scope.modelVars['is-in-couple']) ? (($scope.partnerWorks) ? (1) : (0)) : (0)
   		$scope.modelVars['partner-working-by-children'] = $scope.modelVars['partner-working'] * $scope.modelVars['has-children']
   		$scope.modelVars['at-home-by-children'] = $scope.modelVars['is-at-home'] * $scope.modelVars['has-children']
   		$scope.modelVars['woman-by-unemployed'] = $scope.modelVars['is-woman'] * (($scope.work == 'work_unemployed') ? (1) : (0))
