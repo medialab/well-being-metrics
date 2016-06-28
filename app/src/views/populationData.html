@@ -113,14 +113,21 @@
 
 			<div ng-show="!loading">
 			  <h1>Prototype: Population Data</h1>
-			  Model complete: {{!incompleteModel}}
-			  <div ng-repeat="coeff in coeffs">
-			    <strong>{{coeff.id}}:</strong> 
-			    {{coeff.current_life}} | 
-			    {{coeff.leisure}} |
-			    {{coeff.housing}} |
-			    {{coeff.loved_ones}}
-			  </div>
+			  <p>
+				  Model complete: {{!incompleteModel}}
+			  </p>
+			  <p>
+				  current_life: {{happinessModel.current_life}}
+			  </p>
+			  <p>
+				  leisure: {{happinessModel.leisure}}
+			  </p>
+			  <p>
+				  housing: {{happinessModel.housing}}
+			  </p>
+			  <p>
+				  loved_ones: {{happinessModel.loved_ones}}
+			  </p>
 			</div>
       
     </div>

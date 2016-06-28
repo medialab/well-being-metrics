@@ -70,6 +70,7 @@ angular.module('app.populationData', ['ngRoute'])
 	$scope.children
 	$scope.charity = false
 
+	$scope.happinessModel = {}
 	$scope.modelVars = {}
 	
 	$scope.toggleLeft = buildDelayedToggler('left');
@@ -176,6 +177,17 @@ angular.module('app.populationData', ['ngRoute'])
   		$scope.modelVars['in-couple-by-children'] = $scope.modelVars['is-in-couple'] * $scope.modelVars['has-children']
   		$scope.modelVars['charity'] = ($scope.charity) ? (1) : (0)
   		$scope.modelVars['baseline'] = 1 // Constant
+
+  		// Compute models
+  		$scope.happinessModel = {}
+  		var happinessDimensions = ['current_life', 'leisure', 'housing', 'loved_ones']
+  		happinessDimensions.forEach(function(d){
+  			var sum = 0
+  			$scope.coeffs.forEach(function(coeff){
+  				sum += coeff[d] * $scope.modelVars[coeff.id]
+  			})
+  			$scope.happinessModel[d] = sum
+  		})
   	}
   }
 
