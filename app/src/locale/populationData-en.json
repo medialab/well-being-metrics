@@ -48,5 +48,44 @@
 	"CHILDREN": "Children in your home",
 	"ENGAGED IN CHARITY": "Engaged in a charity",
 	"NOT ENGAGED IN CHARITY": "Not engaged in a charity",
-	"HOME FINANCE": "Home finance"
+	"HOME FINANCE": "Home finance",
+
+	"STUDENT": "Student",
+	"STUDENT TEXT": "",
+
+	"YOUNG SINGLE": "Single young man",
+	"YOUNG SINGLE TEXT": "",
+
+	"YOUNG ACTIVE MOM": "Active young mother",
+	"YOUNG ACTIVE MOM TEXT": "",
+
+	"COMFORTABLE FATHER": "Father with comfortable means",
+	"COMFORTABLE FATHER TEXT": "",
+
+	"MODEST FATHER": "Father with modest means",
+	"MODEST FATHER TEXT": "",
+
+	"SINGLE MOTHER": "Single mother",
+	"SINGLE MOTHER TEXT": "",
+
+	"MOTHER AT HOME": "Mother at home",
+	"MOTHER AT HOME TEXT": "",
+
+	"UNEMPLOYED WOMAN": "Unemployed woman in couple",
+	"UNEMPLOYED WOMAN TEXT": "",
+
+	"SINGLE UNEMPLOYED MAN": "Single unemployed man",
+	"SINGLE UNEMPLOYED MAN TEXT": "",
+
+	"ACTIVE CITIZEN": "Active citizen",
+	"ACTIVE CITIZEN TEXT": "",
+
+	"RETIRED CITIZEN": "Retired citizen",
+	"RETIRED CITIZEN TEXT": "",
+
+	"RETIRED": "Retired",
+	"RETIRED TEXT": "",
+
+	"IMMIGRANT": "Immigrant",
+	"IMMIGRANT TEXT": ""
 }

@@ -48,5 +48,44 @@
 	"CHILDREN": "Enfants dans votre foyer",
 	"ENGAGED IN CHARITY": "Participe à une association",
 	"NOT ENGAGED IN CHARITY": "Pas de vie associative",
-	"HOME FINANCE": "Finances du foyer"
+	"HOME FINANCE": "Finances du foyer",
+
+	"STUDENT": "étudiant",
+	"STUDENT TEXT": "19 ans, vient d'avoir son bac et vit chez ses parents, dans un foyer avec de bons revenus.",
+
+	"YOUNG SINGLE": "jeune célibataire",
+	"YOUNG SINGLE TEXT": "Travailleur célibataire et sans enfant, il a 30 ans et un diplôme professionnel en poche.",
+
+	"YOUNG ACTIVE MOM": "jeune maman active",
+	"YOUNG ACTIVE MOM TEXT": "Elle a 25 ans et bien que n'ayant pas de diplôme, elle travaille en plus de son conjoint pour subvenir aux besoins de leurs deux enfants.",
+
+	"COMFORTABLE FATHER": "père de famille aisée",
+	"COMFORTABLE FATHER TEXT": "A 40 ans il a un bon travail, et sa femme travaillant également ils bénéficient de bons revenus pour élever leurs deux enfants.",
+
+	"MODEST FATHER": "père de famille modeste",
+	"MODEST FATHER TEXT": "Il a 40 ans et malgré un emploi mal payé, il doit subvenir tout seul aux besoins de sa famille.",
+
+	"SINGLE MOTHER": "maman seule",
+	"SINGLE MOTHER TEXT": "A 35 ans elle élève toute seule son enfant, et bien qu'elle ait un emploi, il n'est pas bien payé.",
+
+	"MOTHER AT HOME": "maman au foyer",
+	"MOTHER AT HOME TEXT": "Mariée avec 3 enfants à 40 ans, elle a choisi avec son mari que ce dernier subvienne aux besoins de la famille pendant qu'elle s'occupe de leur foyer.",
+
+	"UNEMPLOYED WOMAN": "chômeuse et en couple",
+	"UNEMPLOYED WOMAN TEXT": "Elle a 40 ans et n'arrive pas à retrouver du travail après un licenciement. Son conjoint travaille et leur permet d'élever correctement leur enfant.",
+
+	"SINGLE UNEMPLOYED MAN": "chômeur et célibataire",
+	"SINGLE UNEMPLOYED MAN TEXT": "30 ans et sans emploi, ses revenus sont parmi les plus bas en France.",
+
+	"ACTIVE CITIZEN": "actif et citoyen",
+	"ACTIVE CITIZEN TEXT": "45 ans, en couple avec un conjoint actif et sans enfant, bénéficie de moyens élevés et participe à la vie associative locale.",
+
+	"RETIRED CITIZEN": "retraité et citoyen",
+	"RETIRED CITIZEN TEXT": "70 ans, propriétaire de son logement, sans enfant à charge et bénéficiant d'une bonne retraite. Participe à la vie associative locale.",
+
+	"RETIRED": "retraité",
+	"RETIRED TEXT": "70 ans, propriétaire de son logement, sans enfant à charge et bénéficiant d'une retraite moyenne. Ne participe pas à la vie associative.",
+
+	"IMMIGRANT": "immigrant modeste",
+	"IMMIGRANT TEXT": "Né à l'étranger il y a 50 ans, il s'est installé en France il y a 15 ans et il y a rencontré sa femme. Leurs deux emplois sont modestes et ils n'ont pas d'enfant."
 }

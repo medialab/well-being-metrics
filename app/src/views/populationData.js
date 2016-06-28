@@ -73,7 +73,11 @@ angular.module('app.populationData', ['ngRoute'])
 		// First names found via https://dataaddict.fr/prenoms
 		{
 			id: 'student',
+			type: 'STUDENT',
+			text: 'STUDENT TEXT',
 			name: 'Camille',
+			color: '#64dac4',
+			colorLight: '#c8f4ea',
 			data: {
 				'age': 19,
 				'work': 'work_student',
@@ -88,7 +92,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'young-single',
+			type: 'YOUNG SINGLE',
+			text: 'YOUNG SINGLE TEXT',
 			name: 'Julien',
+			color: '#da81ac',
+			colorLight: '#e3d6e9',
 			data: {
 				'gender': 'gender_male',
 				'age': 30,
@@ -104,7 +112,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'young-active-mom',
+			type: 'YOUNG ACTIVE MOM',
+			text: 'YOUNG ACTIVE MOM TEXT',
 			name: 'Elodie',
+			color: '#75d189',
+			colorLight: '#bed9b3',
 			data: {
 				'gender': 'gender_female',
 				'age': 25,
@@ -121,7 +133,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'comfortable-father',
+			type: 'COMFORTABLE FATHER',
+			text: 'COMFORTABLE FATHER TEXT',
 			name: 'Frédéric',
+			color: '#c494d8',
+			colorLight: '#e2c9f0',
 			data: {
 				'gender': 'gender_male',
 				'age': 40,
@@ -138,7 +154,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'modest-father',
+			type: 'MODEST FATHER',
+			text: 'MODEST FATHER TEXT',
 			name: 'Jérôme',
+			color: '#779d53',
+			colorLight: '#d7f3cc',
 			data: {
 				'gender': 'gender_male',
 				'age': 40,
@@ -155,7 +175,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'single-mother',
+			type: 'SINGLE MOTHER',
+			text: 'SINGLE MOTHER TEXT',
 			name: 'Virginie',
+			color: '#789ae0',
+			colorLight: '#c1d3ef',
 			data: {
 				'gender': 'gender_female',
 				'age': 35,
@@ -171,7 +195,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'mother-at-home',
+			type: 'MOTHER AT HOME',
+			text: 'MOTHER AT HOME TEXT',
 			name: 'Aurélie',
+			color: '#b9ac5e',
+			colorLight: '#e6d9bc',
 			data: {
 				'gender': 'gender_female',
 				'age': 35,
@@ -188,7 +216,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'longterm-unemployed-woman',
+			type: 'UNEMPLOYED WOMAN',
+			text: 'UNEMPLOYED WOMAN TEXT',
 			name: 'Stéphanie',
+			color: '#54bada',
+			colorLight: '#b8d7e0',
 			data: {
 				'gender': 'gender_female',
 				'age': 40,
@@ -205,7 +237,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'single-unemployed-man',
+			type: 'SINGLE UNEMPLOYED MAN',
+			text: 'SINGLE UNEMPLOYED MAN TEXT',
 			name: 'Jérémy',
+			color: '#d4985d',
+			colorLight: '#eccbb4',
 			data: {
 				'gender': 'gender_male',
 				'age': 30,
@@ -221,7 +257,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'active-citizen',
+			type: 'ACTIVE CITIZEN',
+			text: 'ACTIVE CITIZEN TEXT',
 			name: 'Stéphan(i)e',
+			color: '#41aaa1',
+			colorLight: '#a7d2c9',
 			data: {
 				'age': 45,
 				'work': 'work_worker',
@@ -237,7 +277,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'retired-citizen',
+			type: 'RETIRED CITIZEN',
+			text: 'RETIRED CITIZEN TEXT',
 			name: 'Christian(e)',
+			color: '#de8077',
+			colorLight: '#f5c7c3',
 			data: {
 				'age': 70,
 				'work': 'work_retired',
@@ -253,7 +297,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'retired',
+			type: 'RETIRED',
+			text: 'RETIRED TEXT',
 			name: 'Michel(e)',
+			color: '#50a97c',
+			colorLight: '#b6d1ab',
 			data: {
 				'age': 70,
 				'work': 'work_retired',
@@ -269,6 +317,11 @@ angular.module('app.populationData', ['ngRoute'])
 		},
 		{
 			id: 'immigrant',
+			name: 'Franck',
+			color: '#aed08b',
+			colorLight: '#d9e6d3',
+			type: 'IMMIGRANT',
+			text: 'IMMIGRANT TEXT',
 			data: {
 				'gender': 'gender_male',
 				'age': 50,

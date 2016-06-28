@@ -97,7 +97,7 @@
     </div>
   </md-sidenav>
   <md-content flex layout-padding>
-    <div layout="column" layout-fill layout-align="top center">
+    <div layout="column" layout-align="top center">
 
       <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
       <div>
@@ -111,8 +111,33 @@
 			  LOADING
 			</div>
 
-			<div ng-show="!loading">
-			  <h1>Prototype: Population Data</h1>
+			<div ng-show="!loading" layout-fill>
+				<md-grid-list
+	        md-cols-xs="1"
+	        md-cols-sm="2"
+	        md-cols-md="4"
+	        md-cols-gt-md="6"
+	        md-row-height-gt-md="1:1"
+	        md-row-height="2:2"
+	        md-gutter="12px"
+	        md-gutter-gt-sm="8px"
+			  >
+			    <md-grid-tile
+			      md-rowspan="1"
+			      md-colspan="2"
+			      md-colspan-sm="1"
+			      md-colspan-xs="1"
+			      ng-repeat="preset in presets"
+			      class="profile-tile"
+			      style="background-color: {{preset.colorLight}};"
+			    >
+			    	<div class="profile-tile-content">
+				    	<h3><strong>{{preset.name}}</strong>, {{preset.type|translate}}</h3>
+						  <p translate>{{preset.text}}</p>
+						</div>
+			    </md-grid-tile>
+			  </md-grid-list>
+			  <!-- <h1>Prototype: Population Data</h1>
 			  <p>
 				  Model complete: {{!incompleteModel}}
 			  </p>
@@ -127,7 +152,7 @@
 			  </p>
 			  <p>
 				  loved_ones: {{happinessModel.loved_ones}}
-			  </p>
+			  </p> -->
 			</div>
     </div>
     <div flex></div>
