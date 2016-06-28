@@ -134,7 +134,7 @@ angular.module('app.populationData', ['ngRoute'])
   $scope.$watchGroup(userModelVars, updateHappinessModel)
   function updateHappinessModel () {
   	// Are variables filled?
-  	$scope.incompleteModel = userModelVars.some(function(d){
+  	$scope.incompleteModel = ['age', 'diploma', 'work', 'wedding', 'children', 'french', 'charity', 'incomeDecile', 'partnerWorks', 'owner'].some(function(d){
   		return $scope[d] === undefined
   	})
 
@@ -144,7 +144,7 @@ angular.module('app.populationData', ['ngRoute'])
   		$scope.modelVars['age'] = $scope.age
   		$scope.modelVars['age-square'] = $scope.age * $scope.age
   		$scope.modelVars['age-cube'] = $scope.age * $scope.age * $scope.age
-  		$scope.modelVars['is-woman'] = ($scope.gender == 'gender_female') ? (1) : (0)
+  		$scope.modelVars['is-woman'] = ($scope.gender === undefined) ? (0.5) : ($scope.gender == 'gender_female') ? (1) : (0)
   		$scope.modelVars['woman-by-age'] = $scope.modelVars['is-woman'] * $scope.modelVars['age']
   		$scope.modelVars['is-french'] = ($scope.french) ? (1) : (0)
   		$scope.modelVars['income-decile'] = $scope.incomeDecile
