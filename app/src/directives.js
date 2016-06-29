@@ -960,19 +960,9 @@ angular.module('app.directives', [])
               }
 
               function generateData() {
-                var color = d3.interpolateLab(d3.lab(d3.color('#DDDDDD')), d3.lab(d3.color('#36827a')))
+                var color = d3.interpolateLab(d3.lab(d3.color('#DDDDDD')), d3.lab(d3.color('#ffca28')))
                 
                 var persons = []
-
-                // "You" person
-                persons.push({
-                  id: 'you',
-                  updatable: true,
-                  value: $scope.happinessModel[$scope.dimension].decile,
-                  radius: personRadius + radiusBonus,
-                  offset: 0,
-                  color: '#000'
-                })
 
                 // Artificial persons
                 var partCount = 10
@@ -994,6 +984,17 @@ angular.module('app.directives', [])
                     })
                   }
                 }
+                
+                // "You" person
+                persons.push({
+                  id: 'you',
+                  updatable: true,
+                  value: $scope.happinessModel[$scope.dimension].decile,
+                  radius: personRadius + radiusBonus,
+                  offset: 0,
+                  color: '#36827a'
+                })
+
                 return persons
               }
 
