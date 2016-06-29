@@ -898,6 +898,7 @@ angular.module('app.directives', [])
         var radiusBonus = 2 // Additional radius for highlighted entities
         var personCount = 80
         var xSpreading = 50
+        var youProfile
 
         function redraw() {
           // FIXME: use a relevant 'if' condition
@@ -940,6 +941,7 @@ angular.module('app.directives', [])
               // Scales
               var y = d3.scaleLinear()
                 .rangeRound([height, 0]);
+              var color = d3.interpolateLab(d3.lab(d3.color('#DDDDDD')), d3.lab(d3.color('#ffca28')))
 
               // Get data
               var data = generateData()
@@ -967,7 +969,7 @@ angular.module('app.directives', [])
                   .attr("r", function(d) { return d.radius; })
                   .attr("cx", function(d) { return width/2 + d.x; })
                   .attr("cy", function(d) { return d.y; })
-                  .style("fill", function(d) { return d.color; })
+                  .style("fill", function(d) { return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); })
 
               function ticked() {
                 svg.selectAll('circle')
@@ -976,7 +978,6 @@ angular.module('app.directives', [])
               }
 
               function generateData() {
-                var color = d3.interpolateLab(d3.lab(d3.color('#DDDDDD')), d3.lab(d3.color('#ffca28')))
                 
                 var persons = []
 
@@ -996,7 +997,24 @@ angular.module('app.directives', [])
                       value: value,
                       radius: personRadius,
                       offset: xSpreading * (iPerson / (personCount/partCount) ) -xSpreading / 2,
-                      color: color(value / 10)
+                      happinessModel: {
+                        current_life: {
+                          score: getHappinessFromDecile(value, 'current_life'),
+                          decile: value
+                        },
+                        leisure: {
+                          score: getHappinessFromDecile(value, 'leisure'),
+                          decile: value
+                        },
+                        housing: {
+                          score: getHappinessFromDecile(value, 'housing'),
+                          decile: value
+                        },
+                        loved_ones: {
+                          score: getHappinessFromDecile(value, 'loved_ones'),
+                          decile: value
+                        }
+                      }
                     })
                   }
                 }
@@ -1013,15 +1031,16 @@ angular.module('app.directives', [])
                   })
                 })
 
-                // "You" person
-                persons.push({
+                // the "You" person
+                youProfile = {
                   id: 'you',
                   updatable: true,
                   value: $scope.happinessModel[$scope.dimension].decile,
                   radius: personRadius + radiusBonus,
                   offset: 0,
                   color: '#36827a'
-                })
+                }
+                persons.push(youProfile)
 
                 return persons
               }
@@ -1038,6 +1057,9 @@ angular.module('app.directives', [])
           }
         }
 
+        var income_deciles = [1000, 1500, 2000, 2400, 2800, 3300, 3800, 4500, 5700]
+        var maxIncome = 10000 // Here considered the max monthly income (totally false of course)
+
         function getDecileFromIncome(income) {
           // Note: the deciles range from 1 to 10 as in statistics
           var incomeDecile = 1
@@ -1047,6 +1069,57 @@ angular.module('app.directives', [])
             }
           })
           return incomeDecile
+        }
+
+        function getIncomeFromDecile(decile) {
+          var roundedDecile = Math.floor(decile)
+          var incomeMin
+          var incomeMax
+          if (roundedDecile == 0) {
+            incomeMin = 0
+            incomeMax = income_deciles[1]
+          } else if (roundedDecile >= 9) {
+            incomeMin = income_deciles[roundedDecile - 1]
+            incomeMax = maxIncome
+          } else {
+            incomeMin = income_deciles[roundedDecile - 1]
+            incomeMax = income_deciles[roundedDecile]
+          }
+
+          var restant = decile - roundedDecile
+          var income = incomeMin + restant * (incomeMax - incomeMin)
+          income = 100 * Math.round(0.01 * income)
+
+          return income
+        }
+
+        var happinessDeciles = {
+          current_life: [6.41, 6.8, 7.08, 7.29, 7.47, 7.61, 7.75, 7.89, 8.09],
+          leisure: [5.8, 6.19, 6.45, 6.66, 6.85, 7.03, 7.23, 7.45, 7.76],
+          housing: [6.98, 7.24, 7.51, 7.78, 7.92, 8.02, 8.1, 8.19, 8.3],
+          loved_ones: [7.59, 7.79, 7.9, 8, 8.08, 8.16, 8.24, 8.35, 8.48]
+        }
+
+        function getHappinessFromDecile(decile, dimension) {
+          var roundedDecile = Math.floor(decile)
+          var deciles = happinessDeciles[dimension]
+          var min
+          var max
+          if (roundedDecile == 0) {
+            min = 0
+            max = deciles[1]
+          } else if (roundedDecile >= 9) {
+            min = deciles[roundedDecile - 1]
+            max = 10
+          } else {
+            min = deciles[roundedDecile - 1]
+            max = deciles[roundedDecile]
+          }
+
+          var restant = decile - roundedDecile
+          var score = min + restant * (max - min)
+          
+          return score
         }
       }
     }
