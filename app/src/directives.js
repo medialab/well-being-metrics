@@ -893,6 +893,10 @@ angular.module('app.directives', [])
           window.removeEventListener('resize', redraw)
         })
 
+        var personRadius = 8
+        var personCount = 80
+        var xSpreading = 50
+
         function redraw() {
           // FIXME: use a relevant 'if' condition
           if (true || $scope.data !== undefined){
@@ -904,9 +908,9 @@ angular.module('app.directives', [])
               // el.html($scope.happinessModel[$scope.dimension])
 
               // Setup: dimensions
-              var margin = {top: 0, right: 0, bottom: 50, left: 0};
-              var width = el[0].offsetWidth - margin.left - margin.right;
-              var height = el[0].offsetHeight - margin.top - margin.bottom;
+              var margin = {top: 48, right: 24, bottom: 48, left: 24};
+              var width = el[0].offsetWidth - margin.left - margin.right - 12;
+              var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -918,53 +922,76 @@ angular.module('app.directives', [])
 
               // Scales
               var y = d3.scaleLinear()
-                .rangeRound([0, height]);
+                .rangeRound([height, 0]);
 
+              // Get data
               var data = generateData()
 
+              // Set scales domain
               y.domain(d3.extent(data, function(d) { return d.value; }));
 
-              var simulation = d3.forceSimulation(data)
-                .force("x", d3.forceY(function(d) { return y(d.value); }).strength(1))
-                .force("y", d3.forceX(height / 2))
-                .force("collide", d3.forceCollide(4))
-                .stop();
+              // Starting positions
+              startingPositions(data, y)
 
-              for (var i = 0; i < 120; ++i) simulation.tick();
+              var simulation = d3.forceSimulation(data)
+                .force("x", d3.forceX(function(d) { return d.offset; }).strength(1))
+                .force("y", d3.forceY(function(d) { return y(d.value); }).strength(1))
+                .force("collide", d3.forceCollide(personRadius + 2))
+                .on("tick", ticked)
+                .alphaMin(0.01)
+                // .stop()
 
               var cell = g.append("g")
                 .attr("class", "cells")
-              .selectAll("g").data(d3.voronoi()
-                  .extent([[-margin.left, -margin.top], [width + margin.right, height + margin.top]])
-                  .x(function(d) { return d.x; })
-                  .y(function(d) { return d.y; })
-                .polygons(data)).enter().append("g");
+              .selectAll("g").data(data)
+              .enter().append("g");
 
               cell.append("circle")
-                  .attr("r", 3)
-                  .attr("cx", function(d) { return d.data.x; })
-                  .attr("cy", function(d) { return d.data.y; });
+                  .attr("r", personRadius)
+                  .attr("cx", function(d) { return width/2 + d.x; })
+                  .attr("cy", function(d) { return d.y; })
+                  .style("fill", function(d) { return d.color; })
 
-              cell.append("path")
-                  .attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+              function ticked() {
+                svg.selectAll('circle')
+                  .attr("cx", function(d) { return width/2 + d.x; })
+                  .attr("cy", function(d) { return d.y; })
+              }
 
-              cell.append("title")
-                  .text(function(d) { return d.data.id + "\n" + d.data.value; });
+              function generateData() {
+                var color = d3.interpolateLab(d3.lab(d3.color('#DDD')), d3.lab(d3.color('#36827a')))
+                
+                var persons = []
+                var partCount = 10
+                var iPart
+                var iPerson
+
+                for (iPart = 0; iPart<partCount; iPart++) {
+                  var minValue = 1 + 9 * iPart/partCount
+                  var maxValue = minValue + iPart/partCount
+                  for (iPerson = 0; iPerson < personCount/partCount; iPerson++) {
+                    var value = minValue + Math.random() * (maxValue - minValue)
+                    persons.push({
+                      id: iPart + '-' + iPerson,
+                      value: value,
+                      offset: xSpreading * (iPerson / (personCount/partCount) ) -xSpreading / 2,
+                      color: color(value / 10)
+                    })
+                  }
+                }
+                return persons
+              }
+
+              function startingPositions(persons, yScale) {
+                persons.forEach(function(p){
+                  p.x = 8 * p.offset + (Math.random() - 0.5) * 2 * xSpreading
+                  p.y = height - 0.1 * yScale(p.value)
+                })
+              }
+
 
             }, 0)
           }
-        }
-
-        function generateData() {
-          var persons = []
-          var i
-          for (i=0; i<100; i++) {
-            persons.push({
-              id: i,
-              value: 1 + Math.random() * 9
-            })
-          }
-          return persons
         }
       }
     }
