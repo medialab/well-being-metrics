@@ -464,12 +464,29 @@ angular.module('app.populationData', ['ngRoute'])
   		// Compute models
   		$scope.happinessModel = {}
   		var happinessDimensions = ['current_life', 'leisure', 'housing', 'loved_ones']
+  		// FIXME: put this in a separate file
+  		var happinessDeciles = {
+  			current_life: [6.41, 6.8, 7.08, 7.29, 7.47, 7.61, 7.75, 7.89, 8.09],
+  			leisure: [5.8, .19, .45, .66, .85, .03, .23, .45, .76],
+  			housing: [6.98, 7.24, 7.51, 7.78, 7.92, 8.02, 8.1, 8.19, 8.3],
+  			loved_ones: [7.59, 7.79, 7.9, 8, 8.08, 8.16, 8.24, 8.35, 8.48]
+  		}
   		happinessDimensions.forEach(function(d){
-  			var sum = 0
+  			var score = 0
   			$scope.coeffs.forEach(function(coeff){
-  				sum += coeff[d] * $scope.modelVars[coeff.id]
+  				score += coeff[d] * $scope.modelVars[coeff.id]
   			})
-  			$scope.happinessModel[d] = sum
+  			// Note: the deciles range from 1 to 10 as in statistics
+		  	var decile = 1
+		  	happinessDeciles[d].forEach(function(max, i) {
+		  		if (score > max) {
+		  			decile = i+2
+		  		}
+		  	})
+		  	$scope.happinessModel[d] = {
+		  		score: score,
+		  		decile: decile
+		  	}
   		})
   	}
   }

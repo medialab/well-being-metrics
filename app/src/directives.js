@@ -893,7 +893,8 @@ angular.module('app.directives', [])
           window.removeEventListener('resize', redraw)
         })
 
-        var personRadius = 8
+        var personRadius = 6
+        var radiusBonus = 2 // Additional radius for highlighted entities
         var personCount = 80
         var xSpreading = 50
 
@@ -903,9 +904,9 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              console.log('redraw ' + $scope.dimension)
+              console.log('redraw ' + $scope.dimension, $scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
               
-              // el.html($scope.happinessModel[$scope.dimension])
+              // el.html($scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
 
               // Setup: dimensions
               var margin = {top: 48, right: 24, bottom: 48, left: 24};
@@ -934,8 +935,8 @@ angular.module('app.directives', [])
               startingPositions(data, y)
 
               var simulation = d3.forceSimulation(data)
-                .force("x", d3.forceX(function(d) { return d.offset; }).strength(1))
-                .force("y", d3.forceY(function(d) { return y(d.value); }).strength(1))
+                .force("x", d3.forceX(function(d) { return d.offset; }).strength(.3))
+                .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
                 .force("collide", d3.forceCollide(personRadius + 2))
                 .on("tick", ticked)
                 .alphaMin(0.01)
@@ -947,7 +948,7 @@ angular.module('app.directives', [])
               .enter().append("g");
 
               cell.append("circle")
-                  .attr("r", personRadius)
+                  .attr("r", function(d) { return d.radius; })
                   .attr("cx", function(d) { return width/2 + d.x; })
                   .attr("cy", function(d) { return d.y; })
                   .style("fill", function(d) { return d.color; })
@@ -959,9 +960,21 @@ angular.module('app.directives', [])
               }
 
               function generateData() {
-                var color = d3.interpolateLab(d3.lab(d3.color('#DDD')), d3.lab(d3.color('#36827a')))
+                var color = d3.interpolateLab(d3.lab(d3.color('#DDDDDD')), d3.lab(d3.color('#36827a')))
                 
                 var persons = []
+
+                // "You" person
+                persons.push({
+                  id: 'you',
+                  updatable: true,
+                  value: $scope.happinessModel[$scope.dimension].decile,
+                  radius: personRadius + radiusBonus,
+                  offset: 0,
+                  color: '#000'
+                })
+
+                // Artificial persons
                 var partCount = 10
                 var iPart
                 var iPerson
@@ -973,7 +986,9 @@ angular.module('app.directives', [])
                     var value = minValue + Math.random() * (maxValue - minValue)
                     persons.push({
                       id: iPart + '-' + iPerson,
+                      updatable: false,
                       value: value,
+                      radius: personRadius,
                       offset: xSpreading * (iPerson / (personCount/partCount) ) -xSpreading / 2,
                       color: color(value / 10)
                     })
