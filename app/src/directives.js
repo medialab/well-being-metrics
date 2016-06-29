@@ -42,10 +42,10 @@ angular.module('app.directives', [])
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
               // Setup: scales
-              var size = d3.scale.linear()
+              var size = d3.scaleLinear()
                   .range([0, height]);
               
-              var dotSize = d3.scale.linear()
+              var dotSize = d3.scaleLinear()
                   .range([0, 0.5 * (regions[0].xExtent[1] - regions[0].xExtent[0])])
 
               // Setup: SVG container
@@ -72,10 +72,10 @@ angular.module('app.directives', [])
               )
               var xOffset = -size(xExtent[0]) + (width / 2 - ( size(xExtent[1]) - size(xExtent[0]) ) / 2 )
               
-              var lineFunction = d3.svg.line()
+              var lineFunction = d3.line()
                 .x(function(d) { return xOffset + size(d[0]); })
                 .y(function(d) { return size(d[1]); })
-                .interpolate('linear');
+                .curve(d3.curveLinear);
 
               var regionGroups = svg.selectAll('.hex')
                 .data(regions)
@@ -136,20 +136,6 @@ angular.module('app.directives', [])
                 .attr('fill', dotColor)
                 .attr('opacity', .8)
 
-              // Sparklines
-              /*regionGroups.append('path')
-                .attr('class', 'sparkline')
-                .attr('d', function (d) {
-                  if (regionValid(d.abbr)) {
-                    var sparklineFunction = buildSparklineFunction(d)
-                    return sparklineFunction($scope.data[d.abbr])
-                  }
-                })
-                .attr('stroke', 'white')
-                .attr('stroke-width', 1)
-                .attr('fill', 'none')
-                .attr('opacity', .8)*/
-
               // Border text
               var yTextOffset = 6;
               regionGroups.append('text')
@@ -162,21 +148,6 @@ angular.module('app.directives', [])
                 .attr('fill', 'white')
                 .attr('text-anchor', 'middle')
                 .attr('opacity', 1)
-
-              /*function buildSparklineFunction(region) {
-                // scales
-                var x = d3.scale.linear()
-                  .range([region.hex[4][0] + 1, region.hex[1][0] - 1])
-                  .domain([0, $scope.data[region.abbr].length])
-                var y = d3.scale.linear()
-                  .range([region.hex[4][1], region.hex[1][1]])
-                  .domain([-2, 2])
-                  // .domain(d3.extent($scope.data[region.abbr]))
-                return d3.svg.line()
-                  .x(function(d, i) { return xOffset + size(x(i)); })
-                  .y(function(d) { return size(y(d)); })
-                  .interpolate('bundle');
-              }*/
 
               function regionValid(d) {
                 return $scope.statuses[d] && $scope.statuses[d].available
@@ -269,18 +240,16 @@ angular.module('app.directives', [])
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
               // Setup: scales
-              var x = d3.scale.linear()
+              var x = d3.scaleLinear()
                 .domain([0, seriesLength - 1])
                 .range([0, width])
               
-              var y = d3.scale.linear()
+              var y = d3.scaleLinear()
                 .domain([-5, 5])
                 // .domain(d3.extent(allValues))
                 .range([height, 0])
 
-              var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left");
+              var yAxis = d3.axisLeft(y)
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -289,10 +258,10 @@ angular.module('app.directives', [])
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
               
-              var lineFunction = d3.svg.line()
+              var lineFunction = d3.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
-                .interpolate('cardinal');
+                .curve(d3.curveCardinal.tension(0.5));
 
               var curves = svg.selectAll('.curve')
                 .data(regions)
@@ -400,17 +369,15 @@ angular.module('app.directives', [])
               var height = el[0].offsetHeight - margin.top - margin.bottom;
 
               // Setup: scales
-              var x = d3.scale.linear()
+              var x = d3.scaleLinear()
                 .domain([0, $scope.data.length - 1])
                 .range([0, width])
               
-              var y = d3.scale.linear()
+              var y = d3.scaleLinear()
                 .domain([-5, 5])
                 .range([height, 0])
 
-              var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left");
+              var yAxis = d3.axisLeft(y)
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -419,10 +386,10 @@ angular.module('app.directives', [])
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
               
-              var lineFunction = d3.svg.line()
+              var lineFunction = d3.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
-                .interpolate('cardinal');
+                .curve(d3.curveCardinal.tension(0.5));
 
               var curveColor = $scope.highlight ? colors.regionHighlight : colors.topicCurve
 

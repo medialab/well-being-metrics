@@ -19,10 +19,8 @@
     "angular-sanitize": "^1.5.7",
     "angular-translate": "^2.11.0",
     "angular-translate-loader-partial": "^2.11.0",
-    "d3": "^3.5.14"
+    "d3": "^4.0.0"
   },
-  "devDependencies": {
-  },
-  "scripts": {
-  }
+  "devDependencies": {},
+  "scripts": {}
 }

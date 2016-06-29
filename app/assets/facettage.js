@@ -137,16 +137,16 @@ var Facettage = function () {
               };
               break;
             case 'csv':
-              facet.formatUnserialize = d3.csv.parse;
-              facet.formatSerialize = d3.csv.format;
+              facet.formatUnserialize = d3.csvParse;
+              facet.formatSerialize = d3.csvFormat;
               break;
             case 'tsv':
-              facet.formatUnserialize = d3.tsv.parse;
-              facet.formatSerialize = d3.tsv.format;
+              facet.formatUnserialize = d3.tsvParse;
+              facet.formatSerialize = d3.tsvFormat;
               break;
             case 'csvRows':
-              facet.formatUnserialize = d3.csv.parseRows;
-              facet.formatSerialize = d3.csv.formatRows;
+              facet.formatUnserialize = d3.csvParseRows;
+              facet.formatSerialize = d3.csvFormatRows;
               break;
             default:
               console.warn('Unknown type ' + opts.type + ' for facet ' + id);
