@@ -896,7 +896,7 @@ angular.module('app.directives', [])
 
         var personRadius = 6
         var radiusBonus = 2 // Additional radius for highlighted entities
-        var personCount = 80
+        var personCount = 100
         var xSpreading = 50
         var youProfile
 
@@ -911,7 +911,7 @@ angular.module('app.directives', [])
               // el.html($scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
 
               // Setup: dimensions
-              var margin = {top: 48, right: 24, bottom: 48, left: 24};
+              var margin = {top: 64, right: 24, bottom: 64, left: 24};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
@@ -941,7 +941,7 @@ angular.module('app.directives', [])
               // Scales
               var y = d3.scaleLinear()
                 .rangeRound([height, 0]);
-              var color = d3.interpolateLab(d3.lab(d3.color('#DDDDDD')), d3.lab(d3.color('#ffca28')))
+              var color = d3.interpolateHslLong(d3.hsl(d3.color('#100')), d3.hsl(d3.color('#ffca28')))
 
               // Get data
               var data = generateData()
