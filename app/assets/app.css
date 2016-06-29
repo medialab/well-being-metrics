@@ -239,6 +239,25 @@ div[hex-us] {
 	
 }
 
+div[happiness-diagram] .axis path,
+div[happiness-diagram] .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+div[happiness-diagram] .axis text {
+  font: 10px sans-serif;
+}
+
+div[happiness-diagram] .cells path {
+  fill: none;
+  pointer-events: all;
+}
+
+div[happiness-diagram] .cells :hover circle {
+  fill: red;
+}
 
 /* Misc D3 classes */
 

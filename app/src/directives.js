@@ -885,7 +885,7 @@ angular.module('app.directives', [])
       },
       link: function($scope, el, attrs) {
 
-        el.html('<div><center>Loading...</center></div>')
+        el.html('<div><center>Loading</center></div>')
         
         $scope.$watch('dimension', redraw)
         window.addEventListener('resize', redraw)
@@ -898,11 +898,73 @@ angular.module('app.directives', [])
           if (true || $scope.data !== undefined){
             $timeout(function () {
               el.html('');
+
+              console.log('redraw ' + $scope.dimension)
               
-              el.html($scope.happinessModel[$scope.dimension])
+              // el.html($scope.happinessModel[$scope.dimension])
+
+              // Setup: dimensions
+              var margin = {top: 0, right: 0, bottom: 50, left: 0};
+              var width = el[0].offsetWidth - margin.left - margin.right;
+              var height = el[0].offsetHeight - margin.top - margin.bottom;
+
+              // Setup: SVG container
+              var svg = d3.select(el[0]).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+             
+              var g = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              // Scales
+              var y = d3.scaleLinear()
+                .rangeRound([0, height]);
+
+              var data = generateData()
+
+              y.domain(d3.extent(data, function(d) { return d.value; }));
+
+              var simulation = d3.forceSimulation(data)
+                .force("x", d3.forceY(function(d) { return y(d.value); }).strength(1))
+                .force("y", d3.forceX(height / 2))
+                .force("collide", d3.forceCollide(4))
+                .stop();
+
+              for (var i = 0; i < 120; ++i) simulation.tick();
+
+              var cell = g.append("g")
+                .attr("class", "cells")
+              .selectAll("g").data(d3.voronoi()
+                  .extent([[-margin.left, -margin.top], [width + margin.right, height + margin.top]])
+                  .x(function(d) { return d.x; })
+                  .y(function(d) { return d.y; })
+                .polygons(data)).enter().append("g");
+
+              cell.append("circle")
+                  .attr("r", 3)
+                  .attr("cx", function(d) { return d.data.x; })
+                  .attr("cy", function(d) { return d.data.y; });
+
+              cell.append("path")
+                  .attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+
+              cell.append("title")
+                  .text(function(d) { return d.data.id + "\n" + d.data.value; });
 
             }, 0)
           }
+        }
+
+        function generateData() {
+          var persons = []
+          var i
+          for (i=0; i<100; i++) {
+            persons.push({
+              id: i,
+              value: 1 + Math.random() * 9
+            })
+          }
+          return persons
         }
       }
     }
