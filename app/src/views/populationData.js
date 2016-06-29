@@ -479,7 +479,7 @@ angular.module('app.populationData', ['ngRoute'])
 		// FIXME: put this in a separate file
 		var happinessDeciles = {
 			current_life: [6.41, 6.8, 7.08, 7.29, 7.47, 7.61, 7.75, 7.89, 8.09],
-			leisure: [5.8, .19, .45, .66, .85, .03, .23, .45, .76],
+			leisure: [5.8, 6.19, 6.45, 6.66, 6.85, 7.03, 7.23, 7.45, 7.76],
 			housing: [6.98, 7.24, 7.51, 7.78, 7.92, 8.02, 8.1, 8.19, 8.3],
 			loved_ones: [7.59, 7.79, 7.9, 8, 8.08, 8.16, 8.24, 8.35, 8.48]
 		}
