@@ -881,7 +881,8 @@ angular.module('app.directives', [])
       restrict: 'A',
       scope: {
         dimension: '=',
-        happinessModel: '='
+        happinessModel: '=',
+        presets: '='
       },
       link: function($scope, el, attrs) {
 
@@ -904,7 +905,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              console.log('redraw ' + $scope.dimension, $scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
+              // console.log('redraw ' + $scope.dimension, $scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
               
               // el.html($scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
 
@@ -917,7 +918,22 @@ angular.module('app.directives', [])
               var svg = d3.select(el[0]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
-             
+              
+              // Display text
+              var gtext = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              gtext.append("text")
+                .attr('x', 100)
+                .attr('y', 100)
+                .text($scope.dimension + ': ' + $scope.happinessModel[$scope.dimension].score)
+
+              gtext.append("text")
+                .attr('x', 100)
+                .attr('y', 150)
+                .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)
+
+              // Display persons
               var g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -984,7 +1000,19 @@ angular.module('app.directives', [])
                     })
                   }
                 }
-                
+
+                // Preset personas
+                $scope.presets.forEach(function(preset) {
+                  persons.push({
+                    id: preset.id,
+                    updatable: false,
+                    value: preset.happinessModel[$scope.dimension].decile,
+                    radius: personRadius,
+                    offset: 0,
+                    color: preset.color
+                  })
+                })
+
                 // "You" person
                 persons.push({
                   id: 'you',
@@ -1008,6 +1036,17 @@ angular.module('app.directives', [])
 
             }, 0)
           }
+        }
+
+        function getDecileFromIncome(income) {
+          // Note: the deciles range from 1 to 10 as in statistics
+          var incomeDecile = 1
+          income_deciles.forEach(function(max, i) {
+            if (income > max) {
+              incomeDecile = i+2
+            }
+          })
+          return incomeDecile
         }
       }
     }

@@ -373,6 +373,7 @@ angular.module('app.populationData', ['ngRoute'])
   
   Facets.coeffs.retrieveData( function (data) {
     $scope.coeffs = data;
+    computePresetScores($scope.presets)
     $scope.$apply();
   });
 
@@ -402,13 +403,7 @@ angular.module('app.populationData', ['ngRoute'])
 	updateDecileFromIncome()
   
   function updateDecileFromIncome() {
-  	// Note: the deciles range from 1 to 10 as in statistics
-  	$scope.incomeDecile = 1
-  	income_deciles.forEach(function(max, i) {
-  		if ($scope.income > max) {
-  			$scope.incomeDecile = i+2
-  		}
-  	})
+  	$scope.incomeDecile = getDecileFromIncome($scope.income)
   	$scope.incomeDecileMessage = $scope.incomeDecileMessage_list[$scope.incomeDecile - 1]
   }
 
@@ -462,34 +457,95 @@ angular.module('app.populationData', ['ngRoute'])
   		$scope.modelVars['baseline'] = 1 // Constant
 
   		// Compute models
-  		$scope.happinessModel = {}
-  		var happinessDimensions = ['current_life', 'leisure', 'housing', 'loved_ones']
-  		// FIXME: put this in a separate file
-  		var happinessDeciles = {
-  			current_life: [6.41, 6.8, 7.08, 7.29, 7.47, 7.61, 7.75, 7.89, 8.09],
-  			leisure: [5.8, .19, .45, .66, .85, .03, .23, .45, .76],
-  			housing: [6.98, 7.24, 7.51, 7.78, 7.92, 8.02, 8.1, 8.19, 8.3],
-  			loved_ones: [7.59, 7.79, 7.9, 8, 8.08, 8.16, 8.24, 8.35, 8.48]
-  		}
-  		happinessDimensions.forEach(function(d){
-  			var score = 0
-  			$scope.coeffs.forEach(function(coeff){
-  				score += coeff[d] * $scope.modelVars[coeff.id]
-  			})
-  			// Note: the deciles range from 1 to 10 as in statistics
-		  	var decile = 1
-		  	happinessDeciles[d].forEach(function(max, i) {
-		  		if (score > max) {
-		  			decile = i+2
-		  		}
-		  	})
-		  	$scope.happinessModel[d] = {
-		  		score: score,
-		  		decile: decile
-		  	}
-  		})
+  		$scope.happinessModel = computeHappinessModel($scope.coeffs, $scope.modelVars)
+
   	}
   }
+
+ 	function getDecileFromIncome(income) {
+		// Note: the deciles range from 1 to 10 as in statistics
+  	var incomeDecile = 1
+  	income_deciles.forEach(function(max, i) {
+  		if (income > max) {
+  			incomeDecile = i+2
+  		}
+  	})
+  	return incomeDecile
+	}
+
+  function computeHappinessModel(coeffs, modelVars) {
+		var happinessModel = {}
+		var happinessDimensions = ['current_life', 'leisure', 'housing', 'loved_ones']
+		// FIXME: put this in a separate file
+		var happinessDeciles = {
+			current_life: [6.41, 6.8, 7.08, 7.29, 7.47, 7.61, 7.75, 7.89, 8.09],
+			leisure: [5.8, .19, .45, .66, .85, .03, .23, .45, .76],
+			housing: [6.98, 7.24, 7.51, 7.78, 7.92, 8.02, 8.1, 8.19, 8.3],
+			loved_ones: [7.59, 7.79, 7.9, 8, 8.08, 8.16, 8.24, 8.35, 8.48]
+		}
+		happinessDimensions.forEach(function(d){
+			var score = 0
+			coeffs.forEach(function(coeff){
+				score += coeff[d] * modelVars[coeff.id]
+			})
+			// Note: the deciles range from 1 to 10 as in statistics
+	  	var decile = 1
+	  	happinessDeciles[d].forEach(function(max, i) {
+	  		if (score > max) {
+	  			decile = i+2
+	  		}
+	  	})
+	  	happinessModel[d] = {
+	  		score: score,
+	  		decile: decile
+	  	}
+		})
+		return happinessModel
+	}
+
+	function computePresetScores(presets){
+		presets.forEach(function(preset){
+			var modelVars = {}
+			modelVars['age'] = preset.data.age
+  		modelVars['age-square'] = modelVars['age'] * modelVars['age']
+  		modelVars['age-cube'] = modelVars['age'] * modelVars['age'] * modelVars['age']
+  		modelVars['is-woman'] = (preset.data.gender === undefined) ? (0.5) : (preset.data.gender == 'gender_female') ? (1) : (0)
+  		modelVars['woman-by-age'] = modelVars['is-woman'] * modelVars['age']
+  		modelVars['is-french'] = (preset.data.french) ? (1) : (0)
+  		modelVars['income-decile'] = getDecileFromIncome(preset.data.income)
+  		modelVars['income-decile-square'] = modelVars['income-decile'] * modelVars['income-decile']
+  		modelVars['is-owner'] = (preset.data.owner) ? (1) : (0)
+  		modelVars['has-children-1'] = (preset.data.children == 'children_1') ? (1) : (0)
+  		modelVars['has-children-2'] = (preset.data.children == 'children_2') ? (1) : (0)
+  		modelVars['has-children-3'] = (preset.data.children == 'children_3') ? (1) : (0)
+  		modelVars['is-working'] = (preset.data.work == 'work_worker') ? (1) : (0)
+  		modelVars['is-student'] = (preset.data.work == 'work_student') ? (1) : (0)
+  		modelVars['is-retired'] = (preset.data.work == 'work_retired') ? (1) : (0)
+  		modelVars['is-at-home'] = (preset.data.work == 'work_athome') ? (1) : (0)
+  		modelVars['has-dip-pro'] = (preset.data.diploma == 'diploma_pro') ? (1) : (0)
+  		modelVars['has-bac'] = (preset.data.diploma == 'diploma_bac') ? (1) : (0)
+  		modelVars['has-bac-plus'] = (preset.data.diploma == 'diploma_postbac') ? (1) : (0)
+  		modelVars['is-in-couple'] = (preset.data.wedding == 'marital_couple') ? (1) : (0)
+  		modelVars['is-divorced'] = (preset.data.wedding == 'marital_divorced') ? (1) : (0)
+  		modelVars['is-widow'] = (preset.data.wedding == 'marital_widow') ? (1) : (0)
+  		modelVars['has-children'] = (preset.data.children && preset.data.children != 'children_0') ? (1) : (0)
+  		modelVars['partner-working'] = (modelVars['is-in-couple']) ? ((preset.data.partnerWorks) ? (1) : (0)) : (0)
+  		modelVars['partner-working-by-children'] = modelVars['partner-working'] * modelVars['has-children']
+  		modelVars['at-home-by-children'] = modelVars['is-at-home'] * modelVars['has-children']
+  		modelVars['woman-by-unemployed'] = modelVars['is-woman'] * ((preset.data.work == 'work_unemployed') ? (1) : (0))
+  		modelVars['at-work-by-dip-pro'] = modelVars['is-working'] * modelVars['has-dip-pro']
+  		modelVars['at-work-by-bac'] = modelVars['is-working'] * modelVars['has-bac']
+  		modelVars['at-work-by-bac-plus'] = modelVars['is-working'] * modelVars['has-bac-plus']
+  		modelVars['at-work-by-in-couple'] = modelVars['is-working'] * modelVars['is-in-couple']
+  		modelVars['woman-by-in-couple'] = modelVars['is-woman'] * modelVars['is-in-couple']
+  		modelVars['at-work-by-children'] = modelVars['is-working'] * modelVars['has-children']
+  		modelVars['in-couple-by-children'] = modelVars['is-in-couple'] * modelVars['has-children']
+  		modelVars['charity'] = (preset.data.charity) ? (1) : (0)
+  		modelVars['baseline'] = 1 // Constant
+
+  		preset.happinessModel = computeHappinessModel($scope.coeffs, modelVars)
+		})
+	}
 
   /**
    * Supplies a function that will continue to operate until the
