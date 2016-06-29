@@ -15,6 +15,12 @@
         Close Sidenav Left
       </md-button>
 
+      <div class="profile-form-title">
+	      <md-button ng-click="choosePreset()" class="md-primary">
+	        Presets
+	      </md-button>
+      </div>
+
       <md-radio-group ng-model="$parent.gender" layout="row">
 			  <md-radio-button flex ng-repeat="gen in $parent.gender_list" ng-value="gen.value" aria-label="{{ gen.label }}">
 	        {{ gen.label }}
@@ -146,7 +152,8 @@
 						<div flex class="diagram-tile">
 							<div happiness-diagram
 								dimension="'current_life'"
-								profile=""
+								happiness-model="happinessModel"
+								model-vars="modelVars"
 							></div>
 						</div>
 					</div>
@@ -154,7 +161,8 @@
 						<div flex class="diagram-tile">
 							<div happiness-diagram
 								dimension="'leisure'"
-								profile=""
+								happiness-model="happinessModel"
+								model-vars="modelVars"
 							></div>
 						</div>
 					</div>
@@ -164,7 +172,8 @@
 						<div flex class="diagram-tile">
 							<div happiness-diagram
 								dimension="'housing'"
-								profile=""
+								happiness-model="happinessModel"
+								model-vars="modelVars"
 							></div>
 						</div>
 					</div>
@@ -172,7 +181,8 @@
 						<div flex class="diagram-tile">
 							<div happiness-diagram
 								dimension="'loved_ones'"
-								profile=""
+								happiness-model="happinessModel"
+								model-vars="modelVars"
 							></div>
 						</div>
 					</div>

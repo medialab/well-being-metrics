@@ -913,7 +913,8 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-        dimension: '='
+        dimension: '=',
+        happinessModel: '='
       },
       link: function($scope, el, attrs) {
 
@@ -931,7 +932,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
               
-              el.html('TODO: display dimension: ' + $scope.dimension)
+              el.html($scope.happinessModel[$scope.dimension])
 
             }, 0)
           }

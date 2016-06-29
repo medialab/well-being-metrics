@@ -393,6 +393,10 @@ angular.module('app.populationData', ['ngRoute'])
   	}
   }
 
+  $scope.choosePreset = function () {
+  	$scope.choosePresetMode = true
+  }
+
   // Update income deciles after chosen income
   $scope.$watch('income', updateDecileFromIncome)
 	updateDecileFromIncome()
