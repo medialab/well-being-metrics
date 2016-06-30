@@ -87,5 +87,10 @@
 	"RETIRED TEXT": "",
 
 	"IMMIGRANT": "Immigrant",
-	"IMMIGRANT TEXT": ""
+	"IMMIGRANT TEXT": "",
+
+	"TITLE current_life": "General satisfaction",
+	"TITLE leisure": "Leisure satisfaction",
+	"TITLE housing": "Housing satisfaction",
+	"TITLE loved_ones": "Relations satisfaction"
 }
