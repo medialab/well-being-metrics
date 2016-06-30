@@ -888,19 +888,30 @@ angular.module('app.directives', [])
 
         el.html('<div><center>Loading</center></div>')
         
-        $scope.$watch('dimension', redraw)
+        $scope.$watch('dimension', redrawText)
+        $scope.$watch('happinessModel', redrawText)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
         })
+        redraw()
 
-        var widthHeightRatio
-        var personRadius
-        var personCount
-        var personMargin
-        var xSpreading
-        var xOffset
+        var widthHeightRatio = 2/3
+        var personCount = 200
+        var personMargin = 1
+        var personRadius    // Computed from width and height
+        var rectangleWidth  // Computed from width and height
+        var xOffset = -50
         var youProfile
+
+        var margin = {top: 48, right: 24, bottom: 48, left: 24};
+        var width
+        var height
+
+        // D3 elements
+        var svg
+        var g // SVG group for main graphical elements
+        var gText
 
         function redraw() {
           // FIXME: use a relevant 'if' condition
@@ -908,47 +919,33 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              // console.log('redraw ' + $scope.dimension, $scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
-              
-              // el.html($scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
-
               // Setup: dimensions
-              var margin = {top: 48, right: 24, bottom: 48, left: 24};
-              var width = el[0].offsetWidth - margin.left - margin.right - 12;
-              var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
+              width = el[0].offsetWidth - margin.left - margin.right - 12;
+              height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
               // Vis settings
-              widthHeightRatio = 2/3
-              personCount = 200
-              personMargin = 1
-              // Radius is determined by the area targeted: area / 
               personRadius = 0.9 * Math.sqrt( ( height * height * widthHeightRatio / personCount ) / Math.PI ) - personMargin
-              xSpreading = widthHeightRatio * height
+              rectangleWidth = widthHeightRatio * height
               xOffset = -50
-              youProfile
 
               // Setup: SVG container
-              var svg = d3.select(el[0]).append("svg")
+              svg = d3.select(el[0]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
               
-              // Display text
-              var gtext = svg.append("g")
+              // persons' SVG group
+              g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-              gtext.append("text")
-                .attr('x', 100)
-                .attr('y', 100)
-                .text($scope.dimension + ': ' + $scope.happinessModel[$scope.dimension].score)
-
-              gtext.append("text")
-                .attr('x', 100)
-                .attr('y', 150)
-                .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)
-
-              // Display persons
-              var g = svg.append("g")
+              // text's SVG group
+              gText = svg.append("g")
+                .attr("class", "text-layer")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              // Draw text
+              redrawText()
+
+              // Draw main graphical elements
 
               // Scales
               var y = d3.scaleLinear()
@@ -998,7 +995,7 @@ angular.module('app.directives', [])
 
                 // Artificial persons
                 // Note: we generate layers for more pleasing aesthetics
-                var layerCount = Math.floor( Math.sqrt(personCount * height / xSpreading ) )
+                var layerCount = Math.floor( Math.sqrt(personCount * height / rectangleWidth ) )
                 var layer_i
                 var person_i
                 var jitter = 0.6 // 0: exact position in grid, 1: each nodes varies in its square space
@@ -1013,7 +1010,7 @@ angular.module('app.directives', [])
                       updatable: false,
                       value: value,
                       radius: personRadius,
-                      offset: xSpreading * ( (person_i + jitter * (Math.random() - 0.5) ) / (personCount/layerCount) ) - xSpreading / 2,
+                      offset: rectangleWidth * ( (person_i + jitter * (Math.random() - 0.5) ) / (personCount/layerCount) ) - rectangleWidth / 2,
                       happinessModel: {
                         current_life: {
                           score: getHappinessFromDecile(value, 'current_life'),
@@ -1043,7 +1040,7 @@ angular.module('app.directives', [])
                     updatable: false,
                     value: preset.happinessModel[$scope.dimension].decile,
                     radius: personRadius * 1.2,
-                    offset: 0.8 * ( xSpreading * Math.random() - xSpreading / 2 ),
+                    offset: 0.8 * ( rectangleWidth * Math.random() - rectangleWidth / 2 ),
                     color: preset.color
                   })
                 })*/
@@ -1064,13 +1061,38 @@ angular.module('app.directives', [])
 
               function startingPositions(persons, yScale) {
                 persons.forEach(function(p){
-                  p.x = 8 * p.offset + (Math.random() - 0.5) * 2 * xSpreading
+                  p.x = 8 * p.offset + (Math.random() - 0.5) * 2 * rectangleWidth
                   p.y = height - 0.1 * yScale(p.value)
                 })
               }
 
 
             }, 0)
+          }
+        }
+
+        function redrawText() {
+          if (gText) {
+            console.log('Redraw text')
+
+            gText.html('')
+
+            var xText = width / 2 + xOffset + rectangleWidth / 2 + 10
+            var lineHeight = 18
+            var yText = lineHeight
+
+            var score = Math.round($scope.happinessModel[$scope.dimension].score * 10) / 10
+
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .text($scope.dimension + ': ' + score )
+            yText += lineHeight
+
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)
           }
         }
 
