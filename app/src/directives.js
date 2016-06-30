@@ -953,8 +953,8 @@ angular.module('app.directives', [])
               // Scales
               var y = d3.scaleLinear()
                 .rangeRound([height, 0]);
-              // var color = d3.interpolateHslLong(d3.hsl(d3.color('#100')), d3.hsl(d3.color('#ffca28')))
-              var color = d3.interpolateCubehelixDefault
+              var color = d3.interpolateHslLong(d3.hsl(d3.color('#DDD')), d3.hsl(d3.color('#ffca28')))
+              // var color = d3.interpolateMagma
 
               // Get data
               var data = generateData()
@@ -983,10 +983,10 @@ angular.module('app.directives', [])
                   .attr("cx", function(d) { return width/2 + d.x; })
                   .attr("cy", function(d) { return d.y; })
                   .style("fill", function(d) { return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); })
-
+                  
               function ticked() {
                 svg.selectAll('circle')
-                  .attr("cx", function(d) { return width/2 + d.x; })
+                  .attr("cx", function(d) { return width/2 + d.x + xOffset; })
                   .attr("cy", function(d) { return d.y; })
               }
 
@@ -1005,7 +1005,7 @@ angular.module('app.directives', [])
                   var minValue = 1 + 9 * layer_i/layerCount
                   var maxValue = minValue + 10/layerCount
                   for (person_i = 0; person_i < personCount/layerCount; person_i++) {
-                    var value = minValue + jitter * Math.random() * (maxValue - minValue)
+                    var value = minValue + Math.random() * (maxValue - minValue)
                     persons.push({
                       id: layer_i + '-' + person_i,
                       updatable: false,
@@ -1072,42 +1072,6 @@ angular.module('app.directives', [])
           }
         }
 
-        var income_deciles = [1000, 1500, 2000, 2400, 2800, 3300, 3800, 4500, 5700]
-        var maxIncome = 10000 // Here considered the max monthly income (totally false of course)
-
-        function getDecileFromIncome(income) {
-          // Note: the deciles range from 1 to 10 as in statistics
-          var incomeDecile = 1
-          income_deciles.forEach(function(max, i) {
-            if (income > max) {
-              incomeDecile = i+2
-            }
-          })
-          return incomeDecile
-        }
-
-        function getIncomeFromDecile(decile) {
-          var roundedDecile = Math.floor(decile)
-          var incomeMin
-          var incomeMax
-          if (roundedDecile == 0) {
-            incomeMin = 0
-            incomeMax = income_deciles[1]
-          } else if (roundedDecile >= 9) {
-            incomeMin = income_deciles[roundedDecile - 1]
-            incomeMax = maxIncome
-          } else {
-            incomeMin = income_deciles[roundedDecile - 1]
-            incomeMax = income_deciles[roundedDecile]
-          }
-
-          var restant = decile - roundedDecile
-          var income = incomeMin + restant * (incomeMax - incomeMin)
-          income = 100 * Math.round(0.01 * income)
-
-          return income
-        }
-
         var happinessDeciles = {
           current_life: [6.41, 6.8, 7.08, 7.29, 7.47, 7.61, 7.75, 7.89, 8.09],
           leisure: [5.8, 6.19, 6.45, 6.66, 6.85, 7.03, 7.23, 7.45, 7.76],
@@ -1120,9 +1084,9 @@ angular.module('app.directives', [])
           var deciles = happinessDeciles[dimension]
           var min
           var max
-          if (roundedDecile == 0) {
+          if (roundedDecile <= 1) {
             min = 0
-            max = deciles[1]
+            max = deciles[0]
           } else if (roundedDecile >= 9) {
             min = deciles[roundedDecile - 1]
             max = 10
@@ -1132,6 +1096,8 @@ angular.module('app.directives', [])
           }
 
           var restant = decile - roundedDecile
+          if (restant < 0) { restant = 0 }
+          if (restant > 1) { restant = 1 }
           var score = min + restant * (max - min)
           
           return score
