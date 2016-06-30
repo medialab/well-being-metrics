@@ -894,10 +894,12 @@ angular.module('app.directives', [])
           window.removeEventListener('resize', redraw)
         })
 
-        var personRadius = 6
-        var radiusBonus = 2 // Additional radius for highlighted entities
-        var personCount = 100
-        var xSpreading = 120
+        var widthHeightRatio
+        var personRadius
+        var personCount
+        var personMargin
+        var xSpreading
+        var xOffset
         var youProfile
 
         function redraw() {
@@ -911,9 +913,19 @@ angular.module('app.directives', [])
               // el.html($scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
 
               // Setup: dimensions
-              var margin = {top: 128, right: 24, bottom: 128, left: 24};
+              var margin = {top: 48, right: 24, bottom: 48, left: 24};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
+
+              // Vis settings
+              widthHeightRatio = 2/3
+              personCount = 200
+              personMargin = 1
+              // Radius is determined by the area targeted: area / 
+              personRadius = 0.9 * Math.sqrt( ( height * height * widthHeightRatio / personCount ) / Math.PI ) - personMargin
+              xSpreading = widthHeightRatio * height
+              xOffset = -50
+              youProfile
 
               // Setup: SVG container
               var svg = d3.select(el[0]).append("svg")
@@ -956,7 +968,7 @@ angular.module('app.directives', [])
               var simulation = d3.forceSimulation(data)
                 .force("x", d3.forceX(function(d) { return d.offset; }).strength(.3))
                 .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
-                .force("collide", d3.forceCollide(function(d) { return d.radius + 1; }).strength(.8))
+                .force("collide", d3.forceCollide(function(d) { return d.radius + personMargin; }).strength(.8))
                 .on("tick", ticked)
                 .alphaMin(0.01)
                 // .stop()
@@ -983,21 +995,23 @@ angular.module('app.directives', [])
                 var persons = []
 
                 // Artificial persons
-                var partCount = 10
-                var iPart
-                var iPerson
+                // Note: we generate layers for more pleasing aesthetics
+                var layerCount = Math.floor( Math.sqrt(personCount * height / xSpreading ) )
+                var layer_i
+                var person_i
+                var jitter = 0.6 // 0: exact position in grid, 1: each nodes varies in its square space
 
-                for (iPart = 0; iPart<partCount; iPart++) {
-                  var minValue = 1 + 9 * iPart/partCount
-                  var maxValue = minValue + iPart/partCount
-                  for (iPerson = 0; iPerson < personCount/partCount; iPerson++) {
-                    var value = minValue + Math.random() * (maxValue - minValue)
+                for (layer_i = 0; layer_i<layerCount; layer_i++) {
+                  var minValue = 1 + 9 * layer_i/layerCount
+                  var maxValue = minValue + 10/layerCount
+                  for (person_i = 0; person_i < personCount/layerCount; person_i++) {
+                    var value = minValue + jitter * Math.random() * (maxValue - minValue)
                     persons.push({
-                      id: iPart + '-' + iPerson,
+                      id: layer_i + '-' + person_i,
                       updatable: false,
                       value: value,
                       radius: personRadius,
-                      offset: xSpreading * (iPerson / (personCount/partCount) ) -xSpreading / 2,
+                      offset: xSpreading * ( (person_i + jitter * (Math.random() - 0.5) ) / (personCount/layerCount) ) - xSpreading / 2,
                       happinessModel: {
                         current_life: {
                           score: getHappinessFromDecile(value, 'current_life'),
@@ -1026,8 +1040,8 @@ angular.module('app.directives', [])
                     id: preset.id,
                     updatable: false,
                     value: preset.happinessModel[$scope.dimension].decile,
-                    radius: personRadius + radiusBonus,
-                    offset: 0,
+                    radius: personRadius * 1.2,
+                    offset: 0.8 * ( xSpreading * Math.random() - xSpreading / 2 ),
                     color: preset.color
                   })
                 })
@@ -1037,7 +1051,7 @@ angular.module('app.directives', [])
                   id: 'you',
                   updatable: true,
                   value: $scope.happinessModel[$scope.dimension].decile,
-                  radius: personRadius + 2 * radiusBonus,
+                  radius: personRadius * 1.5,
                   offset: 0,
                   color: '#36827a'
                 }
