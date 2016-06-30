@@ -924,7 +924,7 @@ angular.module('app.directives', [])
         // Visualization
         var widthHeightRatio = 2/3
         var personCount = 200
-        var personMargin = 1
+        var personMargin = 1.5
         var personRadius    // Computed from width and height
         var rectangleWidth  // Computed from width and height
         var xOffset = -50
@@ -954,7 +954,7 @@ angular.module('app.directives', [])
               height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
               // Vis settings
-              personRadius = 0.9 * Math.sqrt( ( height * height * widthHeightRatio / personCount ) / Math.PI ) - personMargin
+              personRadius = 0.95 * Math.sqrt( ( height * height * widthHeightRatio / personCount ) / Math.PI ) - personMargin
               rectangleWidth = widthHeightRatio * height
               xOffset = -50
 
@@ -1025,7 +1025,7 @@ angular.module('app.directives', [])
                     var value = minValue + Math.random() * (maxValue - minValue)
                     persons.push({
                       id: layer_i + '-' + person_i,
-                      updatable: false,
+                      positionWeight: 0.1,
                       value: value,
                       radius: personRadius,
                       offset: rectangleWidth * ( (person_i + jitter * (Math.random() - 0.5) ) / (personCount/layerCount) ) - rectangleWidth / 2,
@@ -1055,7 +1055,7 @@ angular.module('app.directives', [])
                 /*$scope.presets.forEach(function(preset) {
                   persons.push({
                     id: preset.id,
-                    updatable: false,
+                    positionWeight: 0.1,
                     value: preset.happinessModel[$scope.dimension].decile,
                     radius: personRadius * 1.2,
                     offset: 0.8 * ( rectangleWidth * Math.random() - rectangleWidth / 2 ),
@@ -1066,7 +1066,7 @@ angular.module('app.directives', [])
                 // the "You" person
                 youProfile = {
                   id: 'you',
-                  updatable: true,
+                  positionWeight: .6,
                   value: $scope.happinessModel[$scope.dimension].decile,
                   radius: personRadius * 1.5,
                   offset: 0,
@@ -1146,11 +1146,16 @@ angular.module('app.directives', [])
             simulation.stop()
           }
           simulation = d3.forceSimulation(data)
-              .force("x", d3.forceX(function(d) { return d.offset; }).strength(.3))
-              .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
-              .force("collide", d3.forceCollide(function(d) { return d.radius + personMargin; }).strength(0.5))
+              .force("x", d3.forceX(function(d) { return d.offset; }).strength(function(d){
+                return d.positionWeight || .1
+              }))
+              // .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
+              .force("y", d3.forceY(function(d) { return y(d.value); }).strength(function(d){
+                return d.positionWeight || .1
+              }))
+              .force("collide", d3.forceCollide(function(d) { return d.radius + personMargin; }).strength(0.8))
               .on("tick", ticked)
-              .alphaMin(0.1)
+              .alphaMin(0.05)
         }
 
         function ticked() {
