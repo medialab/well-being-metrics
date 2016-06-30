@@ -888,13 +888,18 @@ angular.module('app.directives', [])
 
         el.html('<div><center>Loading</center></div>')
         
-        $scope.$watch('dimension', redrawText)
-        $scope.$watch('happinessModel', redrawText)
+        $scope.$watch('dimension', softUpdate)
+        $scope.$watch('happinessModel', softUpdate)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
         })
         redraw()
+
+        function softUpdate() {
+          updateValues()
+          redrawText()
+        }
 
         var widthHeightRatio = 2/3
         var personCount = 200
@@ -903,6 +908,10 @@ angular.module('app.directives', [])
         var rectangleWidth  // Computed from width and height
         var xOffset = -50
         var youProfile
+        var data
+        var simulation
+        var y // y scale
+        var color // color scale
 
         var margin = {top: 48, right: 24, bottom: 48, left: 24};
         var width
@@ -948,13 +957,13 @@ angular.module('app.directives', [])
               // Draw main graphical elements
 
               // Scales
-              var y = d3.scaleLinear()
+              y = d3.scaleLinear()
                 .rangeRound([height, 0]);
-              var color = d3.interpolateHslLong(d3.hsl(d3.color('#DDD')), d3.hsl(d3.color('#ffca28')))
+              color = d3.interpolateHslLong(d3.hsl(d3.color('#DDD')), d3.hsl(d3.color('#ffca28')))
               // var color = d3.interpolateMagma
 
               // Get data
-              var data = generateData()
+              data = generateData()
 
               // Set scales domain
               y.domain(d3.extent(data, function(d) { return d.value; }));
@@ -962,13 +971,7 @@ angular.module('app.directives', [])
               // Starting positions
               startingPositions(data, y)
 
-              var simulation = d3.forceSimulation(data)
-                .force("x", d3.forceX(function(d) { return d.offset; }).strength(.3))
-                .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
-                .force("collide", d3.forceCollide(function(d) { return d.radius + personMargin; }).strength(.8))
-                .on("tick", ticked)
-                .alphaMin(0.01)
-                // .stop()
+              rebootSimulation()
 
               var cell = g.append("g")
                 .attr("class", "cells")
@@ -982,12 +985,6 @@ angular.module('app.directives', [])
                   .style("fill", function(d) { 
                     return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
                   })
-                  
-              function ticked() {
-                svg.selectAll('circle')
-                  .attr("cx", function(d) { return width/2 + d.x + xOffset; })
-                  .attr("cy", function(d) { return d.y; })
-              }
 
               function generateData() {
                 
@@ -1073,7 +1070,6 @@ angular.module('app.directives', [])
 
         function redrawText() {
           if (gText) {
-            console.log('Redraw text')
 
             gText.html('')
 
@@ -1094,6 +1090,31 @@ angular.module('app.directives', [])
               .attr('y', yText)
               .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)
           }
+        }
+
+        function updateValues() {
+          if (g && youProfile) {
+            youProfile.value = $scope.happinessModel[$scope.dimension].decile
+            rebootSimulation()
+          }
+        }
+
+        function rebootSimulation() {
+          if (simulation) {
+            simulation.stop()
+          }
+          simulation = d3.forceSimulation(data)
+              .force("x", d3.forceX(function(d) { return d.offset; }).strength(.3))
+              .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
+              .force("collide", d3.forceCollide(function(d) { return d.radius + personMargin; }).strength(0.5))
+              .on("tick", ticked)
+              .alphaMin(0.1)
+        }
+
+        function ticked() {
+          svg.selectAll('circle')
+            .attr("cx", function(d) { return width/2 + d.x + xOffset; })
+            .attr("cy", function(d) { return d.y; })
         }
 
         var happinessDeciles = {
