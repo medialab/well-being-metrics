@@ -876,7 +876,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('happinessDiagram', function ($timeout, colors) {
+  .directive('happinessDiagram', function ($timeout, colors, $translate, $translatePartialLoader) {
     return {
       restrict: 'A',
       scope: {
@@ -890,6 +890,7 @@ angular.module('app.directives', [])
         
         $scope.$watch('dimension', softUpdate)
         $scope.$watch('happinessModel', softUpdate)
+        $scope.$watch('presets', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -901,6 +902,26 @@ angular.module('app.directives', [])
           redrawText()
         }
 
+        // Translation
+        var translations
+        var textContents = [
+          'TITLE current_life',
+          'TITLE leisure',
+          'TITLE housing',
+          'TITLE loved_ones',
+          'OF POPULATION ABOVE',
+          'OF POPULATION BELOW'
+        ]
+        $translatePartialLoader.addPart('populationData')
+        $translate.refresh()
+        $timeout(function(){
+          $translate(textContents).then(function (t) {
+            translations = t
+            redrawText()
+          })
+        })
+
+        // Visualization
         var widthHeightRatio = 2/3
         var personCount = 200
         var personMargin = 1
@@ -913,7 +934,7 @@ angular.module('app.directives', [])
         var y // y scale
         var color // color scale
 
-        var margin = {top: 48, right: 24, bottom: 48, left: 24};
+        var margin = {top: 24, right: 24, bottom: 128, left: 24};
         var width
         var height
 
@@ -1069,7 +1090,7 @@ angular.module('app.directives', [])
         }
 
         function redrawText() {
-          if (gText) {
+          if (gText && translations) {
 
             gText.html('')
 
@@ -1089,6 +1110,14 @@ angular.module('app.directives', [])
               .attr('x', xText)
               .attr('y', yText)
               .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)
+
+            var titleSize = 18
+            gText.append("text")
+              .attr('x', width / 2 + xOffset)
+              .attr('y', height + titleSize + 20)
+              .attr('text-anchor', 'middle')
+              .attr('font-size', titleSize + 'px')
+              .text(translations['TITLE ' + $scope.dimension])
           }
         }
 
