@@ -909,8 +909,11 @@ angular.module('app.directives', [])
           'TITLE leisure',
           'TITLE housing',
           'TITLE loved_ones',
-          'OF POPULATION ABOVE',
-          'OF POPULATION BELOW'
+          'OF POPULATION',
+          'IS HAPPIER',
+          'IS LESS HAPPY',
+          'OF HAPPINESS',
+          'PREDICTED'
         ]
         $translatePartialLoader.addPart('populationData')
         $translate.refresh()
@@ -922,19 +925,20 @@ angular.module('app.directives', [])
         })
 
         // Visualization
-        var widthHeightRatio = 2/3
+        var widthHeightRatio = 0.54
         var personCount = 200
         var personMargin = 1.5
         var personRadius    // Computed from width and height
         var rectangleWidth  // Computed from width and height
-        var xOffset = -50
+        var xOffset = -55
         var youProfile
         var data
         var simulation
         var y // y scale
         var color // color scale
+        var youColor = '#36827a'
 
-        var margin = {top: 24, right: 24, bottom: 128, left: 24};
+        var margin = {top: 24, right: 24, bottom: 64, left: 24};
         var width
         var height
 
@@ -1070,7 +1074,7 @@ angular.module('app.directives', [])
                   value: $scope.happinessModel[$scope.dimension].decile,
                   radius: personRadius * 1.5,
                   offset: 0,
-                  color: '#36827a'
+                  color: youColor
                 }
                 persons.push(youProfile)
 
@@ -1094,42 +1098,100 @@ angular.module('app.directives', [])
 
             gText.html('')
 
-            var xText = width / 2 + xOffset + rectangleWidth / 2 + 10
+            var xText = width / 2 + xOffset + rectangleWidth / 2 + 35
+            var yText
+            var lineHeight
             var score = Math.round($scope.happinessModel[$scope.dimension].score * 10) / 10
             var decile = $scope.happinessModel[$scope.dimension].decile
             var above = 100 - 10 * Math.ceil(decile)
             var below = 10 * ( Math.floor(decile) - 1 )
 
+            // Percents above
+            yText = 30
             gText.append("text")
               .attr('x', xText)
-              .attr('y', 6)
-              .attr('font-size', titleSize + '24px')
+              .attr('y', yText)
+              .attr('font-size', '48px')
+              .attr('fill', color(1))
               .text(above + '%')
 
+            lineHeight = 16
+            yText += lineHeight
             gText.append("text")
               .attr('x', xText)
-              .attr('y', height)
-              .attr('font-size', titleSize + '24px')
+              .attr('y', yText)
+              .attr('font-size', '12px')
+              .attr('fill', color(1))
+              .text(translations['OF POPULATION'].toUpperCase())
+
+            yText += lineHeight
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .attr('font-size', '12px')
+              .attr('fill', color(1))
+              .text(translations['IS HAPPIER'].toUpperCase())
+
+            // Percents below
+            yText = height - 30
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .attr('font-size', '48px')
+              .attr('fill', color(0))
               .text(below + '%')
 
-
-           /* gText.append("text")
-              .attr('x', xText)
-              .attr('y', yText)
-              .text($scope.dimension + ': ' + score )
+            lineHeight = 16
             yText += lineHeight
-
             gText.append("text")
               .attr('x', xText)
               .attr('y', yText)
-              .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)*/
+              .attr('font-size', '12px')
+              .attr('fill', color(0))
+              .text(translations['OF POPULATION'].toUpperCase())
 
+            yText += lineHeight
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .attr('font-size', '12px')
+              .attr('fill', color(0))
+              .text(translations['IS LESS HAPPY'].toUpperCase())
+
+            // Decile
+            yText = height/2
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .attr('font-size', '48px')
+              .attr('fill', youColor)
+              .text(score)
+
+            lineHeight = 16
+            yText += lineHeight
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .attr('font-size', '12px')
+              .attr('fill', youColor)
+              .text(translations['OF HAPPINESS'].toUpperCase())
+
+            yText += lineHeight
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', yText)
+              .attr('font-size', '12px')
+              .attr('fill', youColor)
+              .text(translations['PREDICTED'].toUpperCase())
+
+            // Title
             var titleSize = 18
             gText.append("text")
               .attr('x', width / 2 + xOffset)
-              .attr('y', height + titleSize + 20)
+              .attr('y', height + titleSize + 30)
               .attr('text-anchor', 'middle')
               .attr('font-size', titleSize + 'px')
+              .attr('fill', '#666')
               .text(translations['TITLE ' + $scope.dimension])
           }
         }

@@ -92,5 +92,8 @@
 	"TITLE current_life": "Satisfaction générale",
 	"TITLE leisure": "Satisfaction dans les loisirs",
 	"TITLE housing": "Satisfaction dans le logement",
-	"TITLE loved_ones": "Satisfaction liée aux relations sociales"
+	"TITLE loved_ones": "Satisfaction liée aux relations sociales",
+	"OF POPULATION": "de la population",
+	"IS HAPPIER": "est plus satisfaite",
+	"IS LESS HAPPY": "est moins satisfaite"
 }

@@ -92,5 +92,10 @@
 	"TITLE current_life": "General satisfaction",
 	"TITLE leisure": "Leisure satisfaction",
 	"TITLE housing": "Housing satisfaction",
-	"TITLE loved_ones": "Relations satisfaction"
+	"TITLE loved_ones": "Relations satisfaction",
+	"OF POPULATION": "of population",
+	"IS HAPPIER": "is more satisfied",
+	"IS LESS HAPPY": "is less satisfied",
+	"OF HAPPINESS": "points of satisfaction",
+	"PREDICTED": "predicted by the model"
 }
