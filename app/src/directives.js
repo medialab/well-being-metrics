@@ -897,7 +897,7 @@ angular.module('app.directives', [])
         var personRadius = 6
         var radiusBonus = 2 // Additional radius for highlighted entities
         var personCount = 100
-        var xSpreading = 50
+        var xSpreading = 120
         var youProfile
 
         function redraw() {
@@ -911,7 +911,7 @@ angular.module('app.directives', [])
               // el.html($scope.happinessModel[$scope.dimension].score + 'DECILE: ' + $scope.happinessModel[$scope.dimension].decile)
 
               // Setup: dimensions
-              var margin = {top: 64, right: 24, bottom: 64, left: 24};
+              var margin = {top: 128, right: 24, bottom: 128, left: 24};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom - 12;
 
@@ -941,7 +941,8 @@ angular.module('app.directives', [])
               // Scales
               var y = d3.scaleLinear()
                 .rangeRound([height, 0]);
-              var color = d3.interpolateHslLong(d3.hsl(d3.color('#100')), d3.hsl(d3.color('#ffca28')))
+              // var color = d3.interpolateHslLong(d3.hsl(d3.color('#100')), d3.hsl(d3.color('#ffca28')))
+              var color = d3.interpolateCubehelixDefault
 
               // Get data
               var data = generateData()
@@ -955,7 +956,7 @@ angular.module('app.directives', [])
               var simulation = d3.forceSimulation(data)
                 .force("x", d3.forceX(function(d) { return d.offset; }).strength(.3))
                 .force("y", d3.forceY(function(d) { return y(d.value); }).strength(.1))
-                .force("collide", d3.forceCollide(personRadius + 2))
+                .force("collide", d3.forceCollide(function(d) { return d.radius + 1; }).strength(.8))
                 .on("tick", ticked)
                 .alphaMin(0.01)
                 // .stop()
@@ -1025,7 +1026,7 @@ angular.module('app.directives', [])
                     id: preset.id,
                     updatable: false,
                     value: preset.happinessModel[$scope.dimension].decile,
-                    radius: personRadius,
+                    radius: personRadius + radiusBonus,
                     offset: 0,
                     color: preset.color
                   })
@@ -1036,7 +1037,7 @@ angular.module('app.directives', [])
                   id: 'you',
                   updatable: true,
                   value: $scope.happinessModel[$scope.dimension].decile,
-                  radius: personRadius + radiusBonus,
+                  radius: personRadius + 2 * radiusBonus,
                   offset: 0,
                   color: '#36827a'
                 }
