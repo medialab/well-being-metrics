@@ -1095,12 +1095,25 @@ angular.module('app.directives', [])
             gText.html('')
 
             var xText = width / 2 + xOffset + rectangleWidth / 2 + 10
-            var lineHeight = 18
-            var yText = lineHeight
-
             var score = Math.round($scope.happinessModel[$scope.dimension].score * 10) / 10
+            var decile = $scope.happinessModel[$scope.dimension].decile
+            var above = 100 - 10 * Math.ceil(decile)
+            var below = 10 * ( Math.floor(decile) - 1 )
 
             gText.append("text")
+              .attr('x', xText)
+              .attr('y', 6)
+              .attr('font-size', titleSize + '24px')
+              .text(above + '%')
+
+            gText.append("text")
+              .attr('x', xText)
+              .attr('y', height)
+              .attr('font-size', titleSize + '24px')
+              .text(below + '%')
+
+
+           /* gText.append("text")
               .attr('x', xText)
               .attr('y', yText)
               .text($scope.dimension + ': ' + score )
@@ -1109,7 +1122,7 @@ angular.module('app.directives', [])
             gText.append("text")
               .attr('x', xText)
               .attr('y', yText)
-              .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)
+              .text('Decile: ' + $scope.happinessModel[$scope.dimension].decile)*/
 
             var titleSize = 18
             gText.append("text")
