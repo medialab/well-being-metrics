@@ -935,8 +935,15 @@ angular.module('app.directives', [])
         var data
         var simulation
         var y // y scale
-        var color // color scale
         var youColor = '#36827a'
+        // var color = d3.interpolateHslLong(d3.hsl(d3.color('#DDD')), d3.hsl(d3.color('#ffca28')))
+        var color = function(t){
+          var hcl = d3.hcl('#AAA')
+          hcl.h = (360 + -280 * (1-t) + 80 * t)%360
+          hcl.c = 70 * t * t * t
+          hcl.l = 70 * (1-t) + 85 * t
+          return d3.rgb(hcl)
+        }
 
         var margin = {top: 24, right: 24, bottom: 64, left: 24};
         var width
@@ -984,8 +991,6 @@ angular.module('app.directives', [])
               // Scales
               y = d3.scaleLinear()
                 .rangeRound([height, 0]);
-              color = d3.interpolateHslLong(d3.hsl(d3.color('#DDD')), d3.hsl(d3.color('#ffca28')))
-              // var color = d3.interpolateMagma
 
               // Get data
               data = generateData()
