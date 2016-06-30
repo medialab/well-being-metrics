@@ -982,7 +982,9 @@ angular.module('app.directives', [])
                   .attr("r", function(d) { return d.radius; })
                   .attr("cx", function(d) { return width/2 + d.x; })
                   .attr("cy", function(d) { return d.y; })
-                  .style("fill", function(d) { return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); })
+                  .style("fill", function(d) { 
+                    return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                  })
                   
               function ticked() {
                 svg.selectAll('circle')
@@ -1035,7 +1037,7 @@ angular.module('app.directives', [])
                 }
 
                 // Preset personas
-                $scope.presets.forEach(function(preset) {
+                /*$scope.presets.forEach(function(preset) {
                   persons.push({
                     id: preset.id,
                     updatable: false,
@@ -1044,7 +1046,7 @@ angular.module('app.directives', [])
                     offset: 0.8 * ( xSpreading * Math.random() - xSpreading / 2 ),
                     color: preset.color
                   })
-                })
+                })*/
 
                 // the "You" person
                 youProfile = {
@@ -1088,7 +1090,7 @@ angular.module('app.directives', [])
             min = 0
             max = deciles[0]
           } else if (roundedDecile >= 9) {
-            min = deciles[roundedDecile - 1]
+            min = deciles[8]
             max = 10
           } else {
             min = deciles[roundedDecile - 1]
@@ -1099,7 +1101,6 @@ angular.module('app.directives', [])
           if (restant < 0) { restant = 0 }
           if (restant > 1) { restant = 1 }
           var score = min + restant * (max - min)
-          
           return score
         }
       }
