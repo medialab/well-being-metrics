@@ -255,9 +255,10 @@ div[happiness-diagram] .cells path {
   pointer-events: all;
 }
 
-div[happiness-diagram] .cells :hover circle {
-  fill: red;
+div[happiness-diagram] .cells circle {
+  cursor: pointer;
 }
+
 
 /* Misc D3 classes */
 

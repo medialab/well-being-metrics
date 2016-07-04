@@ -939,13 +939,13 @@ angular.module('app.directives', [])
         // var color = d3.interpolateHslLong(d3.hsl(d3.color('#DDD')), d3.hsl(d3.color('#ffca28')))
         var color = function(t){
           var hcl = d3.hcl('#AAA')
-          hcl.h = (360 + -280 * (1-t) + 80 * t)%360
-          hcl.c = 70 * t * t * t
-          hcl.l = 70 * (1-t) + 85 * t
+          hcl.h = (360 + -180 * (1-t) + 120 * t)%360
+          hcl.c = 70 * t * t
+          hcl.l = 82 * (1-t) + 78 * t
           return d3.rgb(hcl)
         }
 
-        var margin = {top: 24, right: 24, bottom: 64, left: 24};
+        var margin = {top: 36, right: 24, bottom: 64, left: 24};
         var width
         var height
 
@@ -1077,7 +1077,7 @@ angular.module('app.directives', [])
                   id: 'you',
                   positionWeight: .6,
                   value: $scope.happinessModel[$scope.dimension].decile,
-                  radius: personRadius * 1.5,
+                  radius: personRadius * 1.8,
                   offset: 0,
                   color: youColor
                 }
