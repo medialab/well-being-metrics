@@ -193,6 +193,15 @@ div[hex-us] {
 	margin-top: 48px;
 }
 
+.profile-sidebar-title {
+	background-color: #36827a;
+	color: #FFF;
+	padding: 6px;
+	text-align: center;
+	font-size: 1.2em;
+	cursor: pointer;
+}
+
 .profile-sidebar-content {
 	padding: 24px;
 	overflow-x: hidden;

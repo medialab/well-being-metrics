@@ -876,6 +876,64 @@ angular.module('app.directives', [])
     }
   })
 
+  .directive('profileLabel', function ($timeout, colors) {
+    return {
+      restrict: 'A',
+      scope: {
+        presets: '=',
+        gender: '=',
+        age: '=',
+        work: '=',
+        income: '=',
+        diploma: '=',
+        owner: '=',
+        wedding: '=',
+        children: '=',
+        partnerWorks: '=',
+        charity: '=',
+        french: '='
+      },
+      templateUrl: 'src/directives/profileLabel.html',
+      link: function($scope, el, attrs) {
+        $scope.preset = false
+
+        $scope.$watch('presets', update)
+        $scope.$watch('gender', update)
+        $scope.$watch('age', update)
+        $scope.$watch('work', update)
+        $scope.$watch('income', update)
+        $scope.$watch('diploma', update)
+        $scope.$watch('owner', update)
+        $scope.$watch('wedding', update)
+        $scope.$watch('children', update)
+        $scope.$watch('partnerWorks', update)
+        $scope.$watch('charity', update)
+        $scope.$watch('french', update)
+
+        function update() {
+          
+          $scope.preset = false
+          $scope.presets.forEach(function(preset){
+            var k
+            var match = true
+            for(k in preset.data) {
+              if (preset.data[k] !== $scope[k]) {
+                match = false
+              }
+            }
+            if (match) {
+              $scope.preset = preset
+            }
+          })
+        }
+
+        $scope.choosePreset = function() {
+          $scope.displayPresets = true;
+        }
+      }
+    }
+  })
+
   .directive('happinessDiagram', function ($timeout, colors, $translate, $translatePartialLoader) {
     return {
       restrict: 'A',

@@ -8,18 +8,29 @@
     id="pop-data-sidebar"
     ng-if="!introMode"
    >
-    <div class="profile-sidebar-content">
-      
-      <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-      <md-button ng-click="close()" class="md-primary" hide-gt-md>
-        Close Sidenav Left
-      </md-button>
-
-      <div class="profile-form-title">
-	      <md-button ng-click="choosePreset()" class="md-primary">
-	        Presets
-	      </md-button>
-      </div>
+   	<div
+    	profile-label
+    	class="profile-sidebar-title"
+    	ng-click="choosePreset()"
+			presets="presets"
+    	gender="gender"
+    	age="age"
+    	work="work"
+    	income="income"
+    	diploma="diploma"
+    	owner="owner"
+    	wedding="wedding"
+    	children="children"
+    	partner-works="partnerWorks"
+    	charity="charity"
+    	french="french"
+    ></div>
+  	<div class="profile-sidebar-content">
+    
+    <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
+    <md-button ng-click="close()" class="md-primary" hide-gt-md>
+      Close Sidenav Left
+    </md-button>
 
       <md-radio-group ng-model="$parent.gender" layout="row">
 			  <md-radio-button flex ng-repeat="gen in $parent.gender_list" ng-value="gen.value" aria-label="{{ gen.label }}">
@@ -94,11 +105,11 @@
       <div class="profile-form-message">{{incomeDecileMessage}}</div>
 
 	    <md-switch ng-model="$parent.partnerWorks" aria-label="Partner works">
-  	  	{{ (partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
+  	  	{{ ($parent.partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
   		</md-switch>
 
   		<md-switch ng-model="$parent.owner" aria-label="Owner">
-  	  	{{ (owner ? 'OWNER' : 'NOT OWNER')|translate }}
+  	  	{{ ($parent.owner ? 'OWNER' : 'NOT OWNER')|translate }}
   		</md-switch>
 
     </div>

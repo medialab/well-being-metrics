@@ -215,7 +215,7 @@ angular.module('app.populationData', ['ngRoute'])
 			}
 		},
 		{
-			id: 'longterm-unemployed-woman',
+			id: 'unemployed-woman',
 			type: 'UNEMPLOYED WOMAN',
 			text: 'UNEMPLOYED WOMAN TEXT',
 			name: 'Stéphanie',
