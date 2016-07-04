@@ -24,6 +24,7 @@
     	partner-works="partnerWorks"
     	charity="charity"
     	french="french"
+    	md-ink-ripple="#FFFFFF"
     ></div>
   	<div class="profile-sidebar-content">
     
@@ -147,8 +148,9 @@
 			      md-colspan-xs="1"
 			      ng-repeat="preset in presets"
 			      class="profile-tile"
-			      style="background-color: {{preset.colorLight}};"
+			      style="background-color: /*{{preset.colorLight}}*/#DDD;"
 			      ng-click="setPreset(preset)"
+			      md-ink-ripple="#FFFFFF"
 			    >
 			    	<div class="profile-tile-content">
 				    	<h3>{{preset.name}}, <strong>{{preset.type|translate}}</strong></h3>

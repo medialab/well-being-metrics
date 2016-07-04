@@ -200,6 +200,12 @@ div[hex-us] {
 	text-align: center;
 	font-size: 1.2em;
 	cursor: pointer;
+	height: 48px;
+	overflow: hidden;
+}
+
+.profile-sidebar-title .oneliner {
+	margin-top: 12px;
 }
 
 .profile-sidebar-content {
