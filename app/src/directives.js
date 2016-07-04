@@ -942,10 +942,16 @@ angular.module('app.directives', [])
         happinessModel: '=',
         presets: '='
       },
-      link: function($scope, el, attrs) {
+      templateUrl: 'src/directives/populationDataVis.html',
+      link: function($scope, directiveElement, attrs) {
+        
+        // D3 element
+        var el = angular.element(directiveElement.children()[0])
 
         el.html('<div><center>Loading</center></div>')
         
+        $scope.highlightedItem
+
         $scope.$watch('dimension', softUpdate)
         $scope.$watch('happinessModel', softUpdate)
         $scope.$watch('presets', redraw)
@@ -1011,7 +1017,7 @@ angular.module('app.directives', [])
         var svg
         var g // SVG group for main graphical elements
         var gText
-        var tooltip
+        var tooltip = d3.select(directiveElement.children()[1])
 
         function redraw() {
           // FIXME: use a relevant 'if' condition
@@ -1042,11 +1048,6 @@ angular.module('app.directives', [])
                 .attr("class", "text-layer")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-              // Define the div for the tooltip
-              tooltip = d3.select(el[0]).append("div") 
-                  .attr("class", "tooltip")       
-                  .style("opacity", 0);
-
               // Draw text
               redrawText()
 
@@ -1073,29 +1074,31 @@ angular.module('app.directives', [])
               .enter().append("g");
 
               cell.append("circle")
-                  .attr("r", function(d) { return d.radius; })
-                  .attr("cx", function(d) { return width/2 + d.x; })
-                  .attr("cy", function(d) { return d.y; })
-                  .style("fill", function(d) { 
-                    return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                .attr("r", function(d) { return d.radius; })
+                .attr("cx", function(d) { return width/2 + d.x; })
+                .attr("cy", function(d) { return d.y; })
+                .style("fill", function(d) { 
+                  return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                })
+                .on("mouseover", function(d) {
+                  $timeout(function(){
+                    $scope.highlightedItem = d;
                   })
-                  .on("mouseover", function(d) {
-                    tooltip.transition()
-                      .duration(200)
-                      .style("opacity", .9);
-                    tooltip.html(buildTooltipContent(d))
-                      .style("left", (d3.event.pageX) + "px")
-                      .style("top", (d3.event.pageY - 28) + "px");
-                    })
-                  .on("mouseout", function(d) {
-                    tooltip.transition()
-                      .duration(500)
-                      .style("opacity", 0);
-                    })
-
-              function buildTooltipContent(d) {
-                return 'HTML TO DO'
-              }
+                  tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                  tooltip
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+                .on("mouseout", function(d) {
+                  $timeout(function(){
+                    $scope.highlightedItem = {};
+                  })
+                  tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+                })
 
               function generateData() {
                 
