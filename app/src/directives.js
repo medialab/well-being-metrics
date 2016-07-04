@@ -911,7 +911,7 @@ angular.module('app.directives', [])
         $scope.$watch('french', update)
 
         function update() {
-          
+
           $scope.preset = false
           $scope.presets.forEach(function(preset){
             var k
@@ -1011,6 +1011,7 @@ angular.module('app.directives', [])
         var svg
         var g // SVG group for main graphical elements
         var gText
+        var tooltip
 
         function redraw() {
           // FIXME: use a relevant 'if' condition
@@ -1027,7 +1028,7 @@ angular.module('app.directives', [])
               rectangleWidth = widthHeightRatio * height
               xOffset = -50
 
-              // Setup: SVG container
+              // SVG container
               svg = d3.select(el[0]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -1040,6 +1041,11 @@ angular.module('app.directives', [])
               gText = svg.append("g")
                 .attr("class", "text-layer")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              // Define the div for the tooltip
+              tooltip = d3.select(el[0]).append("div") 
+                  .attr("class", "tooltip")       
+                  .style("opacity", 0);
 
               // Draw text
               redrawText()
@@ -1073,6 +1079,23 @@ angular.module('app.directives', [])
                   .style("fill", function(d) { 
                     return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
                   })
+                  .on("mouseover", function(d) {
+                    tooltip.transition()
+                      .duration(200)
+                      .style("opacity", .9);
+                    tooltip.html(buildTooltipContent(d))
+                      .style("left", (d3.event.pageX) + "px")
+                      .style("top", (d3.event.pageY - 28) + "px");
+                    })
+                  .on("mouseout", function(d) {
+                    tooltip.transition()
+                      .duration(500)
+                      .style("opacity", 0);
+                    })
+
+              function buildTooltipContent(d) {
+                return 'HTML TO DO'
+              }
 
               function generateData() {
                 
