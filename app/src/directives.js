@@ -1080,25 +1080,37 @@ angular.module('app.directives', [])
                 .style("fill", function(d) { 
                   return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
                 })
-                .on("mouseover", function(d) {
-                  $timeout(function(){
-                    $scope.highlightedItem = d;
-                  })
+                .on("click", function(d) {
+                  d3.event.stopPropagation()
+                  displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                })
+
+              directiveElement.on('click', function() {
+                hideTooltip()
+              })
+
+              function displayTooltip(item, x, y) {
+                $timeout(function(){
+                  $scope.highlightedItem = item;
+
                   tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
                   tooltip
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", x + "px")
+                    .style("top", y + "px");
                 })
-                .on("mouseout", function(d) {
-                  $timeout(function(){
-                    $scope.highlightedItem = {};
-                  })
+              }
+
+              function hideTooltip() {
+                $timeout(function(){
+                  $scope.highlightedItem = {};
+
                   tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
+                    .duration(200)
+                    .style("opacity", .0);
                 })
+              }
 
               function generateData() {
                 
