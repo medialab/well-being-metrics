@@ -13,6 +13,7 @@
     	class="profile-sidebar-title"
     	ng-click="choosePreset()"
 			presets="presets"
+			preset="$parent.preset"
     	gender="gender"
     	age="age"
     	work="work"
@@ -146,24 +147,24 @@
 			      md-colspan="2"
 			      md-colspan-sm="1"
 			      md-colspan-xs="1"
-			      ng-repeat="preset in presets"
+			      ng-repeat="p in presets"
 			      class="profile-tile"
-			      style="background-color: {{preset.color}};"
-			      ng-click="setPreset(preset)"
+			      style="background-color: {{p.color}};"
+			      ng-click="setPreset(p)"
 			      md-ink-ripple="#FFFFFF"
 			    >
 			    	<div class="profile-tile-content">
 				    	<table><tr>
 				    		<td>
-					        <img ng-src="{{preset.avatar}}" class="md-avatar" alt="{{preset.name}}" />
+					        <img ng-src="{{p.avatar}}" class="md-avatar" alt="{{p.name}}" />
 				    		</td>
 				    		<td>
-				          <h3 translate>{{preset.name}}</h3>
-				          <p translate>{{preset.type}}</p>
+				          <h3 translate>{{p.name}}</h3>
+				          <p translate>{{p.type}}</p>
 				    		</td>
 				    	</tr></table>
 				    	<br>
-		          <p translate>{{preset.text}}</p>
+		          <p translate>{{p.text}}</p>
 						</div>
 			    </md-grid-tile>
 			  </md-grid-list>
@@ -179,6 +180,7 @@
 							dimension="'current_life'"
 							happiness-model="happinessModel"
 							presets="presets"
+							preset="preset"
 							gender="gender"
 						>
 						</div>
@@ -192,6 +194,7 @@
 							dimension="'leisure'"
 							happiness-model="happinessModel"
 							presets="presets"
+							preset="preset"
 							gender="gender"
 						>
 						</div>
@@ -207,6 +210,7 @@
 							dimension="'housing'"
 							happiness-model="happinessModel"
 							presets="presets"
+							preset="preset"
 							gender="gender"
 						>
 						</div>
@@ -220,6 +224,7 @@
 							dimension="'loved_ones'"
 							happiness-model="happinessModel"
 							presets="presets"
+							preset="preset"
 							gender="gender"
 						>
 						</div>

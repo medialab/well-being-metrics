@@ -881,6 +881,7 @@ angular.module('app.directives', [])
       restrict: 'A',
       scope: {
         presets: '=',
+        preset: '=',
         gender: '=',
         age: '=',
         work: '=',
@@ -895,7 +896,6 @@ angular.module('app.directives', [])
       },
       templateUrl: 'src/directives/profileLabel.html',
       link: function($scope, el, attrs) {
-        $scope.preset = false
 
         $scope.$watch('presets', update)
         $scope.$watch('gender', update)
@@ -941,6 +941,7 @@ angular.module('app.directives', [])
         dimension: '=',
         happinessModel: '=',
         presets: '=',
+        preset: '=',
         gender: '='
       },
       templateUrl: 'src/directives/populationDataVis.html',
@@ -963,8 +964,10 @@ angular.module('app.directives', [])
         redraw()
 
         function softUpdate() {
-          updateValues()
-          redrawText()
+          $timeout(function(){
+            updateValues()
+            redrawText()
+          })
         }
 
         // Translation
@@ -1102,10 +1105,7 @@ angular.module('app.directives', [])
                 .attr("r", function(d) { return d.radius; })
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
-                .style("fill", function(d) { 
-                  if (d.imageId) return 'url(#'+d.imageId+')'
-                  else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
-                })
+                .style("fill", profileFill)
                 .on("click", function(d) {
                   d3.event.stopPropagation()
                   displayTooltip(d, d3.event.layerX, d3.event.layerY)
@@ -1194,14 +1194,15 @@ angular.module('app.directives', [])
                 }
 
                 // Preset personas
-                $scope.presets.forEach(function(preset) {
+                $scope.presets.forEach(function(p) {
                   persons.push({
-                    id: preset.id,
+                    id: p.id,
                     positionWeight: 0.1,
-                    value: preset.happinessModel[$scope.dimension].decile,
-                    radius: personRadius * 1.2,
+                    value: p.happinessModel[$scope.dimension].decile,
+                    happinessModel: p.happinessModel,
+                    radius: personRadius,
                     offset: 0.8 * ( rectangleWidth * Math.random() - rectangleWidth / 2 ),
-                    imageId: preset.id
+                    imageId: p.id
                     // color: preset.color
                   })
                 })
@@ -1212,7 +1213,7 @@ angular.module('app.directives', [])
                   positionWeight: .6,
                   value: $scope.happinessModel[$scope.dimension].decile,
                   happinessModel: $scope.happinessModel,
-                  radius: personRadius * 1.8,
+                  radius: personRadius * 2.4,
                   offset: 0,
                   // color: youColor,
                   imageId: ($scope.gender == 'gender_male') ? ('man') : ('woman')
@@ -1346,11 +1347,19 @@ angular.module('app.directives', [])
 
             // Update image
             d3.selectAll("circle")
-              .style("fill", function(d) {
-                  if (d.imageId) return 'url(#'+d.imageId+')'
-                  else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
-                })
+              .style("fill", profileFill)
           }
+        }
+
+        function profileFill(d) {
+          if (d.imageId) {
+            if ($scope.preset && $scope.preset.id) {
+              if (d.id == 'you') return 'url(#'+$scope.preset.id+')'
+              if (d.imageId == $scope.preset.id) return color(d.happinessModel[$scope.dimension].score/10);
+            }
+            return 'url(#'+d.imageId+')'
+          }
+          else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
         }
 
         function rebootSimulation() {
