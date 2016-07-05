@@ -1082,8 +1082,15 @@ angular.module('app.directives', [])
                 })
                 .on("click", function(d) {
                   d3.event.stopPropagation()
-                  console.log('item clicked', d)
                   displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                })
+                .on("mouseover", function(d) {
+                  d3.event.stopPropagation()
+                  displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                })
+                .on("mouseout", function(d) {
+                  d3.event.stopPropagation()
+                  hideTooltip()
                 })
 
               directiveElement.on('click', function() {
@@ -1094,14 +1101,9 @@ angular.module('app.directives', [])
                 $timeout(function(){
                   $scope.highlightedItem = item;
 
-/*                  // If item is "you", it may have changed
-                  if (item.id == 'you') {
-                    $scope.highlightedItem = youProfile
-                  }
-*/
                   tooltip.transition()
                     .duration(200)
-                    .style("opacity", 1);
+                    .style("opacity", .9);
                   tooltip
                     .style("left", x + "px")
                     .style("top", y + "px");
