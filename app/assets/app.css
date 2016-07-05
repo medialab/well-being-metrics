@@ -194,14 +194,28 @@ div[hex-us] {
 }
 
 .profile-sidebar-title {
-	background-color: #36827a;
-	color: #FFF;
-	padding: 6px;
-	text-align: center;
-	font-size: 1.2em;
+	font-size: 0.9em;
 	cursor: pointer;
-	height: 48px;
+	height: 62px;
 	overflow: hidden;
+}
+
+.profile-sidebar-title h3 {
+	font-weight: 300;
+	margin: 0px;
+}
+
+.profile-sidebar-title p {
+	margin: 0px;
+	opacity: 0.8;
+}
+
+.profile-sidebar-title img {
+	width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  margin: 6px;
 }
 
 .profile-sidebar-title .oneliner {

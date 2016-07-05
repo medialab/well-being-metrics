@@ -97,7 +97,7 @@ angular.module('app.populationData', ['ngRoute'])
 			text: 'YOUNG SINGLE TEXT',
 			name: 'Julien',
 			avatar: 'res/julien.png',
-			color: '#bbc0ce',
+			color: '#daeef3',
 			data: {
 				'gender': 'gender_male',
 				'age': 30,
@@ -117,7 +117,7 @@ angular.module('app.populationData', ['ngRoute'])
 			text: 'YOUNG ACTIVE MOM TEXT',
 			name: 'Elodie',
 			avatar: 'res/elodie.png',
-			color: '#c1def2',
+			color: '#c8e4f7',
 			data: {
 				'gender': 'gender_female',
 				'age': 25,
@@ -304,7 +304,7 @@ angular.module('app.populationData', ['ngRoute'])
 			text: 'RETIRED TEXT',
 			name: 'Michel',
 			avatar: 'res/michel.png',
-			color: '#f3c2a7',
+			color: '#e6d7ce',
 			data: {
 				'gender': 'gender_male',
 				'age': 70,
@@ -325,7 +325,7 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'IMMIGRANT',
 			text: 'IMMIGRANT TEXT',
 			avatar: 'res/frank.png',
-			color: '#b2d5a0',
+			color: '#d4efc6',
 			data: {
 				'gender': 'gender_male',
 				'age': 50,

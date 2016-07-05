@@ -1,8 +1,21 @@
-<div ng-if="preset">
-	{{preset.name}},
-	<br>
-	<span translate>{{preset.type}}</span>
+<div ng-if="preset" style="background-color: {{preset.color}};">
+	<table><tr>
+		<td>
+	    <img ng-src="{{preset.avatar}}" class="md-avatar" alt="{{preset.name}}" />
+		</td>
+		<td>
+	    <h3 translate>{{preset.name}}</h3>
+	    <p translate>{{preset.type}}</p>
+		</td>
+	</tr></table>
 </div>
-<div ng-if="!preset" class="oneliner">
-	<span translate>CUSTOM PROFILE</span>
+<div ng-if="!preset" style="background-color: rgba(77,182,172,0.5);">
+	<table><tr>
+		<td>
+	    <img ng-src="{{gender=='gender_male' ? 'res/man.svg' : 'res/woman.svg'}}" class="md-avatar" alt="{{'CUSTOM PROFILE'|translate}}" />
+		</td>
+		<td>
+	    <h3 translate>CUSTOM PROFILE</h3>
+		</td>
+	</tr></table>
 </div>
