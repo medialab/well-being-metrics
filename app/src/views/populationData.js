@@ -76,9 +76,10 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'STUDENT',
 			text: 'STUDENT TEXT',
 			name: 'Camille',
-			color: '#64dac4',
-			colorLight: '#c8f4ea',
+			avatar: 'res/camille.png',
+			color: '#eeddd9',
 			data: {
+				'gender': 'gender_female',
 				'age': 19,
 				'work': 'work_student',
 				'income': 4000, // Income decile: 8 (lives at home)
@@ -95,8 +96,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'YOUNG SINGLE',
 			text: 'YOUNG SINGLE TEXT',
 			name: 'Julien',
-			color: '#da81ac',
-			colorLight: '#e3d6e9',
+			avatar: 'res/julien.png',
+			color: '#bbc0ce',
 			data: {
 				'gender': 'gender_male',
 				'age': 30,
@@ -115,8 +116,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'YOUNG ACTIVE MOM',
 			text: 'YOUNG ACTIVE MOM TEXT',
 			name: 'Elodie',
-			color: '#75d189',
-			colorLight: '#bed9b3',
+			avatar: 'res/elodie.png',
+			color: '#c1def2',
 			data: {
 				'gender': 'gender_female',
 				'age': 25,
@@ -136,8 +137,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'COMFORTABLE FATHER',
 			text: 'COMFORTABLE FATHER TEXT',
 			name: 'Frédéric',
-			color: '#c494d8',
-			colorLight: '#e2c9f0',
+			avatar: 'res/frederic.png',
+			color: '#d7d6dc',
 			data: {
 				'gender': 'gender_male',
 				'age': 40,
@@ -157,8 +158,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'MODEST FATHER',
 			text: 'MODEST FATHER TEXT',
 			name: 'Jérôme',
-			color: '#779d53',
-			colorLight: '#d7f3cc',
+			avatar: 'res/jerome.png',
+			color: '#d6d7c2',
 			data: {
 				'gender': 'gender_male',
 				'age': 40,
@@ -178,8 +179,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'SINGLE MOTHER',
 			text: 'SINGLE MOTHER TEXT',
 			name: 'Virginie',
-			color: '#789ae0',
-			colorLight: '#c1d3ef',
+			avatar: 'res/virginie.png',
+			color: '#f4deb7',
 			data: {
 				'gender': 'gender_female',
 				'age': 35,
@@ -198,8 +199,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'MOTHER AT HOME',
 			text: 'MOTHER AT HOME TEXT',
 			name: 'Aurélie',
-			color: '#b9ac5e',
-			colorLight: '#e6d9bc',
+			avatar: 'res/aurelie.png',
+			color: '#c9ebde',
 			data: {
 				'gender': 'gender_female',
 				'age': 35,
@@ -219,8 +220,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'UNEMPLOYED WOMAN',
 			text: 'UNEMPLOYED WOMAN TEXT',
 			name: 'Stéphanie',
-			color: '#54bada',
-			colorLight: '#b8d7e0',
+			avatar: 'res/stephanie.png',
+			color: '#e0f1b6',
 			data: {
 				'gender': 'gender_female',
 				'age': 40,
@@ -240,8 +241,8 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'SINGLE UNEMPLOYED MAN',
 			text: 'SINGLE UNEMPLOYED MAN TEXT',
 			name: 'Jérémy',
-			color: '#d4985d',
-			colorLight: '#eccbb4',
+			avatar: 'res/jeremy.png',
+			color: '#decfd1',
 			data: {
 				'gender': 'gender_male',
 				'age': 30,
@@ -259,10 +260,11 @@ angular.module('app.populationData', ['ngRoute'])
 			id: 'active-citizen',
 			type: 'ACTIVE CITIZEN',
 			text: 'ACTIVE CITIZEN TEXT',
-			name: 'Stéphan(i)e',
-			color: '#41aaa1',
-			colorLight: '#a7d2c9',
+			name: 'Stéphane',
+			avatar: 'res/stephane.png',
+			color: '#dddab6',
 			data: {
+				'gender': 'gender_male',
 				'age': 45,
 				'work': 'work_worker',
 				'income': 3500, // Income decile: 7
@@ -279,10 +281,11 @@ angular.module('app.populationData', ['ngRoute'])
 			id: 'retired-citizen',
 			type: 'RETIRED CITIZEN',
 			text: 'RETIRED CITIZEN TEXT',
-			name: 'Christian(e)',
-			color: '#de8077',
-			colorLight: '#f5c7c3',
+			name: 'Christiane',
+			avatar: 'res/christiane.png',
+			color: '#afd3f1',
 			data: {
+				'gender': 'gender_female',
 				'age': 70,
 				'work': 'work_retired',
 				'income': 3000, // Income decile: 6
@@ -299,10 +302,11 @@ angular.module('app.populationData', ['ngRoute'])
 			id: 'retired',
 			type: 'RETIRED',
 			text: 'RETIRED TEXT',
-			name: 'Michel(e)',
-			color: '#50a97c',
-			colorLight: '#b6d1ab',
+			name: 'Michel',
+			avatar: 'res/michel.png',
+			color: '#f3c2a7',
 			data: {
+				'gender': 'gender_male',
 				'age': 70,
 				'work': 'work_retired',
 				'income': 2600, // Income decile: 5
@@ -318,10 +322,10 @@ angular.module('app.populationData', ['ngRoute'])
 		{
 			id: 'immigrant',
 			name: 'Franck',
-			color: '#aed08b',
-			colorLight: '#d9e6d3',
 			type: 'IMMIGRANT',
 			text: 'IMMIGRANT TEXT',
+			avatar: 'res/frank.png',
+			color: '#b2d5a0',
 			data: {
 				'gender': 'gender_male',
 				'age': 50,

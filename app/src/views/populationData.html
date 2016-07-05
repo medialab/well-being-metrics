@@ -148,13 +148,22 @@
 			      md-colspan-xs="1"
 			      ng-repeat="preset in presets"
 			      class="profile-tile"
-			      style="background-color: /*{{preset.colorLight}}*/#DDD;"
+			      style="background-color: {{preset.color}};"
 			      ng-click="setPreset(preset)"
 			      md-ink-ripple="#FFFFFF"
 			    >
 			    	<div class="profile-tile-content">
-				    	<h3>{{preset.name}}, <strong>{{preset.type|translate}}</strong></h3>
-						  <p translate>{{preset.text}}</p>
+				    	<table><tr>
+				    		<td>
+					        <img ng-src="{{preset.avatar}}" class="md-avatar" alt="{{preset.name}}" />
+				    		</td>
+				    		<td>
+				          <h3 translate>{{preset.name}}</h3>
+				          <p translate>{{preset.type}}</p>
+				    		</td>
+				    	</tr></table>
+				    	<br>
+		          <p translate>{{preset.text}}</p>
 						</div>
 			    </md-grid-tile>
 			  </md-grid-list>

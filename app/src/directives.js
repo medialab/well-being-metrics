@@ -1039,22 +1039,29 @@ angular.module('app.directives', [])
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
 
-              // Patterns for images
+              // Patterns for images NB: ids have to check imageId from nodes generateData()
               var defs = svg.append('defs')
-              defs.append('pattern')
-                .attr('id', 'anon')
-                .attr('x', '0%')
-                .attr('y', '0%')
-                .attr('height', '100%')
-                .attr('width', '100%')
-                .attr('viewBox', '0 0 64 64')
-              .append('svg:image')
-                .attr('x', '0%')
-                .attr('y', '0%')
-                .attr('height', '64')
-                .attr('width', '64')
-                .attr('xlink:href', "res/anon.png")
-              
+              $scope.presets.forEach(function(preset){
+                addPattern(defs, preset.id, preset.avatar)
+              })
+              addPattern(defs, 'you', 'res/anon.png')
+              function addPattern(defs, id, url) {
+                defs.append('pattern')
+                  .attr('id', id)
+                  .attr('x', '0%')
+                  .attr('y', '0%')
+                  .attr('height', '100%')
+                  .attr('width', '100%')
+                  .attr('viewBox', '0 0 64 64')
+                .append('svg:image')
+                  .attr('x', '0%')
+                  .attr('y', '0%')
+                  .attr('height', '64')
+                  .attr('width', '64')
+                  .attr('xlink:href', url)
+              }
+
+
               // persons' SVG group
               g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -1093,10 +1100,13 @@ angular.module('app.directives', [])
                 .attr("r", function(d) { return d.radius; })
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
-                .style("fill", 'url(#anon)')
-                // .style("fill", function(d) { 
-                //   return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
-                // })
+                .style("fill", function(d) { 
+                  if (d.imageId) {
+                    return 'url(#'+d.imageId+')'
+                  } else {
+                    return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                  }
+                })
                 .on("click", function(d) {
                   d3.event.stopPropagation()
                   displayTooltip(d, d3.event.layerX, d3.event.layerY)
@@ -1185,16 +1195,17 @@ angular.module('app.directives', [])
                 }
 
                 // Preset personas
-                /*$scope.presets.forEach(function(preset) {
+                $scope.presets.forEach(function(preset) {
                   persons.push({
                     id: preset.id,
                     positionWeight: 0.1,
                     value: preset.happinessModel[$scope.dimension].decile,
                     radius: personRadius * 1.2,
                     offset: 0.8 * ( rectangleWidth * Math.random() - rectangleWidth / 2 ),
-                    color: preset.color
+                    imageId: preset.id
+                    // color: preset.color
                   })
-                })*/
+                })
 
                 // the "You" person
                 youProfile = {
@@ -1204,7 +1215,8 @@ angular.module('app.directives', [])
                   happinessModel: $scope.happinessModel,
                   radius: personRadius * 1.8,
                   offset: 0,
-                  color: youColor
+                  // color: youColor,
+                  imageId: 'you'
                 }
                 persons.push(youProfile)
 

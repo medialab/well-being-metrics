@@ -238,16 +238,26 @@ div[hex-us] {
 }
 
 .profile-tile-content {
-	font-size: 0.8em;
+	font-size: 0.96em;
 	padding: 12px;
 }
 
 .profile-tile-content h3 {
 	font-weight: 300;
+	margin: 0px;
 }
 
-.profile-tile-content h3 strong {
-	font-weight: 500;
+.profile-tile-content p {
+	margin: 0px;
+	opacity: 0.8;
+}
+
+.profile-tile-content img {
+	width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  margin-right: 6px;
 }
 
 .diagram-tile {
