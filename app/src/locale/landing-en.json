@@ -1,0 +1,13 @@
+{
+  "QUESTION_1": "What metrics lie behind Happiness?",
+  "SUBTITLE_1": "The SoWell project aims to define new metrics to measure well-being in societies.",
+  "CTA_1": "Read our manifesto",
+
+  "QUESTION_2": "How can we measure variations of Mood in time?",
+  "SUBTITLE_2": "Harvesting queries from millions of internet users, we map facets of people's feelings and preoccupations.",
+  "CTA_2": "Explore the data",
+
+  "QUESTION_3": "Where do you stand?",
+  "SUBTITLE_3": "Using new poll modeling techniques, we pinpoint key factors for a quantitative definition of Happiness. X millions people were surveyed.",
+  "CTA_3": "How happy are you?"
+}

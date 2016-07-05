@@ -1,0 +1,13 @@
+{
+  "QUESTION_1": "Quelles données se cachent derrière le Bonheur ?",
+  "SUBTITLE_1": "Le projet SoWell définit de nouveaux indices pour tenter de quantifier le bien-être dans la société.",
+  "CTA_1": "Lire le manifeste",
+
+  "QUESTION_2": "Comment mesurer les variations de l'Humeur de la société ?",
+  "SUBTITLE_2": "En analysant les requêtes de millions d'internautes, nous révélons par facettes l'état d'esprit et les préoccupations du public.",
+  "CTA_2": "Explorer les données",
+
+  "QUESTION_3": "Où vous situez-vous ?",
+  "SUBTITLE_3": "En utilisant de nouveau modèles de sondage, nous mettons en lumière les facteurs clés pour une définition quantitative du Bonheur. X millions de personnes ont été interrogées.",
+  "CTA_3": "Êtes-vous heureux?"
+}
