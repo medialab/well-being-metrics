@@ -1,5 +1,7 @@
-<div class="sw-landing-slide">
+<div class="sw-landing-slide {{class}} is-active">
   <h1 translate>{{question}}</h1>
-  <h3 translate>{{subtitle}}</h3>
-  <md-button class="md-raised">{{ cta | translate }}</md-button>
+  <div class="sw-text">
+    <p translate>{{subtitle}}</p>
+    <md-button class="md-raised sw-cta-btn">{{ cta | translate }}</md-button>
+  </div>
 </div>

@@ -1379,6 +1379,7 @@ angular.module('app.directives', [])
       scope: {
         question: '@',
         subtitle: '@',
+        class: '@',
         cta: '@'
       },
       templateUrl: 'src/directives/landingSlide.html',
