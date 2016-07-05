@@ -277,14 +277,24 @@ div[happiness-diagram] .cells circle {
 div[happiness-diagram] div.tooltip {	
   position: absolute;
   text-align: center;
-  width: 60px;
-  height: 28px;
-  padding: 2px;
   font: 12px sans-serif;
-  background: lightsteelblue;
-  border: 0px;
-  border-radius: 8px;
   pointer-events: none;
+  margin-top: -60px;
+	margin-left: -60px;
+	width: 120px;
+	height: 120px;
+	border-radius: 100%;
+	background-color: #FFF;
+}
+
+div[happiness-diagram] div.tooltip-score {
+	margin-top: 24px;
+	font-size: 48px;
+}
+
+div[happiness-diagram] div.tooltip-text {
+	margin-top: -6px;
+	font-size: 10px;
 }
 
 /* Misc D3 classes */

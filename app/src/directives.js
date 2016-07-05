@@ -1082,6 +1082,7 @@ angular.module('app.directives', [])
                 })
                 .on("click", function(d) {
                   d3.event.stopPropagation()
+                  console.log('item clicked', d)
                   displayTooltip(d, d3.event.layerX, d3.event.layerY)
                 })
 
@@ -1093,9 +1094,14 @@ angular.module('app.directives', [])
                 $timeout(function(){
                   $scope.highlightedItem = item;
 
+/*                  // If item is "you", it may have changed
+                  if (item.id == 'you') {
+                    $scope.highlightedItem = youProfile
+                  }
+*/
                   tooltip.transition()
                     .duration(200)
-                    .style("opacity", .9);
+                    .style("opacity", 1);
                   tooltip
                     .style("left", x + "px")
                     .style("top", y + "px");
@@ -1113,7 +1119,6 @@ angular.module('app.directives', [])
               }
 
               function generateData() {
-                
                 var persons = []
 
                 // Artificial persons
@@ -1137,19 +1142,23 @@ angular.module('app.directives', [])
                       happinessModel: {
                         current_life: {
                           score: getHappinessFromDecile(value, 'current_life'),
-                          decile: value
+                          decile: value,
+                          color: d3.color(color(getHappinessFromDecile(value, 'current_life')/10)).toString()
                         },
                         leisure: {
                           score: getHappinessFromDecile(value, 'leisure'),
-                          decile: value
+                          decile: value,
+                          color: d3.color(color(getHappinessFromDecile(value, 'leisure')/10)).toString()
                         },
                         housing: {
                           score: getHappinessFromDecile(value, 'housing'),
-                          decile: value
+                          decile: value,
+                          color: d3.color(color(getHappinessFromDecile(value, 'housing')/10)).toString()
                         },
                         loved_ones: {
                           score: getHappinessFromDecile(value, 'loved_ones'),
-                          decile: value
+                          decile: value,
+                          color: d3.color(color(getHappinessFromDecile(value, 'loved_ones')/10)).toString()
                         }
                       }
                     })
@@ -1173,6 +1182,7 @@ angular.module('app.directives', [])
                   id: 'you',
                   positionWeight: .6,
                   value: $scope.happinessModel[$scope.dimension].decile,
+                  happinessModel: $scope.happinessModel,
                   radius: personRadius * 1.8,
                   offset: 0,
                   color: youColor
@@ -1300,6 +1310,7 @@ angular.module('app.directives', [])
         function updateValues() {
           if (g && youProfile) {
             youProfile.value = $scope.happinessModel[$scope.dimension].decile
+            youProfile.happinessModel = $scope.happinessModel
             rebootSimulation()
           }
         }
