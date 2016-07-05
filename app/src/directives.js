@@ -1038,6 +1038,22 @@ angular.module('app.directives', [])
               svg = d3.select(el[0]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
+
+              // Patterns for images
+              var defs = svg.append('defs')
+              defs.append('pattern')
+                .attr('id', 'anon')
+                .attr('x', '0%')
+                .attr('y', '0%')
+                .attr('height', '100%')
+                .attr('width', '100%')
+                .attr('viewBox', '0 0 64 64')
+              .append('svg:image')
+                .attr('x', '0%')
+                .attr('y', '0%')
+                .attr('height', '64')
+                .attr('width', '64')
+                .attr('xlink:href', "res/anon.png")
               
               // persons' SVG group
               g = svg.append("g")
@@ -1077,9 +1093,10 @@ angular.module('app.directives', [])
                 .attr("r", function(d) { return d.radius; })
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
-                .style("fill", function(d) { 
-                  return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
-                })
+                .style("fill", 'url(#anon)')
+                // .style("fill", function(d) { 
+                //   return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                // })
                 .on("click", function(d) {
                   d3.event.stopPropagation()
                   displayTooltip(d, d3.event.layerX, d3.event.layerY)
