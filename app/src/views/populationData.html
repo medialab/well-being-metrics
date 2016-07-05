@@ -14,17 +14,17 @@
     	ng-click="choosePreset()"
 			presets="presets"
 			preset="$parent.preset"
-    	gender="gender"
-    	age="age"
-    	work="work"
-    	income="income"
-    	diploma="diploma"
-    	owner="owner"
-    	wedding="wedding"
-    	children="children"
-    	partner-works="partnerWorks"
-    	charity="charity"
-    	french="french"
+    	gender="$parent.gender"
+    	age="$parent.age"
+    	work="$parent.work"
+    	income="$parent.income"
+    	diploma="$parent.diploma"
+    	owner="$parent.owner"
+    	wedding="$parent.wedding"
+    	children="$parent.children"
+    	partner-works="$parent.partnerWorks"
+    	charity="$parent.charity"
+    	french="$parent.french"
     	md-ink-ripple="#FFFFFF"
     ></div>
   	<div class="profile-sidebar-content">
@@ -180,7 +180,7 @@
 							dimension="'current_life'"
 							happiness-model="happinessModel"
 							presets="presets"
-							preset="preset"
+							preset="$parent.$parent.preset"
 							gender="gender"
 						>
 						</div>
@@ -194,7 +194,7 @@
 							dimension="'leisure'"
 							happiness-model="happinessModel"
 							presets="presets"
-							preset="preset"
+							preset="$parent.$parent.preset"
 							gender="gender"
 						>
 						</div>
@@ -210,7 +210,7 @@
 							dimension="'housing'"
 							happiness-model="happinessModel"
 							presets="presets"
-							preset="preset"
+							preset="$parent.$parent.preset"
 							gender="gender"
 						>
 						</div>
@@ -224,7 +224,7 @@
 							dimension="'loved_ones'"
 							happiness-model="happinessModel"
 							presets="presets"
-							preset="preset"
+							preset="$parent.$parent.preset"
 							gender="gender"
 						>
 						</div>

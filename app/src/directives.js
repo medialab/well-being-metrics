@@ -909,6 +909,14 @@ angular.module('app.directives', [])
         $scope.$watch('partnerWorks', update)
         $scope.$watch('charity', update)
         $scope.$watch('french', update)
+        $scope.$watch('preset', updateFromPreset)
+
+        function updateFromPreset() {
+          var k
+          for (k in $scope.preset.data) {
+            $scope[k] = $scope.preset.data[k]
+          }
+        }
 
         function update() {
 
@@ -1108,7 +1116,13 @@ angular.module('app.directives', [])
                 .style("fill", profileFill)
                 .on("click", function(d) {
                   d3.event.stopPropagation()
-                  displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                  if (d.isPreset) {
+                    $timeout(function(){
+                      $scope.preset = d.preset
+                    })
+                  } else {
+                    displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                  }
                 })
                 .on("mouseover", function(d) {
                   d3.event.stopPropagation()
@@ -1197,6 +1211,8 @@ angular.module('app.directives', [])
                 $scope.presets.forEach(function(p) {
                   persons.push({
                     id: p.id,
+                    isPreset: true,
+                    preset: p,
                     positionWeight: 0.1,
                     value: p.happinessModel[$scope.dimension].decile,
                     happinessModel: p.happinessModel,
