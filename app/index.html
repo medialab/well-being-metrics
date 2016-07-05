@@ -26,7 +26,7 @@
   </head>
 
   <body ng-app="app" ng-cloak layout="column">
-    <md-toolbar>
+    <md-toolbar ng-hide="hideToolbar">
       <div class="md-toolbar-tools">
       <span>{{pageTitle ? pageTitle : 'So Well'}}</span>
       <span flex></span>

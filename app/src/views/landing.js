@@ -10,6 +10,10 @@ angular.module('app.landing', ['ngRoute'])
 }])
 
 .controller('LandingController', function($scope, $location, $translate, $translatePartialLoader) {
-  /*$translatePartialLoader.addPart('landing');
-  $translate.refresh();*/
+  // Translation
+  $translatePartialLoader.addPart('landing');
+  $translate.refresh();
+
+  // Reset layout for fullscreen display
+  $scope.$parent.hideToolbar = true;
 });
