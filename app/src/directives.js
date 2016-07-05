@@ -940,7 +940,8 @@ angular.module('app.directives', [])
       scope: {
         dimension: '=',
         happinessModel: '=',
-        presets: '='
+        presets: '=',
+        gender: '='
       },
       templateUrl: 'src/directives/populationDataVis.html',
       link: function($scope, directiveElement, attrs) {
@@ -1044,7 +1045,8 @@ angular.module('app.directives', [])
               $scope.presets.forEach(function(preset){
                 addPattern(defs, preset.id, preset.avatar)
               })
-              addPattern(defs, 'you', 'res/anon.png')
+              addPattern(defs, 'man', 'res/man.svg')
+              addPattern(defs, 'woman', 'res/woman.svg')
               function addPattern(defs, id, url) {
                 defs.append('pattern')
                   .attr('id', id)
@@ -1101,11 +1103,8 @@ angular.module('app.directives', [])
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
                 .style("fill", function(d) { 
-                  if (d.imageId) {
-                    return 'url(#'+d.imageId+')'
-                  } else {
-                    return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
-                  }
+                  if (d.imageId) return 'url(#'+d.imageId+')'
+                  else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
                 })
                 .on("click", function(d) {
                   d3.event.stopPropagation()
@@ -1216,7 +1215,7 @@ angular.module('app.directives', [])
                   radius: personRadius * 1.8,
                   offset: 0,
                   // color: youColor,
-                  imageId: 'you'
+                  imageId: ($scope.gender == 'gender_male') ? ('man') : ('woman')
                 }
                 persons.push(youProfile)
 
@@ -1341,8 +1340,16 @@ angular.module('app.directives', [])
         function updateValues() {
           if (g && youProfile) {
             youProfile.value = $scope.happinessModel[$scope.dimension].decile
+            youProfile.imageId = ($scope.gender == 'gender_male') ? ('man') : ('woman')
             youProfile.happinessModel = $scope.happinessModel
             rebootSimulation()
+
+            // Update image
+            d3.selectAll("circle")
+              .style("fill", function(d) {
+                  if (d.imageId) return 'url(#'+d.imageId+')'
+                  else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                })
           }
         }
 
