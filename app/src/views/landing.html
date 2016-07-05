@@ -1,19 +1,33 @@
 <style type="text/css">
   .sw-landing-container {
     font-family: 'Montserrat', sans-serif;
-    width: 100%;
-    height: 100%;
-    background: red;
   }
 
   .sw-landing-slide {
     height: 100vh;
+    background-color: grey;
+    background-size: cover;
+    background-position: 200%;
+    background-repeat: no-repeat;
+
+    -webkit-transition:background-position .25s ease-in;
+    -moz-transition:background-position .25s ease-in;
+    -o-transition:background-position .25s ease-in;
+    transition:background-position .25s ease-in;
+  }
+
+  .sw-landing-slide.is-active {
+    background-position: 105%;
   }
 
   .sw-landing-slide h1 {
-    font-size: 68px;
-    line-height: 66px;
-    width: 700px;
+    font-size: 72px;
+    color: #FFFFFF;
+    letter-spacing: -1.72px;
+    line-height: 69px;
+
+    width: 100%;
+    max-width: 60vw;
     height: 300px;
     position: absolute;
     margin-left: 0.5em;
@@ -23,16 +37,40 @@
   }
 
   .sw-landing-slide.is-active h1 {
-    margin-top: calc(0vh - 0px);
+    margin-top: calc(5vh - 0px);
   }
 
   .sw-text {
-    margin-left: 2.5em;
+    margin-left: 3vw;
+
+    font-family: Montserrat-Light;
+    font-size: 24px;
+    color: #FFFFFF;
+    letter-spacing: -0.61px;
+    line-height: 32px;
+
     position: absolute;
-    width: 500px;
+    width: 50vw;
     height: 150px;
     margin-top: calc(100vh - 300px);
-    background: yellow;
+
+    color: white;
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+  }
+
+  .sw-landing-slide.is-active .sw-text {
+    opacity: 1;
+  }
+
+  .sw-landing-slide.sw-landing-slide-1 {
+    background-image: url('data:image/svg+xml;utf8,<svg width="3841px" height="1080px" viewBox="-3197 3454 3841 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M-576.104774,4534 L184.53154,4534 L643.321993,3454 L-805.5,3454 L-3197,3454 L-3197,4534 L-576.104774,4534 Z" id="Combined-Shape" stroke="none" fill="#2196F3" fill-rule="evenodd"></path></svg>');
+  }
+  .sw-landing-slide.sw-landing-slide-2 {
+    background-image: url('data:image/svg+xml;utf8,<svg width="3841px" height="1080px" viewBox="-3197 3454 3841 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M-576.104774,4534 L184.53154,4534 L643.321993,3454 L-805.5,3454 L-3197,3454 L-3197,4534 L-576.104774,4534 Z" id="Combined-Shape" stroke="none" fill="#8BC34A" fill-rule="evenodd"></path></svg>');
+  }
+  .sw-landing-slide.sw-landing-slide-3 {
+    background-image: url('data:image/svg+xml;utf8,<svg width="3841px" height="1080px" viewBox="-3197 3454 3841 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M-576.104774,4534 L184.53154,4534 L643.321993,3454 L-805.5,3454 L-3197,3454 L-3197,4534 L-576.104774,4534 Z" id="Combined-Shape" stroke="none" fill="#E91E63" fill-rule="evenodd"></path></svg>');
   }
 </style>
 
