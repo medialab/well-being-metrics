@@ -6,7 +6,7 @@
 var stickyModeHeight = 80;
 
 angular.module('app.directives', [])
-  
+
   .directive('hexUs', function ($timeout, usStatesHex, colors) {
     return {
       restrict: 'A',
@@ -20,7 +20,7 @@ angular.module('app.directives', [])
       link: function($scope, el, attrs) {
 
         el.html('<div>Loading...</div>')
-        
+
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
@@ -33,7 +33,7 @@ angular.module('app.directives', [])
           if (el[0].offsetWidth > 0 && $scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
-      
+
               var regions = usStatesHex.data;
 
               // Setup: dimensions
@@ -44,7 +44,7 @@ angular.module('app.directives', [])
               // Setup: scales
               var size = d3.scaleLinear()
                   .range([0, height]);
-              
+
               var dotSize = d3.scaleLinear()
                   .range([0, 0.5 * (regions[0].xExtent[1] - regions[0].xExtent[0])])
 
@@ -71,7 +71,7 @@ angular.module('app.directives', [])
                 .concat(regions.map(function(d) { return d.xExtent[1]; }))
               )
               var xOffset = -size(xExtent[0]) + (width / 2 - ( size(xExtent[1]) - size(xExtent[0]) ) / 2 )
-              
+
               var lineFunction = d3.line()
                 .x(function(d) { return xOffset + size(d[0]); })
                 .y(function(d) { return size(d[1]); })
@@ -95,7 +95,7 @@ angular.module('app.directives', [])
                       .attr('stroke', colors.mapItemHighlight)
                       .attr('fill', colors.mapItemHighlight)
                   }
-                })                  
+                })
                 .on('mouseout', function(d) {
                   if (regionValid(d.abbr)) {
                     d3.select(this).select('path')
@@ -200,7 +200,7 @@ angular.module('app.directives', [])
       link: function($scope, el, attrs) {
 
         el.html('<div>Loading...</div>')
-        
+
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
@@ -213,7 +213,7 @@ angular.module('app.directives', [])
           if (el[0].offsetWidth > 0 && $scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
-      
+
               var regions = usStatesHex.data;
 
               // Preliminary data crunching
@@ -243,7 +243,7 @@ angular.module('app.directives', [])
               var x = d3.scaleLinear()
                 .domain([0, seriesLength - 1])
                 .range([0, width])
-              
+
               var y = d3.scaleLinear()
                 .domain([-5, 5])
                 // .domain(d3.extent(allValues))
@@ -257,7 +257,7 @@ angular.module('app.directives', [])
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-              
+
               var lineFunction = d3.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
@@ -275,7 +275,7 @@ angular.module('app.directives', [])
                 .attr('stroke-width', .8)
                 .attr('fill', 'none')
                 .attr('opacity', .6)
-              
+
               // Additional informations
               var overlay = svg.append('g')
 
@@ -336,7 +336,7 @@ angular.module('app.directives', [])
       }
     }
   })
-  
+
   .directive('simpleCurve', function ($timeout, colors) {
     return {
       restrict: 'A',
@@ -349,7 +349,7 @@ angular.module('app.directives', [])
       link: function($scope, el, attrs) {
 
         el.html('<div><center>Loading...</center></div>')
-        
+
         $scope.$watch('status', redraw, true)
         $scope.$watch('month', redraw)
         $scope.$watch('highlight', redraw)
@@ -362,7 +362,7 @@ angular.module('app.directives', [])
           if ($scope.data !== undefined){
             $timeout(function () {
               el.html('');
-              
+
               // Setup: dimensions
               var margin = {top: 0, right: 12, bottom: 0, left: 300};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
@@ -372,7 +372,7 @@ angular.module('app.directives', [])
               var x = d3.scaleLinear()
                 .domain([0, $scope.data.length - 1])
                 .range([0, width])
-              
+
               var y = d3.scaleLinear()
                 .domain([-5, 5])
                 .range([height, 0])
@@ -385,7 +385,7 @@ angular.module('app.directives', [])
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-              
+
               var lineFunction = d3.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
@@ -401,7 +401,7 @@ angular.module('app.directives', [])
                     .attr('stroke-width', 1)
                     .attr('fill', 'none')
               }
-              
+
               // Additional informations
               var overlay = svg.append('g')
 
@@ -944,12 +944,12 @@ angular.module('app.directives', [])
       },
       templateUrl: 'src/directives/populationDataVis.html',
       link: function($scope, directiveElement, attrs) {
-        
+
         // D3 element
         var el = angular.element(directiveElement.children()[0])
 
         el.html('<div><center>Loading</center></div>')
-        
+
         $scope.highlightedItem
 
         $scope.$watch('dimension', softUpdate)
@@ -1038,7 +1038,7 @@ angular.module('app.directives', [])
               svg = d3.select(el[0]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
-              
+
               // persons' SVG group
               g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -1077,8 +1077,8 @@ angular.module('app.directives', [])
                 .attr("r", function(d) { return d.radius; })
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
-                .style("fill", function(d) { 
-                  return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+                .style("fill", function(d) {
+                  return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10);
                 })
                 .on("click", function(d) {
                   d3.event.stopPropagation()
@@ -1373,3 +1373,15 @@ angular.module('app.directives', [])
     }
   })
 
+  .directive('landingSlide', function ($translatePartialLoader) {
+    return {
+      restrict: 'A',
+      scope: {
+        question: '@',
+        subtitle: '@',
+        cta: '@'
+      },
+      templateUrl: 'src/directives/landingSlide.html',
+      link: function(scope, el, attrs) {}
+    }
+  })
