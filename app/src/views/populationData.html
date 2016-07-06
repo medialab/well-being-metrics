@@ -107,7 +107,7 @@
 	    </div>
       <div class="profile-form-message">{{incomeDecileMessage}}</div>
 
-	    <md-switch ng-model="$parent.partnerWorks" aria-label="Partner works">
+	    <md-switch ng-model="$parent.partnerWorks" aria-label="Partner works" ng-show="$parent.wedding == 'marital_couple'">
   	  	{{ ($parent.partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
   		</md-switch>
 
