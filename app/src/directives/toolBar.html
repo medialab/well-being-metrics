@@ -1,0 +1,12 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <a href="#/">{{pageTitle ? pageTitle : 'So Well'}}</a>
+    <span flex></span>
+    <md-button ng-if="methodologyLink" ng-href="{{methodologyLink}}">
+      <md-icon>help</md-icon> <span translate>METHOD</span>
+    </md-button>
+    <md-button ng-click="toggleLanguage()">
+		  <md-icon>language</md-icon>	{{language}}
+		</md-button>
+  </div>
+</md-toolbar>

@@ -876,30 +876,6 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('languageButton', function ($timeout, $translate) {
-    return {
-      restrict: 'A',
-      scope: {
-      },
-      templateUrl: 'src/directives/languageButton.html',
-      link: function($scope, el, attrs) {
-        $scope.language = $translate.use().toUpperCase()
-
-        $scope.toggleLanguage = function () {
-          if ($translate.use() == 'fr') {
-            $translate.use('en')
-            $scope.language = 'EN'
-          } else {
-            $translate.use('fr')
-            $scope.language = 'FR'
-          }
-          
-        }
-        
-      }
-    }
-  })
-
   .directive('profileLabel', function ($timeout, colors) {
     return {
       restrict: 'A',
@@ -1457,6 +1433,30 @@ angular.module('app.directives', [])
           var score = min + restant * (max - min)
           return score
         }
+      }
+    }
+  })
+
+  .directive('toolBar', function ($timeout, $translate) {
+    return {
+      restrict: 'A',
+      scope: {
+      },
+      templateUrl: 'src/directives/toolBar.html',
+      link: function($scope, el, attrs) {
+        $scope.language = $translate.use().toUpperCase()
+
+        $scope.toggleLanguage = function () {
+          if ($translate.use() == 'fr') {
+            $translate.use('en')
+            $scope.language = 'EN'
+          } else {
+            $translate.use('fr')
+            $scope.language = 'FR'
+          }
+          
+        }
+        
       }
     }
   })

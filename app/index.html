@@ -26,14 +26,7 @@
   </head>
 
   <body ng-app="app" ng-cloak layout="column">
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-      <a href="#/">{{pageTitle ? pageTitle : 'So Well'}}</a>
-      <span flex></span>
-      <div language-button>
-      </div>
-    </div>
-    </md-toolbar>
+    <div tool-bar></div>
     <md-content flex layout="row">
       <div layout="column" flex ng-view></div>
     </md-content>

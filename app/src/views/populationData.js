@@ -379,9 +379,11 @@ angular.module('app.populationData', ['ngRoute'])
   }
   
   Facets.coeffs.retrieveData( function (data) {
-    $scope.coeffs = data;
-    computePresetScores($scope.presets)
-    $scope.$apply();
+    $timeout(function(){
+	    $scope.coeffs = data;
+	    computePresetScores($scope.presets)
+	    $scope.$apply();
+    })
   });
 
   $scope.close = function () {
