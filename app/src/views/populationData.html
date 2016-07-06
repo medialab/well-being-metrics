@@ -30,9 +30,9 @@
   	<div class="profile-sidebar-content">
     
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-    <md-button ng-click="close()" class="md-primary" hide-gt-md>
+    <!-- <md-button ng-click="close()" class="md-primary" hide-gt-md>
       Close Sidenav Left
-    </md-button>
+    </md-button> -->
 
       <md-radio-group ng-model="$parent.gender" layout="row">
 			  <md-radio-button flex ng-repeat="gen in $parent.gender_list" ng-value="gen.value" aria-label="{{ gen.label }}">
@@ -119,10 +119,9 @@
   <div flex layout-fill>
 
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-    <div ng-if="false">
-      <md-button ng-click="toggleLeft()"
-        class="md-primary" hide-gt-md>
-        Toggle left
+    <div ng-if="!introMode && !choosePresetMode" class="floating-menu-button">
+    	<md-button class="md-fab" aria-label="Open sidebar" ng-click="toggleLeft()" class="md-primary" hide-gt-md>
+        <md-icon>menu</md-icon>
       </md-button>
     </div>
 

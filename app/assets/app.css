@@ -197,7 +197,7 @@ div[hex-us] {
 	font-size: 0.9em;
 	cursor: pointer;
 	height: 62px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .profile-sidebar-title h3 {
@@ -272,6 +272,12 @@ div[hex-us] {
   border-radius: 50%;
   box-sizing: content-box;
   margin-right: 6px;
+}
+
+.floating-menu-button {
+	position: absolute;
+	left: 12px;
+	top: 12px;
 }
 
 .diagram-tile {
