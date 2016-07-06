@@ -644,19 +644,20 @@ angular.module('app.directives', [])
         // destroy listener
         function ondestroy() {
           onresize();
-
           document.querySelector('md-content').removeEventListener('scroll', onscroll);
           window.removeEventListener('resize', onresize);
         }
 
         // bind listeners TO MD CONTENT
-        document.querySelector('md-content').addEventListener('scroll', onscroll);
-        window.addEventListener('resize', onresize);
-
         scope.$on('$destroy', ondestroy);
+        $timeout(function(){
+          document.querySelector('md-content').addEventListener('scroll', onscroll);
+          window.addEventListener('resize', onresize);
 
-        // initialize sticky
-        onscroll();
+          // initialize sticky
+          onscroll();            
+        })
+
       }
     }
   })
@@ -854,13 +855,15 @@ angular.module('app.directives', [])
         }
 
         // bind listeners TO MD CONTENT
-        document.querySelector('md-content').addEventListener('scroll', onscroll);
-        window.addEventListener('resize', onresize);
-
         scope.$on('$destroy', ondestroy);
+        $timeout(function(){
+          document.querySelector('md-content').addEventListener('scroll', onscroll);
+          window.addEventListener('resize', onresize);
 
-        // initialize sticky
-        onscroll();
+          // initialize sticky
+          onscroll();            
+        })
+
       }
     }
   })
