@@ -248,6 +248,7 @@ div[hex-us] {
 }
 
 .profile-tile {
+  overflow: hidden;
 	cursor: pointer;
 }
 
