@@ -1114,24 +1114,25 @@ angular.module('app.directives', [])
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
                 .style("fill", profileFill)
+                .attr("class", function(d){if(d.isPreset){return 'active'} return false})
                 .on("click", function(d) {
                   d3.event.stopPropagation()
                   if (d.isPreset) {
                     $timeout(function(){
                       $scope.preset = d.preset
                     })
-                  } else {
-                    displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                  // } else {
+                  //   displayTooltip(d, d3.event.layerX, d3.event.layerY)
                   }
                 })
-                .on("mouseover", function(d) {
-                  d3.event.stopPropagation()
-                  displayTooltip(d, d3.event.layerX, d3.event.layerY)
-                })
-                .on("mouseout", function(d) {
-                  d3.event.stopPropagation()
-                  hideTooltip()
-                })
+                // .on("mouseover", function(d) {
+                //   d3.event.stopPropagation()
+                //   displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                // })
+                // .on("mouseout", function(d) {
+                //   d3.event.stopPropagation()
+                //   hideTooltip()
+                // })
 
               directiveElement.on('click', function() {
                 hideTooltip()

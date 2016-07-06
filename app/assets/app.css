@@ -294,7 +294,7 @@ div[happiness-diagram] .cells path {
   pointer-events: all;
 }
 
-div[happiness-diagram] .cells circle {
+div[happiness-diagram] .cells circle.active {
   cursor: pointer;
 }
 
