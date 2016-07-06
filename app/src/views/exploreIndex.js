@@ -11,6 +11,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
 
 .controller('ExploreIndexController', function (
   $scope,
+  $rootScope,
   $location,
   $timeout,
   swbCategories,
@@ -45,7 +46,9 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $translatePartialLoader.addPart('exploreIndex');
   $translatePartialLoader.addPart('data');
   $translate.refresh();
-  $timeout(function(){
+  $rootScope.$on('$translateChangeSuccess', updateTranslations)
+  $timeout(updateTranslations)
+  function updateTranslations(){
     var monthCodes = [
       "JANUARY",
       "FEBRUARY",
@@ -70,7 +73,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
     $translate(monthCodes).then(function (translations) {
       $scope.monthNames = monthCodes.map(function(d){ return translations[d] })
     });
-  },0)
+  }
 
   $scope.$watch('topic', function (newValue, oldValue, $scope) {
     if (newValue !== oldValue) {
