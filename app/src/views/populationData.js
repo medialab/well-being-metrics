@@ -11,6 +11,7 @@ angular.module('app.populationData', ['ngRoute'])
 
 .controller('PopulationDataController', function(
 	$scope,
+	$rootScope,
 	$location,
 	Facets,
 	$mdSidenav,
@@ -353,7 +354,9 @@ angular.module('app.populationData', ['ngRoute'])
   $translatePartialLoader.addPart('populationData');
   $translatePartialLoader.addPart('data');
   $translate.refresh();
-  $timeout(function(){
+  $rootScope.$on('$translateChangeSuccess', updateTranslations)
+  $timeout(updateTranslations)
+  function updateTranslations(){
   	$translate(gender_codes).then(function (translations) {
       $scope.gender_list = gender_codes.map(function(d){ return {value:d, label:translations[d]} })
     });
@@ -373,7 +376,7 @@ angular.module('app.populationData', ['ngRoute'])
       $scope.incomeDecileMessage_list = deciles_codes.map(function(d){ return translations[d] })
       updateDecileFromIncome()
     });
-  })
+  }
   
   Facets.coeffs.retrieveData( function (data) {
     $scope.coeffs = data;

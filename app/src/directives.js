@@ -966,7 +966,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('happinessDiagram', function ($timeout, colors, $translate, $translatePartialLoader) {
+  .directive('happinessDiagram', function ($timeout, colors, $translate, $translatePartialLoader, $rootScope) {
     return {
       restrict: 'A',
       scope: {
@@ -1017,12 +1017,14 @@ angular.module('app.directives', [])
         ]
         $translatePartialLoader.addPart('populationData')
         $translate.refresh()
-        $timeout(function(){
+        $rootScope.$on('$translateChangeSuccess', updateTranslations)
+        $timeout(updateTranslations)
+        function updateTranslations() {
           $translate(textContents).then(function (t) {
             translations = t
             redrawText()
           })
-        })
+        }
 
         // Visualization
         var widthHeightRatio = 0.54
