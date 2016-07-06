@@ -2,13 +2,14 @@
 
 angular.module('app.home', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: 'src/views/home.html'
   , controller: 'HomeController'
   })
-}])
+})
 
-.controller('HomeController', function($scope, $location) {
-
+.controller('HomeController', function($scope, $location, $translate, $translatePartialLoader) {
+  $translatePartialLoader.addPart('home');
+  $translate.refresh();
 });

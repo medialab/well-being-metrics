@@ -1,0 +1,105 @@
+{
+	"METHOD": "Methodology",
+	
+	"gender_male": "Male",
+	"gender_female": "Female",
+	"diploma_none": "No diploma",
+	"diploma_pro": "Professional diploma",
+	"diploma_bac": "Baccalauréat",
+	"diploma_postbac": "> Bac",
+	"work_worker": "Working",
+	"work_student": "Student",
+	"work_retired": "Retired",
+	"work_athome": "At home",
+	"work_unemployed": "Unemployed",
+	"work_disabled": "Disabled",
+	"marital_single": "Single",
+	"marital_couple": "In relationship",
+	"marital_divorced": "Divorced (alone)",
+	"marital_widow": "Widow (alone)",
+	"children_0": "Without children",
+	"children_1": "1 child",
+	"children_2": "2 children",
+	"children_3": "3 children or more",
+
+	"DECILE 1" : "Lowest 10% income",
+	"DECILE 2" : "Lowest 20% income",
+	"DECILE 3" : "Lowest 30% income",
+	"DECILE 4" : "Lowest 40% income",
+	"DECILE 5" : "Almost average income ",
+	"DECILE 6" : "Above average income",
+	"DECILE 7" : "Highest 40% income",
+	"DECILE 8" : "Highest 30% income",
+	"DECILE 9" : "Highest 20% income",
+	"DECILE 10": "Highest 10% income",
+
+	"AGE": "Age",
+	"AGE DETAILS": "in years",
+	"GENDER": "Gender",
+	"INCOME": "Home income",
+	"INCOME DETAILS": "in € per months",
+	"DIPLOMA": "Diploma",
+	"FRENCH": "French",
+	"NOT FRENCH": "Immigrant",
+	"OWNER": "Owned place",
+	"NOT OWNER": "Rented place",
+	"WORK SITUATION": "Work situation",
+	"MARITAL SITUATION": "Marital situation",
+	"PARTNER IS WORKING": "Partner is working",
+	"PARTNER IS NOT WORKING": "Partner is not working",
+	"CHILDREN": "Children in your home",
+	"ENGAGED IN CHARITY": "Engaged in a charity",
+	"NOT ENGAGED IN CHARITY": "Not engaged in a charity",
+	"HOME FINANCE": "Home finance",
+
+	"STUDENT": "Student",
+	"STUDENT TEXT": "",
+
+	"YOUNG SINGLE": "Single young man",
+	"YOUNG SINGLE TEXT": "",
+
+	"YOUNG ACTIVE MOM": "Active young mother",
+	"YOUNG ACTIVE MOM TEXT": "",
+
+	"COMFORTABLE FATHER": "Father with comfortable means",
+	"COMFORTABLE FATHER TEXT": "",
+
+	"MODEST FATHER": "Father with modest means",
+	"MODEST FATHER TEXT": "",
+
+	"SINGLE MOTHER": "Single mother",
+	"SINGLE MOTHER TEXT": "",
+
+	"MOTHER AT HOME": "Mother at home",
+	"MOTHER AT HOME TEXT": "",
+
+	"UNEMPLOYED WOMAN": "Unemployed woman in couple",
+	"UNEMPLOYED WOMAN TEXT": "",
+
+	"SINGLE UNEMPLOYED MAN": "Single unemployed man",
+	"SINGLE UNEMPLOYED MAN TEXT": "",
+
+	"ACTIVE CITIZEN": "Active citizen",
+	"ACTIVE CITIZEN TEXT": "",
+
+	"RETIRED CITIZEN": "Retired citizen",
+	"RETIRED CITIZEN TEXT": "",
+
+	"RETIRED": "Retired",
+	"RETIRED TEXT": "",
+
+	"IMMIGRANT": "Immigrant",
+	"IMMIGRANT TEXT": "",
+
+	"TITLE current_life": "General satisfaction",
+	"TITLE leisure": "Leisure satisfaction",
+	"TITLE housing": "Housing satisfaction",
+	"TITLE loved_ones": "Relations satisfaction",
+	"OF POPULATION": "of population",
+	"IS HAPPIER": "is more satisfied",
+	"IS LESS HAPPY": "is less satisfied",
+	"OF HAPPINESS": "points of satisfaction",
+	"PREDICTED": "predicted by the model",
+
+	"CUSTOM PROFILE": "Custom profile"
+}

@@ -1,3 +1,7 @@
+/*
+ * Explore index page
+ */
+
 .input-proxy-container {
   padding-top: 27px;
 }
@@ -174,6 +178,154 @@ div[hex-us] {
 	border-top-color: #FFFFFF;
 	border-width: 30px;
 	margin-left: -30px;
+}
+
+ /*
+ * Explore index page
+ */
+
+#pop-data-sidebar input[type="number"] {
+  text-align: center;
+  padding-left: 10px;
+}
+
+#pop-data-sidebar h4 {
+	margin-top: 48px;
+}
+
+.profile-sidebar-title {
+	font-size: 0.9em;
+	cursor: pointer;
+	height: 62px;
+	/*overflow: hidden;*/
+}
+
+.profile-sidebar-title h3 {
+	font-weight: 300;
+	margin: 0px;
+}
+
+.profile-sidebar-title p {
+	margin: 0px;
+	opacity: 0.8;
+}
+
+.profile-sidebar-title img {
+	width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  margin: 6px;
+}
+
+.profile-sidebar-title .oneliner {
+	margin-top: 12px;
+}
+
+.profile-sidebar-content {
+	padding: 24px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.profile-sidebar-content md-input-container {
+	width: 100%;
+}
+
+.profile-form-title {
+}
+
+.profile-form-subtitle {
+	opacity: 0.6;
+}
+
+.profile-form-message {
+	text-align: right;
+  color: #36827a;
+  font-size: 0.8em;
+  font-weight: 500;
+  margin-top: -6px;
+}
+
+.profile-tile {
+  overflow: hidden;
+	cursor: pointer;
+}
+
+.profile-tile-content {
+	font-size: 0.96em;
+	padding: 12px;
+}
+
+.profile-tile-content h3 {
+	font-weight: 300;
+	margin: 0px;
+}
+
+.profile-tile-content p {
+	margin: 0px;
+	opacity: 0.8;
+}
+
+.profile-tile-content img {
+	width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  margin-right: 6px;
+}
+
+.floating-menu-button {
+	position: absolute;
+	left: 12px;
+	top: 12px;
+}
+
+.diagram-tile {
+	
+}
+
+div[happiness-diagram] .axis path,
+div[happiness-diagram] .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+div[happiness-diagram] .axis text {
+  font: 10px sans-serif;
+}
+
+div[happiness-diagram] .cells path {
+  fill: none;
+  pointer-events: all;
+}
+
+div[happiness-diagram] .cells circle.active {
+  cursor: pointer;
+}
+
+div[happiness-diagram] div.tooltip {	
+  position: absolute;
+  text-align: center;
+  font: 12px sans-serif;
+  pointer-events: none;
+  margin-top: -60px;
+	margin-left: -60px;
+	width: 120px;
+	height: 120px;
+	border-radius: 100%;
+	background-color: #FFF;
+}
+
+div[happiness-diagram] div.tooltip-score {
+	margin-top: 24px;
+	font-size: 48px;
+}
+
+div[happiness-diagram] div.tooltip-text {
+	margin-top: -6px;
+	font-size: 10px;
 }
 
 /* Misc D3 classes */

@@ -3,27 +3,6 @@
 /* Services */
 
 angular.module('app.filters', [])
-  
-  .filter('monthDate', function() {
-    var monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ]
-    return function(ts) {
-      var d = new Date(ts)
-      return monthNames[d.getMonth()] + ' ' + d.getFullYear()
-    }
-  })
 
   .filter('prettyDate', [function() {
     return function(timestamp) {

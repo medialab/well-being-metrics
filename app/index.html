@@ -25,19 +25,9 @@
 
   </head>
 
-  <body ng-app="app" ng-cloak layout="column">
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-      <span>{{pageTitle ? pageTitle : 'So Well'}}</span>
-      <span flex></span>
-      <!-- <md-button>
-        Right Bar Button
-      </md-button> -->
-    </div>
-    </md-toolbar>
-    <md-content flex layout="row">
-      <div layout="column" flex ng-view></div>
-    </md-content>
+  <body ng-app="app" ng-cloak>
+
+    <div ng-view layout-fill layout="column"></div>
 
     <!-- <script type="text/javascript" src="../node_modules/angular/angular.js"></script> -->
     <script type="text/javascript" src="assets/angular.min.js"></script>
@@ -49,8 +39,14 @@
     <script type="text/javascript" src="assets/angular-material.min.js"></script>
     <!-- <script type="text/javascript" src="../node_modules/angular-route/angular-route.js"></script> -->
     <script type="text/javascript" src="assets/angular-route.min.js"></script>
+    <!-- <script type="text/javascript" src="../node_modules/angular-sanitize/angular-sanitize.js"></script> -->
+    <script type="text/javascript" src="assets/angular-sanitize.min.js"></script>
+    <!-- <script type="text/javascript" src="../node_modules/angular-translate/dist/angular-translate.min.js"></script> -->
+    <script type="text/javascript" src="assets/angular-translate.min.js"></script>
+    <!-- <script type="text/javascript" src="../node_modules/angular-translate/dist/angular-translate-loader-partial.min.js"></script> -->
+    <script type="text/javascript" src="assets/angular-translate-loader-partial.min.js"></script>
 
-    <!-- <script type="text/javascript" src="../node_modules/d3/d3.js"></script> -->
+    <!-- <script type="text/javascript" src="../node_modules/d3/build/d3.js"></script> -->
     <script type="text/javascript" src="assets/d3.min.js"></script>
     <script type="text/javascript"  src="assets/FileSaver.js"></script>
     <!-- <script type="text/javascript"  src="../../Facettage/src/facettage.js"></script> -->
@@ -62,6 +58,7 @@
     <script type="text/javascript"  src="src/views/home.js"></script>
     <script type="text/javascript"  src="src/views/exploreIndex.js"></script>
     <script type="text/javascript"  src="src/views/populationData.js"></script>
+    <script type="text/javascript"  src="src/views/doc.js"></script>
 
     <script type="text/javascript">
 
@@ -69,18 +66,33 @@ angular
 .module('app', [
   'ngMaterial',
   'ngRoute',
+  'ngSanitize',
+  'pascalprecht.translate',
   'app.services',
   'app.directives',
   'app.filters',
   'app.home',
   'app.exploreIndex',
-  'app.populationData'
+  'app.populationData',
+  'app.doc'
 ])
-  
-// Material theme
-.config(function($mdThemingProvider, $routeProvider){
+
+.config(function($mdThemingProvider, $routeProvider, $translateProvider, $translatePartialLoaderProvider){
+  // Route
   $routeProvider.otherwise({redirectTo: '/'});
 
+  // Locale
+  $translateProvider
+    .useLoader('$translatePartialLoader', {
+      // urlTemplate: 'src/views/home-locale-en.json'
+      urlTemplate: 'src/locale/{part}-{lang}.json'
+    })
+    .useSanitizeValueStrategy(null)
+    .preferredLanguage('fr')
+    // .determinePreferredLanguage()
+    .fallbackLanguage('en');
+
+  // Material theme
   $mdThemingProvider.theme('default')
     .primaryPalette('amber', {
       'default': '400',   // by default use shade 400 from the pink palette for primary intentions
@@ -95,6 +107,7 @@ angular
     .backgroundPalette('grey', {
       'default': '100'
     })
+
 })
 
 // Other colors

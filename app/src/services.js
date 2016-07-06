@@ -12,36 +12,6 @@ angular.module('app.services', [])
   fr: {
     startDate: '2011-01-01',
     endDate: '2015-09-01'
-  },
-  naming: {
-    'big_picture_f':        'Ideas and Big Picture',
-    'civic_f':              'Civic Engagement',
-    'healthy_habits_f':     'Healthy Habits',
-    'health_conditions_f':  'Health Conditions',
-    'family_life_f':        'Family Life',
-    'family_stress_f':      'Family Stress',
-    'summer_leisure_f':     'Summer Leisure',
-    'job_market_f':         'Job market',
-    'job_search_f':         'Unemployment',
-    'personal_security_f':  'Personal Security',
-    'fin_security_f':       'Financial Security',
-    'home_finance_f':       'Home Finance',
-
-    'life_eval':            'Life Evaluation',
-    'life_eval_5':          'Anticipated Life Eval.',
-    'happiness':            'Feeling Happiness',
-    'learn':                'Feeling Interested',
-    'respect':              'Feeling Respected',
-    'anger':                'Feeling Anger',
-    'stress':               'Feeling Stress',
-    'worry':                'Feeling Worry',
-    'sadness':              'Feeling Sadness',
-    'laugh':                'Laughing',
-
-    'current_life':         'Vie en générale',
-    'leisure':              'Loisirs',
-    'housing':              'Logement',
-    'loved_ones':           'Relations'
   }
 })
 

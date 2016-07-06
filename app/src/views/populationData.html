@@ -1,14 +1,235 @@
-<div ng-show="loading">
-  LOADING
-</div>
+<div tool-bar layout methodology-link="'#/doc/populationDataMethodology'"></div>
+<md-content layout="row" flex>
+  <md-sidenav
+    class="md-sidenav-left"
+    md-component-id="left"
+    md-is-locked-open="$mdMedia('gt-md')"
+    md-disable-backdrop
+    md-whiteframe="4"
+    id="pop-data-sidebar"
+    ng-if="!introMode"
+   >
+   	<div
+    	profile-label
+    	class="profile-sidebar-title"
+    	ng-click="choosePreset()"
+			presets="presets"
+			preset="$parent.preset"
+    	gender="$parent.gender"
+    	age="$parent.age"
+    	work="$parent.work"
+    	income="$parent.income"
+    	diploma="$parent.diploma"
+    	owner="$parent.owner"
+    	wedding="$parent.wedding"
+    	children="$parent.children"
+    	partner-works="$parent.partnerWorks"
+    	charity="$parent.charity"
+    	french="$parent.french"
+    	md-ink-ripple="#FFFFFF"
+    ></div>
+  	<div class="profile-sidebar-content">
+    
+    <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
+    <!-- <md-button ng-click="close()" class="md-primary" hide-gt-md>
+      Close Sidenav Left
+    </md-button> -->
 
-<div ng-show="!loading">
-  <h1>Prototype: Population Data</h1>
-  <div ng-repeat="coeff in coeffs">
-    <strong>{{coeff.id}}:</strong> 
-    {{coeff.current_life}} | 
-    {{coeff.leisure}} |
-    {{coeff.housing}} |
-    {{coeff.loved_ones}}
-  </div>
-</div>
+      <md-radio-group ng-model="$parent.gender" layout="row">
+			  <md-radio-button flex ng-repeat="gen in $parent.gender_list" ng-value="gen.value" aria-label="{{ gen.label }}">
+	        {{ gen.label }}
+			  </md-radio-button>
+			</md-radio-group>
+			<br>
+			<br>
+
+      <div class="profile-form-title"><span translate>AGE</span> <span class="profile-form-subtitle" translate>AGE DETAILS</span></div>
+      <div layout>
+	      <md-slider flex min="18" max="100" ng-model="$parent.age" aria-label="age" id="age-slider" class>
+	      </md-slider>
+	      <div flex="30" layout layout-align="center center">
+	        <input flex type="number" ng-model="$parent.age" aria-label="age" aria-controls="age-slider">
+	      </div>
+	    </div>
+	    <md-input-container>
+        <label translate>DIPLOMA</label>
+        <md-select ng-model="$parent.diploma">
+          <md-option ng-repeat="dip in $parent.diploma_list" value="{{dip.value}}">
+            {{dip.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+	    <md-input-container>
+        <label translate>WORK SITUATION</label>
+        <md-select ng-model="$parent.work">
+          <md-option ng-repeat="w in $parent.work_list" value="{{w.value}}">
+            {{w.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container>
+        <label translate>MARITAL SITUATION</label>
+        <md-select ng-model="$parent.wedding">
+          <md-option ng-repeat="w in $parent.wedding_list" value="{{w.value}}">
+            {{w.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+  		<md-input-container>
+        <label translate>CHILDREN</label>
+        <md-select ng-model="$parent.children">
+          <md-option ng-repeat="ch in $parent.children_list" value="{{ch.value}}">
+            {{ch.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+	    <md-switch ng-model="$parent.french" aria-label="French">
+  	  	{{ (french ? 'FRENCH' : 'NOT FRENCH')|translate }}
+  		</md-switch>
+
+	    <md-switch ng-model="$parent.charity" aria-label="Engaged in a charity">
+  	  	{{ (charity ? 'ENGAGED IN CHARITY' : 'NOT ENGAGED IN CHARITY')|translate }}
+  		</md-switch>
+
+	    <h4 layout-align="center" translate>HOME FINANCE</h4>
+
+      <div class="profile-form-title"><span translate>INCOME</span> <span class="profile-form-subtitle" translate>INCOME DETAILS</span></div>
+      <div layout>
+	      <md-slider flex min="0" max="8000" ng-model="$parent.income" aria-label="income" id="income-slider" class>
+	      </md-slider>
+	      <div flex="30" layout layout-align="center center">
+	        <input flex type="number" ng-model="$parent.income" aria-label="income" aria-controls="income-slider">
+	      </div>
+	    </div>
+      <div class="profile-form-message">{{incomeDecileMessage}}</div>
+
+	    <md-switch ng-model="$parent.partnerWorks" aria-label="Partner works" ng-show="$parent.wedding == 'marital_couple'">
+  	  	{{ ($parent.partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
+  		</md-switch>
+
+  		<md-switch ng-model="$parent.owner" aria-label="Owner">
+  	  	{{ ($parent.owner ? 'OWNER' : 'NOT OWNER')|translate }}
+  		</md-switch>
+
+    </div>
+  </md-sidenav>
+  <div flex layout-fill>
+
+    <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
+    <div ng-if="!introMode && !choosePresetMode" class="floating-menu-button">
+    	<md-button class="md-fab" aria-label="Open sidebar" ng-click="toggleLeft()" class="md-primary" hide-gt-md>
+        <md-icon>menu</md-icon>
+      </md-button>
+    </div>
+
+    <div flex layout-padding ng-if="loading">
+		  LOADING
+		</div>
+
+		<div ng-if="!loading" flex layout-fill>
+			<div ng-if="choosePresetMode" flex layout-fill layout-margin>
+				<md-grid-list
+	        md-cols-xs="1"
+	        md-cols-sm="2"
+	        md-cols-md="3"
+	        md-cols-gt-md="4"
+	        md-row-height="5:4"
+	        md-gutter="12px"
+	        md-gutter-gt-sm="8px"
+			  >
+			    <md-grid-tile
+			      md-rowspan="1"
+			      md-colspan="1"
+			      md-colspan-sm="1"
+			      md-colspan-xs="1"
+			      ng-repeat="p in presets"
+			      class="profile-tile"
+			      style="background-color: {{p.color}};"
+			      ng-click="setPreset(p)"
+			      md-ink-ripple="#FFFFFF"
+			    >
+			    	<div class="profile-tile-content">
+				    	<table><tr>
+				    		<td>
+					        <img ng-src="{{p.avatar}}" class="md-avatar" alt="{{p.name}}" />
+				    		</td>
+				    		<td>
+				          <h3 translate>{{p.name}}</h3>
+				          <p translate>{{p.type}}</p>
+				    		</td>
+				    	</tr></table>
+				    	<br>
+		          <p translate>{{p.text}}</p>
+						</div>
+			    </md-grid-tile>
+			  </md-grid-list>
+			</div>
+			<div ng-if="!choosePresetMode" flex layout-fill layout="column">
+				<div layout="row" flex="50">
+					<div flex="50" layout layout-fill>
+						<div
+							flex
+							layout-align="center center"
+							class="diagram-tile"
+							happiness-diagram
+							dimension="'current_life'"
+							happiness-model="happinessModel"
+							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
+						>
+						</div>
+					</div>
+					<div flex="50" layout layout-fill>
+						<div
+							flex
+							layout-align="center center"
+							class="diagram-tile"
+							happiness-diagram
+							dimension="'leisure'"
+							happiness-model="happinessModel"
+							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
+						>
+						</div>
+					</div>
+				</div>
+				<div layout="row" flex="50">
+					<div flex="50" layout layout-fill>
+						<div
+							flex
+							layout-align="center center"
+							class="diagram-tile"
+							happiness-diagram
+							dimension="'housing'"
+							happiness-model="happinessModel"
+							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
+						>
+						</div>
+					</div>
+					<div flex="50" layout layout-fill>
+						<div
+							flex
+							layout-align="center center"
+							class="diagram-tile"
+							happiness-diagram
+							dimension="'loved_ones'"
+							happiness-model="happinessModel"
+							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
+						>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</md-content>
