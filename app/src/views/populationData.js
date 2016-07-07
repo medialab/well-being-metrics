@@ -257,7 +257,7 @@ angular.module('app.populationData', ['ngRoute'])
 				'french': true
 			}
 		},
-		{
+		/*{
 			id: 'active-citizen',
 			type: 'ACTIVE CITIZEN',
 			text: 'ACTIVE CITIZEN TEXT',
@@ -277,7 +277,7 @@ angular.module('app.populationData', ['ngRoute'])
 				'charity': true,
 				'french': true
 			}
-		},
+		},*/
 		{
 			id: 'retired-citizen',
 			type: 'RETIRED CITIZEN',
