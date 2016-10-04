@@ -961,13 +961,8 @@ angular.module('app.directives', [])
         // D3 element
         var el = angular.element(directiveElement.children()[0])
 
-<<<<<<< HEAD
-        el.html('<div><center>Loading</center></div>')
-
-=======
         el.html('<div></div>')
 
->>>>>>> master
         $scope.highlightedItem
 
         $scope.$watch('dimension', softUpdate)
