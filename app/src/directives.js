@@ -1441,8 +1441,6 @@ angular.module('app.directives', [])
       }
     }
   })
-
-<<<<<<< HEAD
   .directive('landingSlide', function ($translatePartialLoader) {
     return {
       restrict: 'A',
@@ -1456,7 +1454,6 @@ angular.module('app.directives', [])
       link: function(scope, el, attrs) {}
     }
   })
-=======
   .directive('toolBar', function ($timeout, $translate) {
     return {
       restrict: 'A',
@@ -1482,4 +1479,3 @@ angular.module('app.directives', [])
     }
   })
 
->>>>>>> master
