@@ -655,7 +655,7 @@ angular.module('app.directives', [])
           window.addEventListener('resize', onresize);
 
           // initialize sticky
-          onscroll();            
+          onscroll();
         })
 
       }
@@ -861,7 +861,7 @@ angular.module('app.directives', [])
           window.addEventListener('resize', onresize);
 
           // initialize sticky
-          onscroll();            
+          onscroll();
         })
 
       }
@@ -966,7 +966,7 @@ angular.module('app.directives', [])
 
 =======
         el.html('<div></div>')
-        
+
 >>>>>>> master
         $scope.highlightedItem
 
@@ -1120,18 +1120,8 @@ angular.module('app.directives', [])
                 .attr("r", function(d) { return d.radius; })
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
-<<<<<<< HEAD
-                .style("fill", function(d) {
-                  if (d.imageId) {
-                    return 'url(#'+d.imageId+')'
-                  } else {
-                    return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10);
-                  }
-                })
-=======
                 .style("fill", profileFill)
                 .attr("class", function(d){if(d.isPreset){return 'active'} return false})
->>>>>>> master
                 .on("click", function(d) {
                   d3.event.stopPropagation()
                   if (d.isPreset) {
@@ -1393,7 +1383,7 @@ angular.module('app.directives', [])
             }
             return 'url(#'+d.imageId+')'
           }
-          else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+          else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10);
         }
 
         function rebootSimulation() {
@@ -1485,9 +1475,9 @@ angular.module('app.directives', [])
             $translate.use('fr')
             $scope.language = 'FR'
           }
-          
+
         }
-        
+
       }
     }
   })
