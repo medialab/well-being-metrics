@@ -644,19 +644,20 @@ angular.module('app.directives', [])
         // destroy listener
         function ondestroy() {
           onresize();
-
           document.querySelector('md-content').removeEventListener('scroll', onscroll);
           window.removeEventListener('resize', onresize);
         }
 
         // bind listeners TO MD CONTENT
-        document.querySelector('md-content').addEventListener('scroll', onscroll);
-        window.addEventListener('resize', onresize);
-
         scope.$on('$destroy', ondestroy);
+        $timeout(function(){
+          document.querySelector('md-content').addEventListener('scroll', onscroll);
+          window.addEventListener('resize', onresize);
 
-        // initialize sticky
-        onscroll();
+          // initialize sticky
+          onscroll();            
+        })
+
       }
     }
   })
@@ -854,13 +855,15 @@ angular.module('app.directives', [])
         }
 
         // bind listeners TO MD CONTENT
-        document.querySelector('md-content').addEventListener('scroll', onscroll);
-        window.addEventListener('resize', onresize);
-
         scope.$on('$destroy', ondestroy);
+        $timeout(function(){
+          document.querySelector('md-content').addEventListener('scroll', onscroll);
+          window.addEventListener('resize', onresize);
 
-        // initialize sticky
-        onscroll();
+          // initialize sticky
+          onscroll();            
+        })
+
       }
     }
   })
@@ -881,6 +884,7 @@ angular.module('app.directives', [])
       restrict: 'A',
       scope: {
         presets: '=',
+        preset: '=',
         gender: '=',
         age: '=',
         work: '=',
@@ -895,7 +899,6 @@ angular.module('app.directives', [])
       },
       templateUrl: 'src/directives/profileLabel.html',
       link: function($scope, el, attrs) {
-        $scope.preset = false
 
         $scope.$watch('presets', update)
         $scope.$watch('gender', update)
@@ -909,6 +912,14 @@ angular.module('app.directives', [])
         $scope.$watch('partnerWorks', update)
         $scope.$watch('charity', update)
         $scope.$watch('french', update)
+        $scope.$watch('preset', updateFromPreset)
+
+        function updateFromPreset() {
+          var k
+          for (k in $scope.preset.data) {
+            $scope[k] = $scope.preset.data[k]
+          }
+        }
 
         function update() {
 
@@ -934,13 +945,15 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('happinessDiagram', function ($timeout, colors, $translate, $translatePartialLoader) {
+  .directive('happinessDiagram', function ($timeout, colors, $translate, $translatePartialLoader, $rootScope) {
     return {
       restrict: 'A',
       scope: {
         dimension: '=',
         happinessModel: '=',
-        presets: '='
+        presets: '=',
+        preset: '=',
+        gender: '='
       },
       templateUrl: 'src/directives/populationDataVis.html',
       link: function($scope, directiveElement, attrs) {
@@ -948,8 +961,13 @@ angular.module('app.directives', [])
         // D3 element
         var el = angular.element(directiveElement.children()[0])
 
+<<<<<<< HEAD
         el.html('<div><center>Loading</center></div>')
 
+=======
+        el.html('<div></div>')
+        
+>>>>>>> master
         $scope.highlightedItem
 
         $scope.$watch('dimension', softUpdate)
@@ -962,8 +980,10 @@ angular.module('app.directives', [])
         redraw()
 
         function softUpdate() {
-          updateValues()
-          redrawText()
+          $timeout(function(){
+            updateValues()
+            redrawText()
+          })
         }
 
         // Translation
@@ -981,12 +1001,14 @@ angular.module('app.directives', [])
         ]
         $translatePartialLoader.addPart('populationData')
         $translate.refresh()
-        $timeout(function(){
+        $rootScope.$on('$translateChangeSuccess', updateTranslations)
+        $timeout(updateTranslations)
+        function updateTranslations() {
           $translate(textContents).then(function (t) {
             translations = t
             redrawText()
           })
-        })
+        }
 
         // Visualization
         var widthHeightRatio = 0.54
@@ -1043,7 +1065,8 @@ angular.module('app.directives', [])
               $scope.presets.forEach(function(preset){
                 addPattern(defs, preset.id, preset.avatar)
               })
-              addPattern(defs, 'you', 'res/anon.png')
+              addPattern(defs, 'man', 'res/man.svg')
+              addPattern(defs, 'woman', 'res/woman.svg')
               function addPattern(defs, id, url) {
                 defs.append('pattern')
                   .attr('id', id)
@@ -1097,6 +1120,7 @@ angular.module('app.directives', [])
                 .attr("r", function(d) { return d.radius; })
                 .attr("cx", function(d) { return width/2 + d.x; })
                 .attr("cy", function(d) { return d.y; })
+<<<<<<< HEAD
                 .style("fill", function(d) {
                   if (d.imageId) {
                     return 'url(#'+d.imageId+')'
@@ -1104,18 +1128,28 @@ angular.module('app.directives', [])
                     return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10);
                   }
                 })
+=======
+                .style("fill", profileFill)
+                .attr("class", function(d){if(d.isPreset){return 'active'} return false})
+>>>>>>> master
                 .on("click", function(d) {
                   d3.event.stopPropagation()
-                  displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                  if (d.isPreset) {
+                    $timeout(function(){
+                      $scope.preset = d.preset
+                    })
+                  // } else {
+                  //   displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                  }
                 })
-                .on("mouseover", function(d) {
-                  d3.event.stopPropagation()
-                  displayTooltip(d, d3.event.layerX, d3.event.layerY)
-                })
-                .on("mouseout", function(d) {
-                  d3.event.stopPropagation()
-                  hideTooltip()
-                })
+                // .on("mouseover", function(d) {
+                //   d3.event.stopPropagation()
+                //   displayTooltip(d, d3.event.layerX, d3.event.layerY)
+                // })
+                // .on("mouseout", function(d) {
+                //   d3.event.stopPropagation()
+                //   hideTooltip()
+                // })
 
               directiveElement.on('click', function() {
                 hideTooltip()
@@ -1192,14 +1226,17 @@ angular.module('app.directives', [])
                 }
 
                 // Preset personas
-                $scope.presets.forEach(function(preset) {
+                $scope.presets.forEach(function(p) {
                   persons.push({
-                    id: preset.id,
+                    id: p.id,
+                    isPreset: true,
+                    preset: p,
                     positionWeight: 0.1,
-                    value: preset.happinessModel[$scope.dimension].decile,
-                    radius: personRadius * 1.2,
+                    value: p.happinessModel[$scope.dimension].decile,
+                    happinessModel: p.happinessModel,
+                    radius: personRadius,
                     offset: 0.8 * ( rectangleWidth * Math.random() - rectangleWidth / 2 ),
-                    imageId: preset.id
+                    imageId: p.id
                     // color: preset.color
                   })
                 })
@@ -1210,10 +1247,10 @@ angular.module('app.directives', [])
                   positionWeight: .6,
                   value: $scope.happinessModel[$scope.dimension].decile,
                   happinessModel: $scope.happinessModel,
-                  radius: personRadius * 1.8,
+                  radius: personRadius * 2.4,
                   offset: 0,
                   // color: youColor,
-                  imageId: 'you'
+                  imageId: ($scope.gender == 'gender_male') ? ('man') : ('woman')
                 }
                 persons.push(youProfile)
 
@@ -1338,9 +1375,25 @@ angular.module('app.directives', [])
         function updateValues() {
           if (g && youProfile) {
             youProfile.value = $scope.happinessModel[$scope.dimension].decile
+            youProfile.imageId = ($scope.gender == 'gender_male') ? ('man') : ('woman')
             youProfile.happinessModel = $scope.happinessModel
             rebootSimulation()
+
+            // Update image
+            d3.selectAll("circle")
+              .style("fill", profileFill)
           }
+        }
+
+        function profileFill(d) {
+          if (d.imageId) {
+            if ($scope.preset && $scope.preset.id) {
+              if (d.id == 'you') return 'url(#'+$scope.preset.id+')'
+              if (d.imageId == $scope.preset.id) return color(d.happinessModel[$scope.dimension].score/10);
+            }
+            return 'url(#'+d.imageId+')'
+          }
+          else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
         }
 
         function rebootSimulation() {
@@ -1399,6 +1452,7 @@ angular.module('app.directives', [])
     }
   })
 
+<<<<<<< HEAD
   .directive('landingSlide', function ($translatePartialLoader) {
     return {
       restrict: 'A',
@@ -1412,3 +1466,30 @@ angular.module('app.directives', [])
       link: function(scope, el, attrs) {}
     }
   })
+=======
+  .directive('toolBar', function ($timeout, $translate) {
+    return {
+      restrict: 'A',
+      scope: {
+        methodologyLink: '='
+      },
+      templateUrl: 'src/directives/toolBar.html',
+      link: function($scope, el, attrs) {
+        $scope.language = $translate.use().toUpperCase()
+
+        $scope.toggleLanguage = function () {
+          if ($translate.use() == 'fr') {
+            $translate.use('en')
+            $scope.language = 'EN'
+          } else {
+            $translate.use('fr')
+            $scope.language = 'FR'
+          }
+          
+        }
+        
+      }
+    }
+  })
+
+>>>>>>> master

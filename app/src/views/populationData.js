@@ -11,6 +11,7 @@ angular.module('app.populationData', ['ngRoute'])
 
 .controller('PopulationDataController', function(
 	$scope,
+	$rootScope,
 	$location,
 	Facets,
 	$mdSidenav,
@@ -97,7 +98,7 @@ angular.module('app.populationData', ['ngRoute'])
 			text: 'YOUNG SINGLE TEXT',
 			name: 'Julien',
 			avatar: 'res/julien.png',
-			color: '#bbc0ce',
+			color: '#daeef3',
 			data: {
 				'gender': 'gender_male',
 				'age': 30,
@@ -117,7 +118,7 @@ angular.module('app.populationData', ['ngRoute'])
 			text: 'YOUNG ACTIVE MOM TEXT',
 			name: 'Elodie',
 			avatar: 'res/elodie.png',
-			color: '#c1def2',
+			color: '#c8e4f7',
 			data: {
 				'gender': 'gender_female',
 				'age': 25,
@@ -256,7 +257,7 @@ angular.module('app.populationData', ['ngRoute'])
 				'french': true
 			}
 		},
-		{
+		/*{
 			id: 'active-citizen',
 			type: 'ACTIVE CITIZEN',
 			text: 'ACTIVE CITIZEN TEXT',
@@ -276,7 +277,7 @@ angular.module('app.populationData', ['ngRoute'])
 				'charity': true,
 				'french': true
 			}
-		},
+		},*/
 		{
 			id: 'retired-citizen',
 			type: 'RETIRED CITIZEN',
@@ -304,7 +305,7 @@ angular.module('app.populationData', ['ngRoute'])
 			text: 'RETIRED TEXT',
 			name: 'Michel',
 			avatar: 'res/michel.png',
-			color: '#f3c2a7',
+			color: '#e6d7ce',
 			data: {
 				'gender': 'gender_male',
 				'age': 70,
@@ -325,7 +326,7 @@ angular.module('app.populationData', ['ngRoute'])
 			type: 'IMMIGRANT',
 			text: 'IMMIGRANT TEXT',
 			avatar: 'res/frank.png',
-			color: '#b2d5a0',
+			color: '#d4efc6',
 			data: {
 				'gender': 'gender_male',
 				'age': 50,
@@ -353,7 +354,9 @@ angular.module('app.populationData', ['ngRoute'])
   $translatePartialLoader.addPart('populationData');
   $translatePartialLoader.addPart('data');
   $translate.refresh();
-  $timeout(function(){
+  $rootScope.$on('$translateChangeSuccess', updateTranslations)
+  $timeout(updateTranslations)
+  function updateTranslations(){
   	$translate(gender_codes).then(function (translations) {
       $scope.gender_list = gender_codes.map(function(d){ return {value:d, label:translations[d]} })
     });
@@ -373,12 +376,14 @@ angular.module('app.populationData', ['ngRoute'])
       $scope.incomeDecileMessage_list = deciles_codes.map(function(d){ return translations[d] })
       updateDecileFromIncome()
     });
-  })
+  }
   
   Facets.coeffs.retrieveData( function (data) {
-    $scope.coeffs = data;
-    computePresetScores($scope.presets)
-    $scope.$apply();
+    $timeout(function(){
+	    $scope.coeffs = data;
+	    computePresetScores($scope.presets)
+	    $scope.$apply();
+    })
   });
 
   $scope.close = function () {

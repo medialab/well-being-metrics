@@ -1,4 +1,6 @@
 {
+	"METHOD": "Méthodologie",
+	
 	"gender_male": "Homme",
 	"gender_female": "Femme",
 	"diploma_none": "Aucun diplôme",
@@ -80,7 +82,7 @@
 	"ACTIVE CITIZEN": "actif et citoyen",
 	"ACTIVE CITIZEN TEXT": "45 ans, en couple avec un conjoint actif et sans enfant, bénéficie de moyens élevés et participe à la vie associative locale.",
 
-	"RETIRED CITIZEN": "retraité et citoyen",
+	"RETIRED CITIZEN": "retraitée et citoyenne",
 	"RETIRED CITIZEN TEXT": "70 ans, propriétaire de son logement, sans enfant à charge et bénéficiant d'une bonne retraite. Participe à la vie associative locale.",
 
 	"RETIRED": "retraité",

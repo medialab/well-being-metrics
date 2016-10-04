@@ -1,119 +1,122 @@
-<div ng-show="loading">
-  <span translate>LOADING</span>
-</div>
-
-<div ng-show="!loading">
-  <!-- Choose a topic -->
-  <div topic-selector
-    series-domain='seriesDomain'
-    series-measure='seriesMeasure'
-    topics='topics'
-    topic='topic'
-    regions='regions'
-    region='region'
-  ></div>
-
-  <!-- Indicate that you can slide the time -->
-  <div ng-show="topic" class="time-slider-info">
-    <div wizard-balloon text="'USE SLIDER TO SET TIME'|translate" direction="'bottom'"></div>
+<div tool-bar layout></div>
+<md-content layout="column" flex>
+  <div ng-show="loading">
+    <span translate>LOADING</span>
   </div>
 
-  <!-- SLIDER -->
-  <div>
-    <div
-      time-slider
-      ng-show="topic"
-      class="time-slider-container"
-      month="month"
-      month-names="monthNames"
+  <div ng-show="!loading">
+    <!-- Choose a topic -->
+    <div topic-selector
+      series-domain='seriesDomain'
+      series-measure='seriesMeasure'
+      topics='topics'
+      topic='topic'
+      regions='regions'
+      region='region'
     ></div>
-  </div>
 
-  <!-- PLACEHOLDER for when no topic selected -->
-  <div ng-show="topic === undefined" class="wizard-placeholder">
-    <div wizard-balloon text="'SELECT A TOPIC'|translate"></div>
-  </div>
-
-  <!-- MULTI CURVES -->
-  <div layout="row" ng-show="topic" style="background-color: #FFFFFF;">
-    <div layout layout-padding class="stacked-curves-left">
-      <md-list>
-        <h2 class="md-title">
-            {{topicName(topic)}}
-          <br>
-          <span class="md-subhead" translate>IN THE US STATES</span>
-        </h2>
-        
-
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text" layout="column">
-            <h3>{{regionName(summary.maxRegion)}} <small class="md-caption">{{summary.max|number}}</small></h3>
-            <p style="color: {{colors.curve;}};" translate>MAX AT SELECTION</p>
-          </div>
-        </md-list-item>
-                
-        <md-list-item class="md-2-line" ng-if="region">
-          <div class="md-list-item-text" layout="column">
-            <h3>{{regionName(region)}} <small class="md-caption">{{summary.currentScore|number}}</small></h3>
-            <p translate>CURRENT REGION</p>
-          </div>
-        </md-list-item>
-                
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text" layout="column">
-            <h3>{{regionName(summary.minRegion)}} <small class="md-caption">{{summary.min|number}}</small></h3>
-            <p style="color: {{colors.curve;}};" translate>MIN AT SELECTION</p>
-          </div>
-        </md-list-item>
-
-      </md-list>
+    <!-- Indicate that you can slide the time -->
+    <div ng-show="topic" class="time-slider-info">
+      <div wizard-balloon text="'USE SLIDER TO SET TIME'|translate" direction="'bottom'"></div>
     </div>
-    <div stacked-curves-us
-      statuses="regionsStatuses"
-      data="regionsData"
-      region="region"
-      month="month"
-      summary="summary"
-    ></div>
-  </div>
 
-  <div hex-us
-    ng-show="topic"
-    statuses="regionsStatuses"
-    data="regionsData"
-    set-region="setState"
-    region="region"
-    month="month"
-    ng-click="unselectRegion()"
-  ></div>
+    <!-- SLIDER -->
+    <div>
+      <div
+        time-slider
+        ng-show="topic"
+        class="time-slider-container"
+        month="month"
+        month-names="monthNames"
+      ></div>
+    </div>
 
-  <!-- PLACEHOLDER for when no region selected -->
-  <div ng-show="topic && !region" class="wizard-placeholder">
-    <div wizard-balloon text="'SELECT A REGION'|translate"></div>
-  </div>
+    <!-- PLACEHOLDER for when no topic selected -->
+    <div ng-show="topic === undefined" class="wizard-placeholder">
+      <div wizard-balloon text="'SELECT A TOPIC'|translate"></div>
+    </div>
 
-  <div ng-if="region">
-    <div ng-repeat="t in topics" class="single-curve" style="background-color: #FFFFFF;">
-      <div layout layout-padding class="stacked-curves-left" ng-show="topicsData[t.topic]">
+    <!-- MULTI CURVES -->
+    <div layout="row" ng-show="topic" style="background-color: #FFFFFF;">
+      <div layout layout-padding class="stacked-curves-left">
         <md-list>
-          <h2 class="md-title">{{t.name}}</h2>
+          <h2 class="md-title">
+              {{topicName(topic)}}
+            <br>
+            <span class="md-subhead" translate>IN THE US STATES</span>
+          </h2>
+          
 
           <md-list-item class="md-2-line">
             <div class="md-list-item-text" layout="column">
-              <h3>{{regionName(region)}} <small class="md-caption">{{topicsData[t.topic][month]|number}}</small></h3>
-              <p style="color: {{false ? colors.regionHighlight : colors.topicCurve;}};">{{summary.monthDate}}</p>
+              <h3>{{regionName(summary.maxRegion)}} <small class="md-caption">{{summary.max|number}}</small></h3>
+              <p style="color: {{colors.curve;}};" translate>MAX AT SELECTION</p>
             </div>
           </md-list-item>
+                  
+          <md-list-item class="md-2-line" ng-if="region">
+            <div class="md-list-item-text" layout="column">
+              <h3>{{regionName(region)}} <small class="md-caption">{{summary.currentScore|number}}</small></h3>
+              <p translate>CURRENT REGION</p>
+            </div>
+          </md-list-item>
+                  
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>{{regionName(summary.minRegion)}} <small class="md-caption">{{summary.min|number}}</small></h3>
+              <p style="color: {{colors.curve;}};" translate>MIN AT SELECTION</p>
+            </div>
+          </md-list-item>
+
         </md-list>
       </div>
-      <div simple-curve
-        data="topicsData[t.topic]"
-        status="topicsStatuses[t.topic]"
+      <div stacked-curves-us
+        statuses="regionsStatuses"
+        data="regionsData"
+        region="region"
         month="month"
-        highlight="false"
-        style="width: 100%; height: 180px;"
+        summary="summary"
       ></div>
     </div>
-  </div>
 
-</div>
+    <div hex-us
+      ng-show="topic"
+      statuses="regionsStatuses"
+      data="regionsData"
+      set-region="setState"
+      region="region"
+      month="month"
+      ng-click="unselectRegion()"
+    ></div>
+
+    <!-- PLACEHOLDER for when no region selected -->
+    <div ng-show="topic && !region" class="wizard-placeholder">
+      <div wizard-balloon text="'SELECT A REGION'|translate"></div>
+    </div>
+
+    <div ng-if="region">
+      <div ng-repeat="t in topics" class="single-curve" style="background-color: #FFFFFF;">
+        <div layout layout-padding class="stacked-curves-left" ng-show="topicsData[t.topic]">
+          <md-list>
+            <h2 class="md-title">{{t.name}}</h2>
+
+            <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="column">
+                <h3>{{regionName(region)}} <small class="md-caption">{{topicsData[t.topic][month]|number}}</small></h3>
+                <p style="color: {{false ? colors.regionHighlight : colors.topicCurve;}};">{{summary.monthDate}}</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div simple-curve
+          data="topicsData[t.topic]"
+          status="topicsStatuses[t.topic]"
+          month="month"
+          highlight="false"
+          style="width: 100%; height: 180px;"
+        ></div>
+      </div>
+    </div>
+
+  </div>
+</md-content>

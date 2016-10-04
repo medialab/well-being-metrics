@@ -26,19 +26,9 @@
 
   </head>
 
-  <body ng-app="app" ng-cloak layout="column">
-    <md-toolbar ng-hide="hideToolbar">
-      <div class="md-toolbar-tools">
-      <span>{{pageTitle ? pageTitle : 'So Well'}}</span>
-      <span flex></span>
-      <!-- <md-button>
-        Right Bar Button
-      </md-button> -->
-    </div>
-    </md-toolbar>
-    <md-content flex layout="row">
-      <div layout="column" flex ng-view></div>
-    </md-content>
+  <body ng-app="app" ng-cloak>
+
+    <div ng-view layout-fill layout="column"></div>
 
     <!-- <script type="text/javascript" src="../node_modules/angular/angular.js"></script> -->
     <script type="text/javascript" src="assets/angular.min.js"></script>
@@ -70,6 +60,7 @@
     <script type="text/javascript"  src="src/views/home.js"></script>
     <script type="text/javascript"  src="src/views/exploreIndex.js"></script>
     <script type="text/javascript"  src="src/views/populationData.js"></script>
+    <script type="text/javascript"  src="src/views/doc.js"></script>
 
     <script type="text/javascript">
 
@@ -85,7 +76,8 @@ angular
   'app.landing',
   'app.home',
   'app.exploreIndex',
-  'app.populationData'
+  'app.populationData',
+  'app.doc'
 ])
 
 .config(function($mdThemingProvider, $routeProvider, $translateProvider, $translatePartialLoaderProvider){
@@ -118,6 +110,7 @@ angular
     .backgroundPalette('grey', {
       'default': '100'
     })
+
 })
 
 // Other colors

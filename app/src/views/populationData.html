@@ -1,4 +1,5 @@
-<section layout="row" flex layout-fill>
+<div tool-bar layout methodology-link="'#/doc/populationDataMethodology'"></div>
+<md-content layout="row" flex>
   <md-sidenav
     class="md-sidenav-left"
     md-component-id="left"
@@ -13,25 +14,26 @@
     	class="profile-sidebar-title"
     	ng-click="choosePreset()"
 			presets="presets"
-    	gender="gender"
-    	age="age"
-    	work="work"
-    	income="income"
-    	diploma="diploma"
-    	owner="owner"
-    	wedding="wedding"
-    	children="children"
-    	partner-works="partnerWorks"
-    	charity="charity"
-    	french="french"
+			preset="$parent.preset"
+    	gender="$parent.gender"
+    	age="$parent.age"
+    	work="$parent.work"
+    	income="$parent.income"
+    	diploma="$parent.diploma"
+    	owner="$parent.owner"
+    	wedding="$parent.wedding"
+    	children="$parent.children"
+    	partner-works="$parent.partnerWorks"
+    	charity="$parent.charity"
+    	french="$parent.french"
     	md-ink-ripple="#FFFFFF"
     ></div>
   	<div class="profile-sidebar-content">
     
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-    <md-button ng-click="close()" class="md-primary" hide-gt-md>
+    <!-- <md-button ng-click="close()" class="md-primary" hide-gt-md>
       Close Sidenav Left
-    </md-button>
+    </md-button> -->
 
       <md-radio-group ng-model="$parent.gender" layout="row">
 			  <md-radio-button flex ng-repeat="gen in $parent.gender_list" ng-value="gen.value" aria-label="{{ gen.label }}">
@@ -105,7 +107,7 @@
 	    </div>
       <div class="profile-form-message">{{incomeDecileMessage}}</div>
 
-	    <md-switch ng-model="$parent.partnerWorks" aria-label="Partner works">
+	    <md-switch ng-model="$parent.partnerWorks" aria-label="Partner works" ng-show="$parent.wedding == 'marital_couple'">
   	  	{{ ($parent.partnerWorks ? 'PARTNER IS WORKING' : 'PARTNER IS NOT WORKING')|translate }}
   		</md-switch>
 
@@ -118,10 +120,9 @@
   <div flex layout-fill>
 
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-    <div ng-if="false">
-      <md-button ng-click="toggleLeft()"
-        class="md-primary" hide-gt-md>
-        Toggle left
+    <div ng-if="!introMode && !choosePresetMode" class="floating-menu-button">
+    	<md-button class="md-fab" aria-label="Open sidebar" ng-click="toggleLeft()" class="md-primary" hide-gt-md>
+        <md-icon>menu</md-icon>
       </md-button>
     </div>
 
@@ -134,36 +135,35 @@
 				<md-grid-list
 	        md-cols-xs="1"
 	        md-cols-sm="2"
-	        md-cols-md="4"
-	        md-cols-gt-md="6"
-	        md-row-height-gt-md="1:1"
-	        md-row-height="2:2"
+	        md-cols-md="3"
+	        md-cols-gt-md="4"
+	        md-row-height="5:4"
 	        md-gutter="12px"
 	        md-gutter-gt-sm="8px"
 			  >
 			    <md-grid-tile
 			      md-rowspan="1"
-			      md-colspan="2"
+			      md-colspan="1"
 			      md-colspan-sm="1"
 			      md-colspan-xs="1"
-			      ng-repeat="preset in presets"
+			      ng-repeat="p in presets"
 			      class="profile-tile"
-			      style="background-color: {{preset.color}};"
-			      ng-click="setPreset(preset)"
+			      style="background-color: {{p.color}};"
+			      ng-click="setPreset(p)"
 			      md-ink-ripple="#FFFFFF"
 			    >
 			    	<div class="profile-tile-content">
 				    	<table><tr>
 				    		<td>
-					        <img ng-src="{{preset.avatar}}" class="md-avatar" alt="{{preset.name}}" />
+					        <img ng-src="{{p.avatar}}" class="md-avatar" alt="{{p.name}}" />
 				    		</td>
 				    		<td>
-				          <h3 translate>{{preset.name}}</h3>
-				          <p translate>{{preset.type}}</p>
+				          <h3 translate>{{p.name}}</h3>
+				          <p translate>{{p.type}}</p>
 				    		</td>
 				    	</tr></table>
 				    	<br>
-		          <p translate>{{preset.text}}</p>
+		          <p translate>{{p.text}}</p>
 						</div>
 			    </md-grid-tile>
 			  </md-grid-list>
@@ -178,8 +178,9 @@
 							happiness-diagram
 							dimension="'current_life'"
 							happiness-model="happinessModel"
-							model-vars="modelVars"
 							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
 						>
 						</div>
 					</div>
@@ -191,8 +192,9 @@
 							happiness-diagram
 							dimension="'leisure'"
 							happiness-model="happinessModel"
-							model-vars="modelVars"
 							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
 						>
 						</div>
 					</div>
@@ -206,8 +208,9 @@
 							happiness-diagram
 							dimension="'housing'"
 							happiness-model="happinessModel"
-							model-vars="modelVars"
 							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
 						>
 						</div>
 					</div>
@@ -219,13 +222,14 @@
 							happiness-diagram
 							dimension="'loved_ones'"
 							happiness-model="happinessModel"
-							model-vars="modelVars"
 							presets="presets"
+							preset="$parent.$parent.preset"
+							gender="gender"
 						>
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
-  </div>
-</section>
+		</div>
+	</div>
+</md-content>
