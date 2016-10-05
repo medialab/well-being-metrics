@@ -1454,9 +1454,7 @@ angular.module('app.directives', [])
           isDebouncing = true;
           setTimeout(function() {
             isDebouncing = false;
-          }, 2000);
-
-          console.log(e)
+          }, 1500);
 
           if (e.deltaY > 0){
             setSlide(currentSlideIndex + 1)
