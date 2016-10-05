@@ -1436,17 +1436,18 @@ angular.module('app.directives', [])
       }
     }
   })
-  .directive('landingSlidesContainer', function($translatePartialLoader) {
+  .directive('landingSlidesContainer', function($translatePartialLoader, landingPageService) {
     return {
       restrict: 'A',
-      scope: {},
       templateUrl: 'src/directives/landingSlidesContainer.html',
       link: function($scope, directiveElement, attrs) {
-        $scope.currentSlide = 0;
-
         var slidesContainer = directiveElement.children()[0],
             slides = Array.prototype.slice.call(slidesContainer.children),
-            isDebouncing = false;
+            isDebouncing = false,
+            maxSlideIndex = 2;
+
+        // Indexes used both here in slidesBullets directive.
+        $scope.currentSlideIndex = 0;
 
         window.addEventListener('mousewheel', function(e) {
           e.preventDefault()
@@ -1458,23 +1459,24 @@ angular.module('app.directives', [])
           }, 1500);
 
           if (e.deltaY > 0){
-            setSlide($scope.currentSlide + 1)
+            setSlide($scope.currentSlideIndex + 1)
           } else {
-            setSlide($scope.currentSlide - 1)
+            setSlide($scope.currentSlideIndex - 1)
           }
         });
 
         window.addEventListener('resize', function(e) {
           e.preventDefault()
-          setSlide($scope.currentSlide);
+          setSlide($scope.currentSlideIndex);
         });
 
         function setSlide(i) {
-          if (i < 0 || i > slidesContainer.children.length - 1) return;
+          if (i < 0 || i > maxSlideIndex) return;
+          $scope.currentSlideIndex = i;
 
-          $scope.currentSlide = i;
+          landingPageService.currentSlideIndex = i;
 
-          var val = $scope.currentSlide * window.innerHeight;
+          var val = $scope.currentSlideIndex * window.innerHeight;
           scrollTo(document.body, val, 500);
         }
 
@@ -1510,7 +1512,7 @@ angular.module('app.directives', [])
               var previous_top = element.scrollTop;
 
               // This is like a think function from a game loop
-              var scroll_frame = function() {
+              var scrollFrame = function() {
                   if(element.scrollTop != previous_top) {
                       reject("interrupted");
                       return;
@@ -1539,11 +1541,11 @@ angular.module('app.directives', [])
                   previous_top = element.scrollTop;
 
                   // schedule next frame for execution
-                  setTimeout(scroll_frame, 0);
+                  setTimeout(scrollFrame, 0);
               }
 
               // boostrap the animation process
-              setTimeout(scroll_frame, 0);
+              setTimeout(scrollFrame, 0);
           });
       }
       }
@@ -1567,7 +1569,25 @@ angular.module('app.directives', [])
           );
         }
       }
-    }])
+  }])
+  .directive('slidesBullets', ['landingPageService', function(landingPageService) {
+    return {
+      restrict: 'A',
+      templateUrl: 'src/directives/slidesBullets.html',
+      link: function($scope, directiveElement, attrs) {
+        // setInterval(function () {console.log(landingPageService)}, 2000)
+        $scope.currentSlideIndex = 0;
+
+        $scope.$watch(function() {
+          return landingPageService.currentSlideIndex
+        }, function(val) {
+          console.log('xxxx')
+          console.log('landingPageService', landingPageService.currentSlideIndex)
+          $scope.currentSlideIndex = landingPageService.currentSlideIndex;
+        });
+      }
+    }
+  }])
   .directive('toolBar', function ($timeout, $translate) {
     return {
       restrict: 'A',
