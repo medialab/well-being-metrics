@@ -1436,19 +1436,25 @@ angular.module('app.directives', [])
       }
     }
   })
-  .directive('landingSlide', function ($translatePartialLoader) {
-    return {
-      restrict: 'A',
-      scope: {
-        question: '@',
-        subtitle: '@',
-        class: '@',
-        cta: '@'
-      },
-      templateUrl: 'src/directives/landingSlide.html',
-      link: function(scope, el, attrs) {}
-    }
-  })
+  .directive('landingSlide', ['$sce', '$translatePartialLoader', function ($sce, $translatePartialLoader) {
+      return {
+        restrict: 'A',
+        scope: {
+          question: '@',
+          subtitle: '@',
+          class: '@',
+          cta: '@'
+        },
+        templateUrl: 'src/directives/landingSlide.html',
+        link: function($scope, directiveElement, attrs) {
+          $scope.videoUrl = $sce.trustAsResourceUrl(
+            'https://player.vimeo.com/video/' +
+            attrs.videoUrl +
+            '?title=0&byline=0&portrait=0&rel=0&autoplay=1&loop=1&autopause=0&background=1'
+          );
+        }
+      }
+    }])
   .directive('toolBar', function ($timeout, $translate) {
     return {
       restrict: 'A',
