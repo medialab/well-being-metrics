@@ -1436,7 +1436,52 @@ angular.module('app.directives', [])
       }
     }
   })
-  .directive('landingSlide', ['$sce', '$translatePartialLoader', function ($sce, $translatePartialLoader) {
+  .directive('landingSlidesContainer', function($translatePartialLoader) {
+    return {
+      restrict: 'A',
+      scope: {},
+      templateUrl: 'src/directives/landingSlidesContainer.html',
+      link: function($scope, directiveElement, attrs) {
+        var currentSlideIndex = 0,
+            slidesContainer = directiveElement.children()[0],
+            slides = Array.prototype.slice.call(slidesContainer.children),
+            isDebouncing = false;
+
+        window.addEventListener('mousewheel', function(e) {
+          e.preventDefault()
+          if (isDebouncing) return;
+
+          isDebouncing = true;
+          setTimeout(function() {
+            isDebouncing = false;
+          }, 2000);
+
+          console.log(e)
+
+          if (e.deltaY > 0){
+            setSlide(currentSlideIndex + 1)
+          } else {
+            setSlide(currentSlideIndex - 1)
+          }
+        });
+
+        window.addEventListener('resize', function(e) {
+          e.preventDefault()
+          setSlide(currentSlideIndex);
+        });
+
+        function setSlide(i) {
+          if (i < 0 || i > slidesContainer.children.length - 1) return;
+
+          currentSlideIndex = i;
+
+          var val = currentSlideIndex * window.innerHeight;
+          window.scrollTo(0, val);
+        }
+      }
+    }
+  })
+  .directive('landingSlide', ['$sce', '$translatePartialLoader', function($sce, $translatePartialLoader) {
       return {
         restrict: 'A',
         scope: {
