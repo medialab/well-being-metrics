@@ -1442,8 +1442,9 @@ angular.module('app.directives', [])
       scope: {},
       templateUrl: 'src/directives/landingSlidesContainer.html',
       link: function($scope, directiveElement, attrs) {
-        var currentSlideIndex = 0,
-            slidesContainer = directiveElement.children()[0],
+        $scope.currentSlide = 0;
+
+        var slidesContainer = directiveElement.children()[0],
             slides = Array.prototype.slice.call(slidesContainer.children),
             isDebouncing = false;
 
@@ -1457,23 +1458,23 @@ angular.module('app.directives', [])
           }, 1500);
 
           if (e.deltaY > 0){
-            setSlide(currentSlideIndex + 1)
+            setSlide($scope.currentSlide + 1)
           } else {
-            setSlide(currentSlideIndex - 1)
+            setSlide($scope.currentSlide - 1)
           }
         });
 
         window.addEventListener('resize', function(e) {
           e.preventDefault()
-          setSlide(currentSlideIndex);
+          setSlide($scope.currentSlide);
         });
 
         function setSlide(i) {
           if (i < 0 || i > slidesContainer.children.length - 1) return;
 
-          currentSlideIndex = i;
+          $scope.currentSlide = i;
 
-          var val = currentSlideIndex * window.innerHeight;
+          var val = $scope.currentSlide * window.innerHeight;
           scrollTo(document.body, val, 500);
         }
 
