@@ -1436,7 +1436,8 @@ angular.module('app.directives', [])
       }
     }
   })
-  .directive('landingSlidesContainer', function($translatePartialLoader, landingPageService) {
+  .directive('landingSlidesContainer', ['$rootScope', '$translatePartialLoader', 'landingPageService',
+    function($rootScope, $translatePartialLoader, landingPageService) {
     return {
       restrict: 'A',
       templateUrl: 'src/directives/landingSlidesContainer.html',
@@ -1475,6 +1476,7 @@ angular.module('app.directives', [])
           $scope.currentSlideIndex = i;
 
           landingPageService.currentSlideIndex = i;
+          $rootScope.$broadcast('slide:change');
 
           var val = $scope.currentSlideIndex * window.innerHeight;
           scrollTo(document.body, val, 500);
@@ -1507,50 +1509,50 @@ angular.module('app.directives', [])
           }
 
           return new Promise(function(resolve, reject) {
-              // This is to keep track of where the element's scrollTop is
-              // supposed to be, based on what we're doing
-              var previous_top = element.scrollTop;
+            // This is to keep track of where the element's scrollTop is
+            // supposed to be, based on what we're doing
+            var previous_top = element.scrollTop;
 
-              // This is like a think function from a game loop
-              var scrollFrame = function() {
-                  if(element.scrollTop != previous_top) {
-                      reject("interrupted");
-                      return;
-                  }
-
-                  // set the scrollTop for this frame
-                  var now = Date.now();
-                  var point = smooth_step(startTime, endTime, now);
-                  var frameTop = Math.round(startTop + (distance * point));
-                  element.scrollTop = frameTop;
-
-                  // check if we're done!
-                  if(now >= endTime) {
-                      resolve();
-                      return;
-                  }
-
-                  // If we were supposed to scroll but didn't, then we
-                  // probably hit the limit, so consider it done; not
-                  // interrupted.
-                  if(element.scrollTop === previous_top
-                      && element.scrollTop !== frameTop) {
-                      resolve();
-                      return;
-                  }
-                  previous_top = element.scrollTop;
-
-                  // schedule next frame for execution
-                  setTimeout(scrollFrame, 0);
+            // This is like a think function from a game loop
+            var scrollFrame = function() {
+              if(element.scrollTop != previous_top) {
+                  reject("interrupted");
+                  return;
               }
 
-              // boostrap the animation process
+              // set the scrollTop for this frame
+              var now = Date.now();
+              var point = smooth_step(startTime, endTime, now);
+              var frameTop = Math.round(startTop + (distance * point));
+              element.scrollTop = frameTop;
+
+              // check if we're done!
+              if(now >= endTime) {
+                  resolve();
+                  return;
+              }
+
+              // If we were supposed to scroll but didn't, then we
+              // probably hit the limit, so consider it done; not
+              // interrupted.
+              if(element.scrollTop === previous_top
+                  && element.scrollTop !== frameTop) {
+                  resolve();
+                  return;
+              }
+              previous_top = element.scrollTop;
+
+              // schedule next frame for execution
               setTimeout(scrollFrame, 0);
+            }
+
+            // boostrap the animation process
+            setTimeout(scrollFrame, 0);
           });
-      }
+        }
       }
     }
-  })
+  }])
   .directive('landingSlide', ['$sce', '$translatePartialLoader', function($sce, $translatePartialLoader) {
       return {
         restrict: 'A',
@@ -1573,15 +1575,15 @@ angular.module('app.directives', [])
   .directive('slidesBullets', ['landingPageService', function(landingPageService) {
     return {
       restrict: 'A',
+      scope: {
+        currentSlideIndex: '&'
+      },
       templateUrl: 'src/directives/slidesBullets.html',
       link: function($scope, directiveElement, attrs) {
         // setInterval(function () {console.log(landingPageService)}, 2000)
         $scope.currentSlideIndex = 0;
 
-        $scope.$watch(function() {
-          return landingPageService.currentSlideIndex
-        }, function(val) {
-          console.log('xxxx')
+        $scope.$on('slide:change', function(val) {
           console.log('landingPageService', landingPageService.currentSlideIndex)
           $scope.currentSlideIndex = landingPageService.currentSlideIndex;
         });
