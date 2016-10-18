@@ -7,7 +7,7 @@ angular.module('app.services', [])
 .constant('seriesMetadata', {
   us: {
     startDate: '2011-01-01',
-    endDate: '2015-09-01'
+    endDate: '2016-04-01'
   },
   fr: {
     startDate: '2011-01-01',
@@ -16,31 +16,37 @@ angular.module('app.services', [])
 })
 
 .constant('swbCategories', [
-  'big_picture_f',
-  'civic_f',
-  'healthy_habits_f',
-  'health_conditions_f',
-  'family_life_f',
-  'family_stress_f',
-  'summer_leisure_f',
-  'job_market_f',
-  'job_search_f',
-  'personal_security_f',
-  'fin_security_f',
-  'home_finance_f'
+  'cat_social_progress',
+  'cat_job_growth',
+  'cat_layoffs',
+  'cat_family_stress',
+  'cat_financial_security',
+  'cat_housing',
+  'cat_family',
+  'cat_civic_engagement',
+  'cat_personal_security',
+  'cat_healthy_habits',
+  'cat_health_worries',
+  'cat_education',
+  'cat_summer_leisure',
+  'cat_spirituality',
+  'cat_health_conditions'
 ])
 
 .constant('swbSeries', [
-  'life_eval',
-  'life_eval_5',
-  'happiness',
-  'learn',
-  'respect',
-  'anger',
-  'stress',
-  'worry',
-  'sadness',
-  'laugh'
+  'swb_life_eval',
+  'swb_life_eval_5',
+  'swb_happiness',
+  'swb_enjoyment',
+  'swb_laugh',
+  'swb_stress',
+  'swb_worry',
+  'swb_sadness',
+  'swb_respect',
+  'swb_anger',
+  'swb_learn',
+  'swb_security',
+  'swb_job_satisfaction'
 ])
 
 .constant('wellBeingAspects', [
@@ -460,7 +466,7 @@ angular.module('app.services', [])
         // Remove header
         data.shift();
         // Parse as numbers
-        return data.map(Number);
+        return data.map(function(row){return Number(row[1])});
       }
     });
   }
