@@ -1451,7 +1451,7 @@ angular.module('app.directives', [])
         // Indexes used both here in slidesBullets directive.
         $scope.currentSlideIndex = 0;
 
-        window.addEventListener('mousewheel', function(e) {
+        var mousewheelHandler = function(e) {
           e.preventDefault()
           if (isDebouncing) return;
 
@@ -1465,12 +1465,22 @@ angular.module('app.directives', [])
           } else {
             setSlide($scope.currentSlideIndex - 1)
           }
-        });
+        }
 
-        window.addEventListener('resize', function(e) {
+        
+        window.addEventListener('mousewheel', mousewheelHandler);
+
+        var resizeHandler = function(e) {
           e.preventDefault()
           setSlide($scope.currentSlideIndex);
-        });
+        }
+
+        window.addEventListener('resize', resizeHandler);
+
+        $scope.$on('$destroy', function(){
+          window.removeEventListener('mousewheel', mousewheelHandler);
+          window.removeEventListener('resize', resizeHandler);
+        })
 
         function setSlide(i) {
           if (i < 0 || i > maxSlideIndex) return;
