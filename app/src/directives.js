@@ -6,7 +6,7 @@
 var stickyModeHeight = 80;
 
 angular.module('app.directives', [])
-  
+
   .directive('hexUs', function ($timeout, usStatesHex, colors) {
     return {
       restrict: 'A',
@@ -20,7 +20,7 @@ angular.module('app.directives', [])
       link: function($scope, el, attrs) {
 
         el.html('<div>Loading...</div>')
-        
+
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
@@ -33,7 +33,7 @@ angular.module('app.directives', [])
           if (el[0].offsetWidth > 0 && $scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
-      
+
               var regions = usStatesHex.data;
 
               // Setup: dimensions
@@ -44,7 +44,7 @@ angular.module('app.directives', [])
               // Setup: scales
               var size = d3.scaleLinear()
                   .range([0, height]);
-              
+
               var dotSize = d3.scaleLinear()
                   .range([0, 0.5 * (regions[0].xExtent[1] - regions[0].xExtent[0])])
 
@@ -71,7 +71,7 @@ angular.module('app.directives', [])
                 .concat(regions.map(function(d) { return d.xExtent[1]; }))
               )
               var xOffset = -size(xExtent[0]) + (width / 2 - ( size(xExtent[1]) - size(xExtent[0]) ) / 2 )
-              
+
               var lineFunction = d3.line()
                 .x(function(d) { return xOffset + size(d[0]); })
                 .y(function(d) { return size(d[1]); })
@@ -95,7 +95,7 @@ angular.module('app.directives', [])
                       .attr('stroke', colors.mapItemHighlight)
                       .attr('fill', colors.mapItemHighlight)
                   }
-                })                  
+                })
                 .on('mouseout', function(d) {
                   if (regionValid(d.abbr)) {
                     d3.select(this).select('path')
@@ -200,7 +200,7 @@ angular.module('app.directives', [])
       link: function($scope, el, attrs) {
 
         el.html('<div>Loading...</div>')
-        
+
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
@@ -213,7 +213,7 @@ angular.module('app.directives', [])
           if (el[0].offsetWidth > 0 && $scope.statuses !== undefined){
             $timeout(function () {
               el.html('');
-      
+
               var regions = usStatesHex.data;
 
               // Preliminary data crunching
@@ -243,7 +243,7 @@ angular.module('app.directives', [])
               var x = d3.scaleLinear()
                 .domain([0, seriesLength - 1])
                 .range([0, width])
-              
+
               var y = d3.scaleLinear()
                 .domain([-5, 5])
                 // .domain(d3.extent(allValues))
@@ -257,7 +257,7 @@ angular.module('app.directives', [])
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-              
+
               var lineFunction = d3.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
@@ -275,7 +275,7 @@ angular.module('app.directives', [])
                 .attr('stroke-width', .8)
                 .attr('fill', 'none')
                 .attr('opacity', .6)
-              
+
               // Additional informations
               var overlay = svg.append('g')
 
@@ -336,7 +336,7 @@ angular.module('app.directives', [])
       }
     }
   })
-  
+
   .directive('simpleCurve', function ($timeout, colors) {
     return {
       restrict: 'A',
@@ -349,7 +349,7 @@ angular.module('app.directives', [])
       link: function($scope, el, attrs) {
 
         el.html('<div><center>Loading...</center></div>')
-        
+
         $scope.$watch('status', redraw, true)
         $scope.$watch('month', redraw)
         $scope.$watch('highlight', redraw)
@@ -362,7 +362,7 @@ angular.module('app.directives', [])
           if ($scope.data !== undefined){
             $timeout(function () {
               el.html('');
-              
+
               // Setup: dimensions
               var margin = {top: 0, right: 12, bottom: 0, left: 300};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
@@ -372,7 +372,7 @@ angular.module('app.directives', [])
               var x = d3.scaleLinear()
                 .domain([0, $scope.data.length - 1])
                 .range([0, width])
-              
+
               var y = d3.scaleLinear()
                 .domain([-5, 5])
                 .range([height, 0])
@@ -385,7 +385,7 @@ angular.module('app.directives', [])
                 .attr("height", height + margin.top + margin.bottom)
               .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-              
+
               var lineFunction = d3.line()
                 .x(function(d, i) { return x(i); })
                 .y(function(d) { return y(d); })
@@ -401,7 +401,7 @@ angular.module('app.directives', [])
                     .attr('stroke-width', 1)
                     .attr('fill', 'none')
               }
-              
+
               // Additional informations
               var overlay = svg.append('g')
 
@@ -655,7 +655,7 @@ angular.module('app.directives', [])
           window.addEventListener('resize', onresize);
 
           // initialize sticky
-          onscroll();            
+          onscroll();
         })
 
       }
@@ -861,7 +861,7 @@ angular.module('app.directives', [])
           window.addEventListener('resize', onresize);
 
           // initialize sticky
-          onscroll();            
+          onscroll();
         })
 
       }
@@ -957,12 +957,12 @@ angular.module('app.directives', [])
       },
       templateUrl: 'src/directives/populationDataVis.html',
       link: function($scope, directiveElement, attrs) {
-        
+
         // D3 element
         var el = angular.element(directiveElement.children()[0])
 
         el.html('<div></div>')
-        
+
         $scope.highlightedItem
 
         $scope.$watch('dimension', softUpdate)
@@ -1055,7 +1055,6 @@ angular.module('app.directives', [])
               svg = d3.select(el[0]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
-
               // Patterns for images NB: ids have to check imageId from nodes generateData()
               var defs = svg.append('defs')
               $scope.presets.forEach(function(preset){
@@ -1078,8 +1077,6 @@ angular.module('app.directives', [])
                   .attr('width', '64')
                   .attr('xlink:href', url)
               }
-
-
               // persons' SVG group
               g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -1381,7 +1378,7 @@ angular.module('app.directives', [])
             }
             return 'url(#'+d.imageId+')'
           }
-          else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10); 
+          else return d3.color(d.color) || color(d.happinessModel[$scope.dimension].score/10);
         }
 
         function rebootSimulation() {
@@ -1440,6 +1437,161 @@ angular.module('app.directives', [])
     }
   })
 
+  .directive('landingSlidesContainer', ['$rootScope', '$translatePartialLoader', 'landingPageService',
+    function($rootScope, $translatePartialLoader, landingPageService) {
+    return {
+      restrict: 'A',
+      templateUrl: 'src/directives/landingSlidesContainer.html',
+      link: function($scope, directiveElement, attrs) {
+        var slidesContainer = directiveElement.children()[0],
+            slides = Array.prototype.slice.call(slidesContainer.children),
+            isDebouncing = false,
+            maxSlideIndex = 2;
+
+        // Indexes used both here in slidesBullets directive.
+        $scope.currentSlideIndex = 0;
+
+        window.addEventListener('mousewheel', function(e) {
+          e.preventDefault()
+          if (isDebouncing) return;
+
+          isDebouncing = true;
+          setTimeout(function() {
+            isDebouncing = false;
+          }, 1500);
+
+          if (e.deltaY > 0){
+            setSlide($scope.currentSlideIndex + 1)
+          } else {
+            setSlide($scope.currentSlideIndex - 1)
+          }
+        });
+
+        window.addEventListener('resize', function(e) {
+          e.preventDefault()
+          setSlide($scope.currentSlideIndex);
+        });
+
+        function setSlide(i) {
+          if (i < 0 || i > maxSlideIndex) return;
+          $scope.currentSlideIndex = i;
+
+          landingPageService.currentSlideIndex = i;
+          $rootScope.$broadcast('slide:change');
+
+          var val = $scope.currentSlideIndex * window.innerHeight;
+          scrollTo(document.body, val, 500);
+        }
+
+        // see: https://coderwall.com/p/hujlhg/smooth-scrolling-without-jquery
+        function scrollTo(element, target, duration) {
+          target = Math.round(target);
+          duration = Math.round(duration);
+          if (duration < 0) {
+              return Promise.reject("bad duration");
+          }
+          if (duration === 0) {
+              element.scrollTop = target;
+              return Promise.resolve();
+          }
+
+          var startTime = Date.now();
+          var endTime = startTime + duration;
+
+          var startTop = element.scrollTop;
+          var distance = target - startTop;
+
+          // based on http://en.wikipedia.org/wiki/Smoothstep
+          var smooth_step = function(start, end, point) {
+              if(point <= start) { return 0; }
+              if(point >= end) { return 1; }
+              var x = (point - start) / (end - start); // interpolation
+              return x*x*(3 - 2*x);
+          }
+
+          return new Promise(function(resolve, reject) {
+            // This is to keep track of where the element's scrollTop is
+            // supposed to be, based on what we're doing
+            var previous_top = element.scrollTop;
+
+            // This is like a think function from a game loop
+            var scrollFrame = function() {
+              if(element.scrollTop != previous_top) {
+                  reject("interrupted");
+                  return;
+              }
+
+              // set the scrollTop for this frame
+              var now = Date.now();
+              var point = smooth_step(startTime, endTime, now);
+              var frameTop = Math.round(startTop + (distance * point));
+              element.scrollTop = frameTop;
+
+              // check if we're done!
+              if(now >= endTime) {
+                  resolve();
+                  return;
+              }
+
+              // If we were supposed to scroll but didn't, then we
+              // probably hit the limit, so consider it done; not
+              // interrupted.
+              if(element.scrollTop === previous_top
+                  && element.scrollTop !== frameTop) {
+                  resolve();
+                  return;
+              }
+              previous_top = element.scrollTop;
+
+              // schedule next frame for execution
+              setTimeout(scrollFrame, 0);
+            }
+
+            // boostrap the animation process
+            setTimeout(scrollFrame, 0);
+          });
+        }
+      }
+    }
+  }])
+  .directive('landingSlide', ['$sce', '$translatePartialLoader', function($sce, $translatePartialLoader) {
+      return {
+        restrict: 'A',
+        scope: {
+          question: '@',
+          subtitle: '@',
+          class: '@',
+          cta: '@',
+          link: '@'
+        },
+        templateUrl: 'src/directives/landingSlide.html',
+        link: function($scope, directiveElement, attrs) {
+          $scope.videoUrl = $sce.trustAsResourceUrl(
+            'https://player.vimeo.com/video/' +
+            attrs.videoUrl +
+            '?title=0&byline=0&portrait=0&rel=0&autoplay=1&loop=1&autopause=0&background=1'
+          );
+        }
+      }
+  }])
+  .directive('slidesBullets', ['landingPageService', function(landingPageService) {
+    return {
+      restrict: 'A',
+      scope: {
+        currentSlideIndex: '&'
+      },
+      templateUrl: 'src/directives/slidesBullets.html',
+      link: function($scope, directiveElement, attrs) {
+        // setInterval(function () {console.log(landingPageService)}, 2000)
+        $scope.currentSlideIndex = 0;
+
+        $scope.$on('slide:change', function(val) {
+          console.log('landingPageService', landingPageService.currentSlideIndex)
+          $scope.currentSlideIndex = landingPageService.currentSlideIndex;
+        });
+      }
+    }
+  }])
   .directive('toolBar', function ($timeout, $translate) {
     return {
       restrict: 'A',
@@ -1458,9 +1610,9 @@ angular.module('app.directives', [])
             $translate.use('fr')
             $scope.language = 'FR'
           }
-          
+
         }
-        
+
       }
     }
   })

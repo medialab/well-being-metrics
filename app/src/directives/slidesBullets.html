@@ -1,0 +1,48 @@
+<style>
+  .sw-bullets {
+    position: fixed;
+    top: 0;
+    right: 1em;
+    width: 10px;
+    height: 100px;
+    top: calc(50vh - 50px);
+    background-color: transparent;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .sw-bullets ul,
+  .sw-bullets ul li {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .sw-bullet {
+    list-style: none;
+    content: ' dddd ';
+    background-color: white;
+    height: 10px;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 1.5em;
+    opacity: 0.4;
+  }
+
+  .sw-bullet.is-active {
+    opacity: 1;
+  }
+
+  .sw-bullet a {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-indent: -9999em;
+  }
+</style>
+
+<ul class="sw-bullets">
+  <li class="sw-bullet" ng-class="currentSlideIndex == 0 ? 'is-active': ''"><a href="#">{{currentSlideIndex}}</a></li>
+  <li class="sw-bullet" ng-class="currentSlideIndex == 1 ? 'is-active': ''"><a href="#"></a></li>
+  <li class="sw-bullet" ng-class="currentSlideIndex == 2 ? 'is-active': ''"><a href="#"></a></li>
+</ul>
