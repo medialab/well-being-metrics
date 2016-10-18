@@ -1436,6 +1436,7 @@ angular.module('app.directives', [])
       }
     }
   })
+
   .directive('landingSlidesContainer', ['$rootScope', '$translatePartialLoader', 'landingPageService',
     function($rootScope, $translatePartialLoader, landingPageService) {
     return {
@@ -1560,7 +1561,8 @@ angular.module('app.directives', [])
           question: '@',
           subtitle: '@',
           class: '@',
-          cta: '@'
+          cta: '@',
+          link: '@'
         },
         templateUrl: 'src/directives/landingSlide.html',
         link: function($scope, directiveElement, attrs) {
