@@ -8,8 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,400italic'>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,400italic|Montserrat:400,700'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/> -->
     <link rel="stylesheet" href="assets/angular-material.css"/>
@@ -57,7 +56,6 @@
     <script type="text/javascript"  src="src/directives.js"></script>
     <script type="text/javascript"  src="src/filters.js"></script>
     <script type="text/javascript"  src="src/views/landing.js"></script>
-    <script type="text/javascript"  src="src/views/home.js"></script>
     <script type="text/javascript"  src="src/views/exploreIndex.js"></script>
     <script type="text/javascript"  src="src/views/populationData.js"></script>
     <script type="text/javascript"  src="src/views/doc.js"></script>
@@ -74,7 +72,6 @@ angular
   'app.directives',
   'app.filters',
   'app.landing',
-  'app.home',
   'app.exploreIndex',
   'app.populationData',
   'app.doc'
@@ -82,12 +79,11 @@ angular
 
 .config(function($mdThemingProvider, $routeProvider, $translateProvider, $translatePartialLoaderProvider){
   // Route
-  $routeProvider.otherwise({redirectTo: '/'});
+  $routeProvider.otherwise({redirectTo: '/'})
 
   // Locale
   $translateProvider
     .useLoader('$translatePartialLoader', {
-      // urlTemplate: 'src/views/home-locale-en.json'
       urlTemplate: 'src/locale/{part}-{lang}.json'
     })
     .useSanitizeValueStrategy(null)

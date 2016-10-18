@@ -3,7 +3,7 @@
 angular.module('app.landing', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/landing', {
+  $routeProvider.when('/', {
     templateUrl: 'src/views/landing.html'
   , controller: 'LandingController'
   })
