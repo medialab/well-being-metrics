@@ -174,7 +174,7 @@ angular.module('app.services', [])
 .factory('usStatesHex', function () {
   // Namespace
   var ns = {};
-  
+
   ns.matrix = [
     [1,0,0,0,0,0,0,0,0,0,0,1],
     [0,0,0,0,0,0,0,0,0,1,1,0],
@@ -269,7 +269,7 @@ angular.module('app.services', [])
   var i, loop_x, loc_x, s, grid_plot, item
   for(i = 0; i < ns.matrix.length; i++) {
     loop_x = offset ? hex_apo * 2 : hex_apo;
-    
+
     loc_x = x;
     for(s = 0; s < ns.matrix[i].length; s++) {
       // grid plot in 0 and 1 array
@@ -279,7 +279,7 @@ angular.module('app.services', [])
       if (grid_plot != 0) {
         // get the state
         item = ns.states[state_index];
-        
+
         // hexagon polygon points
         item.hex = [
           [loc_x + loop_x, y - hex_rad],
@@ -298,7 +298,7 @@ angular.module('app.services', [])
         item.y = ( item.yExtent[0] + item.yExtent[1] ) / 2
 
         ns.data.push(item);
-      
+
         // increase the state index reference
         state_index++;
       }
@@ -307,7 +307,7 @@ angular.module('app.services', [])
       loc_x += hex_apo * 2;
     }
     // move our y plot to next row position
-    y += hex_di * 0.75; 
+    y += hex_di * 0.75;
     // toggle offset per row
     offset = !offset;
   }
@@ -319,7 +319,7 @@ angular.module('app.services', [])
 .factory('frRegionsHex', function () {
   // Namespace
   var ns = {};
-  
+
   ns.matrix = [
     [0,0,1,0,0,0],
     [0,1,1,1,0,0],
@@ -383,7 +383,7 @@ angular.module('app.services', [])
   var i, loop_x, loc_x, s, grid_plot, item
   for(i = 0; i < ns.matrix.length; i++) {
     loop_x = offset ? hex_apo * 2 : hex_apo;
-    
+
     loc_x = x;
     for(s = 0; s < ns.matrix[i].length; s++) {
       // grid plot in 0 and 1 array
@@ -393,7 +393,7 @@ angular.module('app.services', [])
       if (grid_plot != 0) {
         // get the state
         item = ns.regions[state_index];
-        
+
         // hexagon polygon points
         item.hex = [
           [loc_x + loop_x, y - hex_rad],
@@ -412,7 +412,7 @@ angular.module('app.services', [])
         item.y = ( item.yExtent[0] + item.yExtent[1] ) / 2
 
         ns.data.push(item);
-      
+
         // increase the state index reference
         state_index++;
       }
@@ -421,7 +421,7 @@ angular.module('app.services', [])
       loc_x += hex_apo * 2;
     }
     // move our y plot to next row position
-    y += hex_di * 0.75; 
+    y += hex_di * 0.75;
     // toggle offset per row
     offset = !offset;
   }
@@ -433,7 +433,7 @@ angular.module('app.services', [])
 .factory('Facets', function ( wellBeingAspects ,  regionsMetadata ) {
   // Namespace
   var ns = {};
-  
+
   // Facettage.debug = true;
 
   // Retrieve data from cache
@@ -472,4 +472,9 @@ angular.module('app.services', [])
   }
 
   return ns;
+})
+
+// Shared data for landing page.
+.service('landingPageService', function() {
+  this.currentSlideIndex = 0;
 })
