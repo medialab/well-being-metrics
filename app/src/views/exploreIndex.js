@@ -44,6 +44,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.loading = false
 
   // Translation
+  $translatePartialLoader.addPart('generic');
   $translatePartialLoader.addPart('exploreIndex');
   $translatePartialLoader.addPart('data');
   $translate.refresh();
