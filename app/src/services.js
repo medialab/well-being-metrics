@@ -6,7 +6,7 @@ angular.module('app.services', [])
 
 .constant('seriesMetadata', {
   us: {
-    startDate: '2011-01-01',
+    startDate: '2008-01-01',
     endDate: '2016-04-01'
   },
   fr: {
