@@ -29,9 +29,9 @@
   "swb_security": "Security",
   "swb_job_satisfaction": "Job Satisfaction",
 
-  "current_life":         "Life in general",
-  "leisure":              "Leisure",
-  "housing":              "Housing",
-  "loved_ones":           "Loved ones"
+  "current_life": "Life in general",
+  "leisure": "Leisure",
+  "housing": "Housing",
+  "loved_ones": "Loved ones"
 
 }
