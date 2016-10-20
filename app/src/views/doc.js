@@ -15,10 +15,14 @@ angular.module('app.doc', ['ngRoute'])
 	$location,
 	$timeout,
 	$routeParams,
-	$translate
+	$translate,
+	$translatePartialLoader
 ) {
 	$scope.target
 
+  $translatePartialLoader.addPart('generic');
+  $translate.refresh();
+  
 	$rootScope.$on('$translateChangeSuccess', update)
 	update()
 	function update() {

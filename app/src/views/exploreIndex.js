@@ -25,8 +25,6 @@ angular.module('app.exploreIndex', ['ngRoute'])
 ) {
   var startDate = new Date(seriesMetadata.us.startDate)
 
-  // $scope.$parent.pageTitle = 'So Well - Explore the well-being index - ALPHA'
-  $scope.$parent.methodologyLink = '#/'
   $scope.colors = colors
   $scope.month = 0
   $scope.monthNames = []
@@ -44,6 +42,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.loading = false
 
   // Translation
+  $translatePartialLoader.addPart('generic');
   $translatePartialLoader.addPart('exploreIndex');
   $translatePartialLoader.addPart('data');
   $translate.refresh();

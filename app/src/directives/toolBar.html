@@ -1,12 +1,26 @@
 <md-toolbar>
   <div class="md-toolbar-tools">
-    <a href="#/">{{pageTitle ? pageTitle : 'So Well'}}</a>
+    <md-button ng-href="#/">
+      <span translate>HOME</span>
+    </md-button>
+    <md-button ng-href="#/doc/manifesto">
+      <span translate>MANIFESTO</span>
+    </md-button>
+    <md-button ng-href="#/explore-index">
+      <span translate>EXPLORE_INDEX</span>
+    </md-button>
+    <md-button ng-href="#/population-data">
+      <span translate>POPULATION_DATA</span>
+    </md-button>
     <span flex></span>
     <md-button ng-if="methodologyLink" ng-href="{{methodologyLink}}">
       <md-icon>help</md-icon> <span translate>METHOD</span>
     </md-button>
+    <md-button ng-href="#/doc/termsOfUse">
+      <span translate>LEGAL</span>
+    </md-button>
     <md-button ng-click="toggleLanguage()">
-		  <md-icon>language</md-icon>	{{language}}
-		</md-button>
+      <md-icon>language</md-icon> {{language}}
+    </md-button>
   </div>
 </md-toolbar>

@@ -351,6 +351,7 @@ angular.module('app.populationData', ['ngRoute'])
 	$scope.toggleLeft = buildDelayedToggler('left');
 
 	// Translation
+  $translatePartialLoader.addPart('generic');
   $translatePartialLoader.addPart('populationData');
   $translatePartialLoader.addPart('data');
   $translate.refresh();
