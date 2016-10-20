@@ -82,7 +82,7 @@ angular
   'app.doc'
 ])
 
-.config(function($mdThemingProvider, $routeProvider, $translateProvider, $translatePartialLoaderProvider){
+.config(function($mdThemingProvider, $routeProvider, $translateProvider, $translatePartialLoaderProvider, markedProvider){
   // Route
   $routeProvider.otherwise({redirectTo: '/'})
 
@@ -111,6 +111,8 @@ angular
     .backgroundPalette('grey', {
       'default': '100'
     })
+
+  markedProvider.setOptions({gfm: true, breaks:true});
 
 })
 
