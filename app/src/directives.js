@@ -1564,6 +1564,7 @@ angular.module('app.directives', [])
       }
     }
   }])
+  
   .directive('landingSlide', ['$sce', '$translatePartialLoader', function($sce, $translatePartialLoader) {
       return {
         restrict: 'A',
@@ -1584,6 +1585,7 @@ angular.module('app.directives', [])
         }
       }
   }])
+  
   .directive('slidesBullets', ['landingPageService', function(landingPageService) {
     return {
       restrict: 'A',
@@ -1602,6 +1604,7 @@ angular.module('app.directives', [])
       }
     }
   }])
+
   .directive('toolBar', function ($timeout, $translate) {
     return {
       restrict: 'A',
