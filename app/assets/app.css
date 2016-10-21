@@ -1,4 +1,19 @@
 /*
+ * Generic
+ */
+.toolbar {
+	background-color: #ffca28;
+}
+
+.toolbar.skin-manifesto {
+	background-color: #b13b3b;
+}
+
+.toolbar.skin-population-data {
+	background-color: #43A047;
+}
+
+/*
  * Explore index page
  */
 

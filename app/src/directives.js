@@ -1605,7 +1605,7 @@ angular.module('app.directives', [])
     }
   }])
 
-  .directive('toolBar', function ($timeout, $translate) {
+  .directive('toolBar', function ($timeout, $translate, $location) {
     return {
       restrict: 'A',
       scope: {
@@ -1614,6 +1614,8 @@ angular.module('app.directives', [])
       templateUrl: 'src/directives/toolBar.html',
       link: function($scope, el, attrs) {
         $scope.language = $translate.use().toUpperCase()
+
+        $scope.page = $location.path()
 
         $scope.toggleLanguage = function () {
           if ($translate.use() == 'fr') {
