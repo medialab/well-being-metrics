@@ -117,7 +117,7 @@
 
     </div>
   </md-sidenav>
-  <div flex layout-fill>
+  <div flex layout-fill ng-class="{'darker-grid': startupMode}">
 
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
     <div ng-if="!choosePresetMode" class="floating-menu-button">
@@ -148,11 +148,11 @@
 			      md-colspan-xs="1"
 			      ng-repeat="p in presets"
 			      class="profile-tile"
-			      style="background-color: {{p.color}};"
+			      ng-style="{'background-color': startupMode ? '#8c9c94' : p.color}"
 			      ng-click="setPreset(p)"
 			      md-ink-ripple="#FFFFFF"
 			    >
-			    	<div class="profile-tile-content">
+			    	<div class="profile-tile-content" ng-show="!startupMode">
 				    	<table><tr>
 				    		<td>
 					        <img ng-src="{{p.avatar}}" class="md-avatar" alt="{{p.name}}" />
@@ -233,3 +233,13 @@
 		</div>
 	</div>
 </md-content>
+<div class="floating-splash" ng-show="startupMode">
+	<div class="floating-splash-content">
+		<span translate>SPLASH_MESSAGE</span>
+		<br>
+		<br>
+		<md-button class="md-raised md-accent" ng-click="goCompare()"><span translate>GO</span></md-button>
+		<br>
+		<md-button ng-click="goPresets()"><span translate>SELECT_PROFILE</span></md-button>
+	</div>
+</div>

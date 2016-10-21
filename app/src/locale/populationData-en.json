@@ -1,5 +1,8 @@
 {
 	"METHOD": "Methodology",
+	"SPLASH_MESSAGE": "Set your personal data to compare your situation",
+	"GO": "Done!",
+	"SELECT_PROFILE": "Start with a preset",
 	
 	"gender_male": "Male",
 	"gender_female": "Female",
@@ -101,5 +104,5 @@
 	"OF HAPPINESS": "points of satisfaction",
 	"PREDICTED": "predicted by the model",
 
-	"CUSTOM PROFILE": "Custom profile"
+	"CUSTOM PROFILE": "Your custom profile"
 }

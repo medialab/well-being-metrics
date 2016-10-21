@@ -300,6 +300,28 @@ div[hex-us] {
 	
 }
 
+.darker-grid {
+	background-color: #aeaeae;
+}
+
+.floating-splash {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	background-color: #FFFFFF;
+  margin-left: 50%;
+  margin-top: 200px;
+  box-shadow: 1px 3px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.floating-splash .floating-splash-content {
+	padding: 100px 20px 0px 20px;
+	text-align: center;
+	font-weight: 300;
+	font-size: 20px;
+}
+
 div[happiness-diagram] .axis path,
 div[happiness-diagram] .axis line {
   fill: none;
