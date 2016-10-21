@@ -1,5 +1,8 @@
 <md-toolbar>
-  <div class="md-toolbar-tools">
+  <div
+    class="toolbar md-toolbar-tools"
+    ng-class="{'skin-manifesto': page=='/doc/manifesto', 'skin-population-data': page=='/population-data' || page=='/doc/populationDataMethodology'}"
+  >
     <md-button ng-href="#/">
       <span translate>HOME</span>
     </md-button>
@@ -12,11 +15,13 @@
     <md-button ng-href="#/population-data">
       <span translate>POPULATION_DATA</span>
     </md-button>
+
     <span flex></span>
+    
     <md-button ng-if="methodologyLink" ng-href="{{methodologyLink}}">
       <md-icon>help</md-icon> <span translate>METHOD</span>
     </md-button>
-    <md-button ng-href="#/doc/termsOfUse">
+    <md-button class="md-warn" ng-href="#/doc/termsOfUse">
       <span translate>LEGAL</span>
     </md-button>
     <md-button ng-click="toggleLanguage()">

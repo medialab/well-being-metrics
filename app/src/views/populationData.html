@@ -7,7 +7,6 @@
     md-disable-backdrop
     md-whiteframe="4"
     id="pop-data-sidebar"
-    ng-if="!introMode"
    >
    	<div
     	profile-label
@@ -27,8 +26,9 @@
     	charity="$parent.charity"
     	french="$parent.french"
     	md-ink-ripple="#FFFFFF"
+      ng-if="!presetsPending"
     ></div>
-  	<div class="profile-sidebar-content">
+  	<div class="profile-sidebar-content" ng-if="!presetsPending">
     
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
     <!-- <md-button ng-click="close()" class="md-primary" hide-gt-md>
@@ -117,10 +117,10 @@
 
     </div>
   </md-sidenav>
-  <div flex layout-fill>
+  <div flex layout-fill ng-class="{'darker-grid': startupMode}">
 
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-    <div ng-if="!introMode && !choosePresetMode" class="floating-menu-button">
+    <div ng-if="!choosePresetMode" class="floating-menu-button">
     	<md-button class="md-fab" aria-label="Open sidebar" ng-click="toggleLeft()" class="md-primary" hide-gt-md>
         <md-icon>menu</md-icon>
       </md-button>
@@ -148,11 +148,11 @@
 			      md-colspan-xs="1"
 			      ng-repeat="p in presets"
 			      class="profile-tile"
-			      style="background-color: {{p.color}};"
+			      ng-style="{'background-color': startupMode ? '#8c9c94' : p.color}"
 			      ng-click="setPreset(p)"
 			      md-ink-ripple="#FFFFFF"
 			    >
-			    	<div class="profile-tile-content">
+			    	<div class="profile-tile-content" ng-show="!startupMode">
 				    	<table><tr>
 				    		<td>
 					        <img ng-src="{{p.avatar}}" class="md-avatar" alt="{{p.name}}" />
@@ -233,3 +233,13 @@
 		</div>
 	</div>
 </md-content>
+<div class="floating-splash" ng-show="startupMode">
+	<div class="floating-splash-content">
+		<span translate>SPLASH_MESSAGE</span>
+		<br>
+		<br>
+		<md-button class="md-raised md-accent" ng-click="goCompare()"><span translate>GO</span></md-button>
+		<br>
+		<md-button ng-click="goPresets()"><span translate>SELECT_PROFILE</span></md-button>
+	</div>
+</div>

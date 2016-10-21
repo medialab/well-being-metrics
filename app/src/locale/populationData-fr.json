@@ -1,5 +1,8 @@
 {
 	"METHOD": "Méthodologie",
+	"SPLASH_MESSAGE": "Entrez vos données pour comparer votre situation",
+	"GO": "C'est fait !",
+	"SELECT_PROFILE": "Voir d'autres profils",
 	
 	"gender_male": "Homme",
 	"gender_female": "Femme",
@@ -101,5 +104,5 @@
 	"OF HAPPINESS": "points de satisfaction",
 	"PREDICTED": "prédits par le modèle",
 
-	"CUSTOM PROFILE": "Profil personnalisé"
+	"CUSTOM PROFILE": "Votre profil personnalisé"
 }

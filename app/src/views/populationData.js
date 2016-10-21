@@ -345,8 +345,9 @@ angular.module('app.populationData', ['ngRoute'])
 
 	$scope.happinessModel = {}
 	$scope.modelVars = {}
-	$scope.introMode = true
+	$scope.presetsPending = true
 	$scope.choosePresetMode = true
+	$scope.startupMode = true
 	
 	$scope.toggleLeft = buildDelayedToggler('left');
 
@@ -383,6 +384,20 @@ angular.module('app.populationData', ['ngRoute'])
     $timeout(function(){
 	    $scope.coeffs = data;
 	    computePresetScores($scope.presets)
+
+	    // Build fake profile
+	    var randPreset = $scope.presets[Math.floor(Math.random() * $scope.presets.length)]
+	    var k
+	  	for(k in randPreset.data) {
+	  		$scope[k] = randPreset.data[k]
+	  	}
+	  	$scope.age += 5
+	  	$scope.gender = gender_codes[Math.floor(Math.random() * gender_codes.length)]
+  		$scope.french = [true, false][Math.floor(Math.random() * 2)]
+  		$scope.owner = [true, false][Math.floor(Math.random() * 2)]
+  		$scope.charity = [true, false][Math.floor(Math.random() * 2)]
+
+	  	$scope.presetsPending = false
 	    $scope.$apply();
     })
   });
@@ -396,7 +411,8 @@ angular.module('app.populationData', ['ngRoute'])
   };
 
   $scope.setPreset = function (preset) {
-  	$scope.introMode = false
+  	if ($scope.startupMode) return
+
   	$scope.choosePresetMode = false
 		var k
   	for(k in preset.data) {
@@ -408,6 +424,15 @@ angular.module('app.populationData', ['ngRoute'])
   	$scope.choosePresetMode = true
   }
 
+  $scope.goPresets = function () {
+  	$scope.startupMode = false
+  }
+
+  $scope.goCompare = function () {
+  	$scope.startupMode = false
+  	$scope.choosePresetMode = false
+  }
+
   // Update income deciles after chosen income
   $scope.$watch('income', updateDecileFromIncome)
 	updateDecileFromIncome()
@@ -415,6 +440,9 @@ angular.module('app.populationData', ['ngRoute'])
   function updateDecileFromIncome() {
   	$scope.incomeDecile = getDecileFromIncome($scope.income)
   	$scope.incomeDecileMessage = $scope.incomeDecileMessage_list[$scope.incomeDecile - 1]
+		if (!$scope.startupMode) {
+	  	$scope.choosePresetMode = false
+		}
   }
 
   // Update happiness variables and models after user variables
@@ -469,6 +497,9 @@ angular.module('app.populationData', ['ngRoute'])
   		// Compute models
   		$scope.happinessModel = computeHappinessModel($scope.coeffs, $scope.modelVars)
 
+  		if (!$scope.startupMode) {
+		  	$scope.choosePresetMode = false
+  		}
   	}
   }
 
