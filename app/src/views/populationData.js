@@ -345,7 +345,7 @@ angular.module('app.populationData', ['ngRoute'])
 
 	$scope.happinessModel = {}
 	$scope.modelVars = {}
-	$scope.introMode = true
+	$scope.presetsPending = true
 	$scope.choosePresetMode = true
 	
 	$scope.toggleLeft = buildDelayedToggler('left');
@@ -383,6 +383,19 @@ angular.module('app.populationData', ['ngRoute'])
     $timeout(function(){
 	    $scope.coeffs = data;
 	    computePresetScores($scope.presets)
+
+	    // Build fake profile
+	    var randPreset = $scope.presets[Math.floor(Math.random() * $scope.presets.length)]
+	    var k
+	  	for(k in randPreset.data) {
+	  		$scope[k] = randPreset.data[k]
+	  	}
+	  	$scope.gender = gender_codes[Math.floor(Math.random() * gender_codes.length)]
+  		$scope.french = [true, false][Math.floor(Math.random() * 2)]
+  		$scope.owner = [true, false][Math.floor(Math.random() * 2)]
+  		$scope.charity = [true, false][Math.floor(Math.random() * 2)]
+
+	  	$scope.presetsPending = false
 	    $scope.$apply();
     })
   });
@@ -396,7 +409,6 @@ angular.module('app.populationData', ['ngRoute'])
   };
 
   $scope.setPreset = function (preset) {
-  	$scope.introMode = false
   	$scope.choosePresetMode = false
 		var k
   	for(k in preset.data) {
