@@ -106,5 +106,10 @@
 
 	"CUSTOM PROFILE": "Your custom profile",
 
-	"age70_at_work": "Are you actually working after 70?"
+	"age70_at_work": "Are you actually working after 70?",
+	"age45_retired": "Did you retire so young?",
+	"quantile1_at_work": "Your income seems low as a worker",
+	"age20_children": "Did you have kids that early?",
+	"age25_widow_or": "Is your age correct?"
+
 }

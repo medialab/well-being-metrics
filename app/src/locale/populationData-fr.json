@@ -106,5 +106,9 @@
 
 	"CUSTOM PROFILE": "Votre profil personnalisé",
 
-	"age70_at_work": "Vous travaillez vraiment après 70 ans ?"
+	"age70_at_work": "Vous travaillez vraiment après 70 ans ?",
+	"age45_retired": "Êtes-vous retraité(e) si jeune ?",
+	"quantile1_at_work": "Votre revenu semble bas pour un(e) travailleur(-euse)",
+	"age20_children": "Avez-vous eu des enfants si jeune?",
+	"age25_widow_or": "Votre âge est-il correct?"
 }

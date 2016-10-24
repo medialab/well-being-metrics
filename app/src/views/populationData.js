@@ -524,14 +524,19 @@ angular.module('app.populationData', ['ngRoute'])
 
   		// Check alerts corresponding to specific combinations of settings
   		if ($scope.age > 70 && $scope.work == 'work_worker') {
-  			/*
-		'age70_at_work',
-		'age45_retired',
-		'quantile1_at_work',
-		'age20_children,
-		'age25_widow_or'
-  			*/
   			$scope.notify($scope.alert_messages.age70_at_work)
+  		}
+  		if ($scope.age < 45 && $scope.work == 'work_retired') {
+  			$scope.notify($scope.alert_messages.age45_retired)
+  		}
+  		if ($scope.incomeDecile == 1 && $scope.work == 'work_worker') {
+  			$scope.notify($scope.alert_messages.quantile1_at_work)
+  		}
+  		if ($scope.age < 20 && ($scope.children == 'children_2' || $scope.children == 'children_3')) {
+  			$scope.notify($scope.alert_messages.age20_children)
+  		}
+  		if ($scope.age < 25 && ($scope.wedding == 'marital_divorced' || $scope.wedding == 'marital_widow')) {
+  			$scope.notify($scope.alert_messages.age25_widow_or)
   		}
   	}
   }
