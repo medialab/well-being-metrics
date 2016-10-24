@@ -208,6 +208,10 @@ div[hex-us] {
 	margin-top: 48px;
 }
 
+.pop-data-content {
+	overflow-y: auto;
+}
+
 .profile-sidebar-title {
 	font-size: 0.9em;
 	cursor: pointer;
