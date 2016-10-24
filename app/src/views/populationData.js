@@ -17,7 +17,8 @@ angular.module('app.populationData', ['ngRoute'])
 	$mdSidenav,
 	$timeout,
 	$translate,
-	$translatePartialLoader
+	$translatePartialLoader,
+	$mdToast
 ) {
 	var income_deciles = [1000, 1500, 2000, 2400, 2800, 3300, 3800, 4500, 5700]
 	var deciles_codes = [1,2,3,4,5,6,7,8,9,10].map(function(d){ return 'DECILE ' + d })
@@ -342,6 +343,14 @@ angular.module('app.populationData', ['ngRoute'])
 			}
 		}
 	]
+	var alert_messages_codes = [
+		'age70_at_work',
+		'age45_retired',
+		'quantile1_at_work',
+		'age20_children',
+		'age25_widow_or'
+	]
+	$scope.alert_messages = {}
 
 	$scope.happinessModel = {}
 	$scope.modelVars = {}
@@ -377,6 +386,9 @@ angular.module('app.populationData', ['ngRoute'])
     $translate(deciles_codes).then(function (translations) {
       $scope.incomeDecileMessage_list = deciles_codes.map(function(d){ return translations[d] })
       updateDecileFromIncome()
+    });
+    $translate(alert_messages_codes).then(function (translations) {
+      $scope.alert_messages = translations
     });
   }
   
@@ -432,6 +444,15 @@ angular.module('app.populationData', ['ngRoute'])
   	$scope.startupMode = false
   	$scope.choosePresetMode = false
   }
+
+  $scope.notify = function(text) {
+    $mdToast.show(
+      $mdToast.simple()
+        .textContent(text)
+        .position('bottom left')
+        .hideDelay(10000)
+    );
+  };
 
   // Update income deciles after chosen income
   $scope.$watch('income', updateDecileFromIncome)
@@ -499,6 +520,18 @@ angular.module('app.populationData', ['ngRoute'])
 
   		if (!$scope.startupMode) {
 		  	$scope.choosePresetMode = false
+  		}
+
+  		// Check alerts corresponding to specific combinations of settings
+  		if ($scope.age > 70 && $scope.work == 'work_worker') {
+  			/*
+		'age70_at_work',
+		'age45_retired',
+		'quantile1_at_work',
+		'age20_children,
+		'age25_widow_or'
+  			*/
+  			$scope.notify($scope.alert_messages.age70_at_work)
   		}
   	}
   }
