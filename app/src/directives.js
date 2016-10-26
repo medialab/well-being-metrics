@@ -7,7 +7,7 @@ var stickyModeHeight = 80;
 
 angular.module('app.directives', [])
 
-  .directive('hexUs', function ($timeout, usStatesHex, colors) {
+  .directive('hexCountry', function ($timeout, usStatesHex, frRegionsHex, colors) {
     return {
       restrict: 'A',
       scope: {
@@ -15,7 +15,8 @@ angular.module('app.directives', [])
           statuses: '=',
           setRegion: '=',
           region: '=',
-          month: '='
+          month: '=',
+          country: '='
       },
       link: function($scope, el, attrs) {
 
@@ -34,7 +35,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              var regions = usStatesHex.data;
+              var regions = $scope.country == 'FR' ? frRegionsHex.data : usStatesHex.data;
 
               // Setup: dimensions
               var margin = {top: 24, right: 0, bottom: 24, left: 0};

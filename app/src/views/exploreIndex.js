@@ -23,9 +23,9 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $translate,
   $translatePartialLoader
 ) {
-  var dataCountryCodes = ['USA', 'FR']
-  $scope.dataCountry = 'USA'
-  
+  $scope.dataCountryCodes = ['USA', 'FR']
+  $scope.dataCountry = 'FR'
+
   var startDate = new Date(seriesMetadata[$scope.dataCountry].startDate)
 
   $scope.colors = colors

@@ -114,17 +114,17 @@ div[stacked-curves-us] {
 
 /* Hex map */
 
-div[hex-us] {
+div[hex-country] {
 	width: 100%;
 	height: 600px; 
 }
 @media (max-width: 939px) {	/* SM- */
-	div[hex-us] {
+	div[hex-country] {
 		height: 480px; 
 	}
 }
 @media (max-width: 599px) {	/* XS */
-	div[hex-us] {
+	div[hex-country] {
 		height: 240px; 
 	}
 }

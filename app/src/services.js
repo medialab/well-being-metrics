@@ -32,7 +32,8 @@ angular.module('app.services', [])
   'cat_summer_leisure',
   'cat_spirituality',
   'cat_health_conditions'
-  ]
+  ],
+  FR: []
 })
 
 .constant('swbSeries', {
@@ -50,6 +51,16 @@ angular.module('app.services', [])
   'swb_learn',
   'swb_security',
   'swb_job_satisfaction'
+  ],
+  FR: [
+  'economic',
+  'family1',
+  'family2',
+  'health',
+  'housing',
+  'leisure',
+  'politics_security',
+  'social'
   ]
 })
 
