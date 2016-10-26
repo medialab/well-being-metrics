@@ -10,8 +10,8 @@ angular.module('app.services', [])
     endDate: '2016-04-01'
   },
   FR: {
-    startDate: '2011-01-01',
-    endDate: '2015-09-01'
+    startDate: '2013-01-01',
+    endDate: '2016-06-01'
   }
 })
 
@@ -160,7 +160,7 @@ angular.module('app.services', [])
       "V": "Rhône-Alpes",
       */
 
-      /*
+      
       "ALS": "Alsace",
       "AQU": "Aquitaine",
       "AUV": "Auvergne",
@@ -183,8 +183,9 @@ angular.module('app.services', [])
       "POI": "Poitou-Charentes",
       "PAC": "Provence-Alpes-Côte d'Azur",
       "RHA": "Rhône-Alpes",
-      */
-      "Alsace": "Alsace",
+      
+
+      /*"Alsace": "Alsace",
       "Aquitaine": "Aquitaine",
       "Auvergne": "Auvergne",
       "Basse_Normandie": "Basse Normandie",
@@ -204,7 +205,7 @@ angular.module('app.services', [])
       "Pays_de_la_Loire": "Pays de la Loire",
       "Picardie": "Picardie",
       "Poitou_Charentes": "Poitou-Charentes",
-      "Rhone_Alpes": "Rhône-Alpes"
+      "Rhone_Alpes": "Rhône-Alpes"*/
     }
   }
 })
@@ -505,7 +506,7 @@ angular.module('app.services', [])
         // Remove header
         data.shift();
         // Parse as numbers
-        return data.map(function(row){return Number(row[1])});
+        return data.map(function(row){return Number(row[row.length - 1])});
       }
     });
   }
