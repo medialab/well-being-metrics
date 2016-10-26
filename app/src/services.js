@@ -5,17 +5,18 @@
 angular.module('app.services', [])
 
 .constant('seriesMetadata', {
-  us: {
+  USA: {
     startDate: '2008-01-01',
     endDate: '2016-04-01'
   },
-  fr: {
+  FR: {
     startDate: '2011-01-01',
     endDate: '2015-09-01'
   }
 })
 
-.constant('swbCategories', [
+.constant('swbCategories', {
+  USA: [
   'cat_social_progress',
   'cat_job_growth',
   'cat_layoffs',
@@ -31,9 +32,11 @@ angular.module('app.services', [])
   'cat_summer_leisure',
   'cat_spirituality',
   'cat_health_conditions'
-])
+  ]
+})
 
-.constant('swbSeries', [
+.constant('swbSeries', {
+  USA: [
   'swb_life_eval',
   'swb_life_eval_5',
   'swb_happiness',
@@ -47,7 +50,8 @@ angular.module('app.services', [])
   'swb_learn',
   'swb_security',
   'swb_job_satisfaction'
-])
+  ]
+})
 
 .constant('wellBeingAspects', [
   'current_life',
@@ -144,6 +148,8 @@ angular.module('app.services', [])
       "U": "Provence-Alpes-Côte d'Azur",
       "V": "Rhône-Alpes",
       */
+
+      /*
       "ALS": "Alsace",
       "AQU": "Aquitaine",
       "AUV": "Auvergne",
@@ -166,6 +172,28 @@ angular.module('app.services', [])
       "POI": "Poitou-Charentes",
       "PAC": "Provence-Alpes-Côte d'Azur",
       "RHA": "Rhône-Alpes",
+      */
+      "Alsace": "Alsace",
+      "Aquitaine": "Aquitaine",
+      "Auvergne": "Auvergne",
+      "Basse_Normandie": "Basse Normandie",
+      "Bourgogne": "Bourgogne",
+      "Bretagne": "Bretagne",
+      "Centre": "Centre",
+      "Champagne_Ardenne": "Champagne-Ardennes",
+      "Franche_Comte": "Franche Comté",
+      "Haute_Normandie": "Haute Normandie",
+      "Ile_de_France": "Île de France",
+      "Languedoc_Roussillon": "Languedoc-Roussillon",
+      "Limousin": "Limousin",
+      "Lorraine": "Lorraine",
+      "Midi_Pyrenees": "Midi-Pyrénées",
+      "Nord_Pas_de_Calais": "Nord-Pas de Calais",
+      "PACA": "PACA",
+      "Pays_de_la_Loire": "Pays de la Loire",
+      "Picardie": "Picardie",
+      "Poitou_Charentes": "Poitou-Charentes",
+      "Rhone_Alpes": "Rhône-Alpes"
     }
   }
 })

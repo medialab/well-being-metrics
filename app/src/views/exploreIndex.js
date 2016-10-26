@@ -23,12 +23,15 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $translate,
   $translatePartialLoader
 ) {
-  var startDate = new Date(seriesMetadata.us.startDate)
+  var dataCountryCodes = ['USA', 'FR']
+  $scope.dataCountry = 'USA'
+  
+  var startDate = new Date(seriesMetadata[$scope.dataCountry].startDate)
 
   $scope.colors = colors
   $scope.month = 0
   $scope.monthNames = []
-  $scope.regions = d3.keys(regionsMetadata.USA.values)
+  $scope.regions = d3.keys(regionsMetadata[$scope.dataCountry].values)
   $scope.region
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
@@ -63,10 +66,10 @@ angular.module('app.exploreIndex', ['ngRoute'])
       "NOVEMBER",
       "DECEMBER"
     ]
-    $translate(swbCategories).then(function (translations) {
-      $scope.seriesDomain = swbCategories.map(function (d) { return {topic: d, name: translations[d]} })
-      $translate(swbSeries).then(function (translations) {
-        $scope.seriesMeasure = swbSeries.map(function (d) { return {topic: d, name: translations[d]} })
+    $translate(swbCategories[$scope.dataCountry]).then(function (translations) {
+      $scope.seriesDomain = swbCategories[$scope.dataCountry].map(function (d) { return {topic: d, name: translations[d]} })
+      $translate(swbSeries[$scope.dataCountry]).then(function (translations) {
+        $scope.seriesMeasure = swbSeries[$scope.dataCountry].map(function (d) { return {topic: d, name: translations[d]} })
         $scope.topics = $scope.seriesDomain.concat($scope.seriesMeasure)
       });
     });

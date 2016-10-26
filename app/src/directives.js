@@ -438,7 +438,8 @@ angular.module('app.directives', [])
       restrict: 'A',
       scope: {
         month: '=',
-        monthNames: '='
+        monthNames: '=',
+        country: '='
       },
       templateUrl: 'src/directives/timeSlider.html',
       link: function(scope, el, attrs) {
@@ -446,15 +447,20 @@ angular.module('app.directives', [])
         var timeIntervalMilliseconds = 180
         scope.colors = colors
         scope.sticking = false
-        scope.startDate = new Date(seriesMetadata.us.startDate)
-        scope.endDate = new Date(seriesMetadata.us.endDate)
-        scope.monthMax = monthDiff(scope.startDate, scope.endDate) + 1
+
+        scope.startDate
+        scope.endDate
+        scope.monthMax
+        updateTimescale()
+        
         scope.monthDate = ''
         scope.date = getDate()
         scope.timePlaying = false
 
         scope.$watch('month', getDate)
         scope.$watch('monthNames', getDate)
+
+        scope.$watch('country', updateTimescale)
 
         scope.playPauseTime = function () {
           if (scope.timePlaying) {
@@ -473,6 +479,18 @@ angular.module('app.directives', [])
           // Make sure that the interval is destroyed
           stopTimeTick()
         });
+
+        function updateTimescale() {
+          if (scope.country && seriesMetadata[scope.country]) {
+            scope.startDate = new Date(seriesMetadata[scope.country].startDate)
+            scope.endDate = new Date(seriesMetadata[scope.country].endDate)
+          } else {
+            // Fake scale that does not break everything
+            scope.startDate = new Date('2010-01-01')
+            scope.endDate = new Date('2016-01-01')
+          }
+          scope.monthMax = monthDiff(scope.startDate, scope.endDate) + 1
+        }
 
         function getDate() {
           scope.date = addMonths(scope.startDate, scope.month)
