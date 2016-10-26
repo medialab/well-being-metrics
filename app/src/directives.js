@@ -188,7 +188,7 @@ angular.module('app.directives', [])
     }
   })
 
-  .directive('stackedCurvesUs', function ($timeout, usStatesHex, colors) {
+  .directive('stackedCurvesCountry', function ($timeout, usStatesHex, frRegionsHex, colors) {
     return {
       restrict: 'A',
       scope: {
@@ -196,7 +196,8 @@ angular.module('app.directives', [])
           statuses: '=',
           region: '=',
           month: '=',
-          summary: '='
+          summary: '=',
+          country: '='
       },
       link: function($scope, el, attrs) {
 
@@ -215,7 +216,7 @@ angular.module('app.directives', [])
             $timeout(function () {
               el.html('');
 
-              var regions = usStatesHex.data;
+              var regions = $scope.country == 'FR' ? frRegionsHex.data : usStatesHex.data;
 
               // Preliminary data crunching
               var allValues = []
