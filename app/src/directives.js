@@ -247,7 +247,7 @@ angular.module('app.directives', [])
                 .range([0, width])
 
               var y = d3.scaleLinear()
-                .domain([-5, 5])
+                .domain([-3.5, 3.5])
                 // .domain(d3.extent(allValues))
                 .range([height, 0])
 
@@ -376,7 +376,7 @@ angular.module('app.directives', [])
                 .range([0, width])
 
               var y = d3.scaleLinear()
-                .domain([-5, 5])
+                .domain([-3.5, 3.5])
                 .range([height, 0])
 
               var yAxis = d3.axisLeft(y)

@@ -24,7 +24,7 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $translatePartialLoader
 ) {
   $scope.dataCountryCodes = ['USA', 'FR']
-  $scope.dataCountry = 'FR'
+  $scope.dataCountry = 'USA'
 
   var startDate = new Date(seriesMetadata[$scope.dataCountry].startDate)
 
