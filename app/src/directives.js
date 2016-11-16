@@ -1629,7 +1629,8 @@ angular.module('app.directives', [])
     return {
       restrict: 'A',
       scope: {
-        methodologyLink: '='
+        methodologyLink: '=',
+        descriptionLink: '='
       },
       templateUrl: 'src/directives/toolBar.html',
       link: function($scope, el, attrs) {
