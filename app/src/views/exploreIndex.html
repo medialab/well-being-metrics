@@ -5,6 +5,19 @@
   </div>
 
   <div ng-show="!loading">
+    <div class="data-select-bar" layout="row" layout-align="center center">
+      <md-button ng-click="switchCountryData('USA')">
+        <md-icon ng-show="dataCountry == 'FR'">radio_button_unchecked</md-icon>
+        <md-icon ng-show="dataCountry == 'USA'">radio_button_checked</md-icon>
+        <span translate>USA_DATA</span>
+      </md-button>
+      <md-button ng-click="switchCountryData('FR')">
+        <md-icon ng-show="dataCountry == 'USA'">radio_button_unchecked</md-icon>
+        <md-icon ng-show="dataCountry == 'FR'">radio_button_checked</md-icon>
+        <span translate>FR_DATA</span>
+      </md-button>
+    </div>
+
     <!-- Choose a topic -->
     <div topic-selector
       series-domain='seriesDomain'
@@ -13,6 +26,7 @@
       topic='topic'
       regions='regions'
       region='region'
+      country="dataCountry"
     ></div>
 
     <!-- Indicate that you can slide the time -->
@@ -44,7 +58,8 @@
           <h2 class="md-title">
               {{topicName(topic)}}
             <br>
-            <span class="md-subhead" translate>IN THE US STATES</span>
+            <span class="md-subhead" ng-show="dataCountry == 'USA'" translate>IN THE US STATES</span>
+            <span class="md-subhead" ng-show="dataCountry == 'FR'" translate>IN THE FR REGIONS</span>
           </h2>
           
 

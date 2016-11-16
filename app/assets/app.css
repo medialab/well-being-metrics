@@ -17,6 +17,10 @@
  * Explore index page
  */
 
+.data-select-bar {
+	background-color: #ffca28;
+}
+
 .input-proxy-container {
   padding-top: 27px;
 }

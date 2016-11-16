@@ -1,9 +1,13 @@
 {
 	"METHOD": "Méthodologie",
 	
+	"USA_DATA": "Données sur les USA",
+	"FR_DATA": "Données sur la France",
+
 	"LOADING": "Chargement",
 	"INDEX": "Index",
 	"IN THE US STATES": "dans les différents Etats",
+	"IN THE FR REGIONS": "dans les régions de France",
 	"MAX AT SELECTION": "Max à la sélection",
 	"REGION": "Région",
 	"CURRENT REGION": "Région visualisée",
@@ -15,6 +19,7 @@
 	"TOP_SENTENCE: EVOLUTION OF": "Evolution de",
 	"TOP_SENTENCE: IN": "pour",
 	"TOP_SENTENCE: THE US": "les Etats-Unis",
+	"TOP_SENTENCE: FRANCE": "la France",
 
 	"SERIES_DOMAIN_INTRO": "A quoi les gens pensent et que vont-ils faire ?",
 	"SERIES_MEASURE_INTRO": "Comment les gens se sentent-ils ?",

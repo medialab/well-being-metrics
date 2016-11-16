@@ -25,6 +25,7 @@ angular.module('app.directives', [])
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
+        $scope.$watch('country', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -41,6 +42,10 @@ angular.module('app.directives', [])
               var margin = {top: 24, right: 0, bottom: 24, left: 0};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
+
+              if (!(width > 0 && height > 0)){
+                return
+              }
 
               // Setup: scales
               var size = d3.scaleLinear()
@@ -206,6 +211,7 @@ angular.module('app.directives', [])
         $scope.$watch('statuses', redraw, true)
         $scope.$watch('region', redraw)
         $scope.$watch('month', redraw)
+        $scope.$watch('country', redraw)
         window.addEventListener('resize', redraw)
         $scope.$on('$destroy', function(){
           window.removeEventListener('resize', redraw)
@@ -240,6 +246,10 @@ angular.module('app.directives', [])
               var margin = {top: 6, right: 12, bottom: 24, left: 300};
               var width = el[0].offsetWidth - margin.left - margin.right - 12;
               var height = el[0].offsetHeight - margin.top - margin.bottom;
+
+              if (!(width > 0 && height > 0)){
+                return
+              }
 
               // Setup: scales
               var x = d3.scaleLinear()
@@ -691,7 +701,8 @@ angular.module('app.directives', [])
         regions: '=',
         region: '=',
         seriesMeasure: '=',
-        seriesDomain: '='
+        seriesDomain: '=',
+        country: '='
       },
       templateUrl: 'src/directives/topicSelector.html',
       link: function(scope, el, attrs) {
@@ -706,7 +717,7 @@ angular.module('app.directives', [])
           if (r === 'US') {
             return 'the United States'
           } else {
-            return regionsMetadata.USA.values[r]
+            return regionsMetadata[scope.country].values[r]
           }
         }
 

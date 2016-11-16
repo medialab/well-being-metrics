@@ -67,8 +67,11 @@
     <div>
       <div class="input-proxy-container">
         <span translate>TOP_SENTENCE: IN</span>
-        <span ng-show="!region" translate>
+        <span ng-show="!region && country == 'USA'" translate>
           TOP_SENTENCE: THE US
+        </span>
+        <span ng-show="!region && country == 'FR'" translate>
+          TOP_SENTENCE: FRANCE
         </span>
       </div>
     </div>

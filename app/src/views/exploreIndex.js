@@ -26,12 +26,12 @@ angular.module('app.exploreIndex', ['ngRoute'])
   $scope.dataCountryCodes = ['USA', 'FR']
   $scope.dataCountry = 'USA'
 
-  var startDate = new Date(seriesMetadata[$scope.dataCountry].startDate)
+  var startDate = getStartDate()
 
   $scope.colors = colors
   $scope.month = 0
   $scope.monthNames = []
-  $scope.regions = d3.keys(regionsMetadata[$scope.dataCountry].values)
+  $scope.regions = getRegions()
   $scope.region
   $scope.regionsStatuses = {}
   $scope.regionsData = {}
@@ -142,6 +142,17 @@ angular.module('app.exploreIndex', ['ngRoute'])
     return $translate.instant(t)
   }
 
+  $scope.switchCountryData = function(country) {
+    $scope.dataCountry = country
+    startDate = getStartDate()
+    $scope.regions = getRegions()
+    $scope.summary = summarize()
+    $scope.region = undefined
+    $scope.topic = undefined
+    $scope.regionsData = {}
+    updateTranslations()
+  }
+
   function cascadeLoadRegions(serie) {
     if ( $scope.topic && serie == $scope.topic ) {
       $scope.regions.some(function (region) {
@@ -244,5 +255,12 @@ angular.module('app.exploreIndex', ['ngRoute'])
     }
   }
 
+  function getStartDate() {
+    return new Date(seriesMetadata[$scope.dataCountry].startDate)
+  }
+
+  function getRegions() {
+    return d3.keys(regionsMetadata[$scope.dataCountry].values)
+  }
 
 });
