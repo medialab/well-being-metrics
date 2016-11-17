@@ -29,6 +29,15 @@
   "swb_security": "Sécurité",
   "swb_job_satisfaction": "Satisfaction Professionnelle",
 
+  "economic": "Economie",
+  "family1": "Famille 1",
+  "family2": "Famille 2",
+  "health": "Santé",
+  "housing": "Maison",
+  "leisure": "Loisirs",
+  "politics_security": "Politique et sécurité",
+  "social": "Social",
+
   "current_life":         "Vie en général",
   "leisure":              "Loisirs",
   "housing":              "Logement",
