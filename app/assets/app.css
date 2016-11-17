@@ -13,6 +13,11 @@
 	background-color: #43A047;
 }
 
+.doc-content {
+	padding: 24px;
+	padding-bottom: 120px;
+}
+
 /*
  * Explore index page
  */
