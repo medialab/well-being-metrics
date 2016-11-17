@@ -33,7 +33,16 @@ angular.module('app.services', [])
   'cat_spirituality',
   'cat_health_conditions'
   ],
-  FR: []
+  FR: [
+    'economic',
+    'family1',
+    'family2',
+    'health',
+    'housing',
+    'leisure',
+    'politics_security',
+    'social'
+  ]
 })
 
 .constant('swbSeries', {
@@ -52,16 +61,7 @@ angular.module('app.services', [])
   'swb_security',
   'swb_job_satisfaction'
   ],
-  FR: [
-  'economic',
-  'family1',
-  'family2',
-  'health',
-  'housing',
-  'leisure',
-  'politics_security',
-  'social'
-  ]
+  FR: []
 })
 
 .constant('wellBeingAspects', [

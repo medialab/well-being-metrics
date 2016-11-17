@@ -5,7 +5,7 @@
   layout-padding
   class="display-before-sticky"
 >
-  <div layout="column" flex="50" flex-sm="100" flex-xs="100">
+  <div layout="column" flex="50" flex-sm="100" flex-xs="100" ng-if="seriesDomain && seriesDomain.length > 0">
     <div>
       <h3 translate>SERIES_DOMAIN_INTRO</h3>
     </div>
@@ -23,7 +23,7 @@
       </md-grid-list>
     </div>
   </div>
-  <div layout="column" flex="50" flex-sm="100" flex-xs="100">
+  <div layout="column" flex="50" flex-sm="100" flex-xs="100" ng-if="seriesMeasure && seriesMeasure.length > 0">
     <div>
       <h3 translate>SERIES_MEASURE_INTRO</h3>
     </div>
