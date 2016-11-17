@@ -18,6 +18,11 @@
 	padding-bottom: 120px;
 }
 
+.doc-content img {
+	padding: 12px;
+	max-width: 400px;
+}
+
 /*
  * Explore index page
  */
