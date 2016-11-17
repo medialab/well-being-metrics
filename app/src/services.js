@@ -33,7 +33,16 @@ angular.module('app.services', [])
   'cat_spirituality',
   'cat_health_conditions'
   ],
-  FR: []
+  FR: [
+    'economic',
+    'family1',
+    'family2',
+    'health',
+    'housing',
+    'leisure',
+    'politics_security',
+    'social'
+  ]
 })
 
 .constant('swbSeries', {
@@ -52,16 +61,7 @@ angular.module('app.services', [])
   'swb_security',
   'swb_job_satisfaction'
   ],
-  FR: [
-  'economic',
-  'family1',
-  'family2',
-  'health',
-  'housing',
-  'leisure',
-  'politics_security',
-  'social'
-  ]
+  FR: []
 })
 
 .constant('wellBeingAspects', [
@@ -77,56 +77,56 @@ angular.module('app.services', [])
     prefix: 'US',
     label: 'All USA states + DC',
     values: {
-      "DC": "District de Columbia",
+      "DC": "District of Columbia",
       "AK": "Alaska",
       "AL": "Alabama",
       "AR": "Arkansas",
       "AZ": "Arizona",
-      "CA": "Californie",
+      "CA": "California",
       "CO": "Colorado",
       "CT": "Connecticut",
       "DE": "Delaware",
-      "FL": "Floride",
-      "GA": "Géorgie",
-      "HI": "Hawaï",
+      "FL": "Florida",
+      "GA": "Georgia",
+      "HI": "Hawaii",
       "IA": "Iowa",
       "ID": "Idaho",
       "IL": "Illinois",
       "IN": "Indiana",
       "KS": "Kansas",
       "KY": "Kentucky",
-      "LA": "Louisiane",
+      "LA": "Louisiana",
       "MA": "Massachusetts",
       "MD": "Maryland",
       "ME": "Maine",
       "MI": "Michigan",
       "MN": "Minnesota",
       "MO": "Missouri",
-      "MS": "État du Mississippi",
+      "MS": "Mississippi",
       "MT": "Montana",
-      "NC": "Caroline du Nord",
-      "ND": "Dakota du Nord",
+      "NC": "North Carolina",
+      "ND": "North Dakota",
       "NE": "Nebraska",
       "NH": "New Hampshire",
       "NJ": "New Jersey",
-      "NM": "Nouveau-Mexique",
+      "NM": "New Mexico",
       "NV": "Nevada",
-      "NY": "État de New York",
+      "NY": "New York",
       "OH": "Ohio",
       "OK": "Oklahoma",
       "OR": "Oregon",
-      "PA": "Pennsylvanie",
+      "PA": "Pennsylvania",
       "RI": "Rhode Island",
-      "SC": "Caroline du Sud",
-      "SD": "Dakota du Sud",
+      "SC": "South Carolina",
+      "SD": "South Dakota",
       "TN": "Tennessee",
       "TX": "Texas",
       "UT": "Utah",
-      "VA": "Virginie",
+      "VA": "Virginia",
       "VT": "Vermont",
-      "WA": "État de Washington",
+      "WA": "Washington",
       "WI": "Wisconsin",
-      "WV": "Virginie-Occidentale",
+      "WV": "West Virgina",
       "WY": "Wyoming"
     }
   },
@@ -135,31 +135,6 @@ angular.module('app.services', [])
     prefix: 'FR',
     label: 'All France regions',
     values: {
-      /*
-      "A": "Alsace",
-      "B": "Aquitaine",
-      "C": "Auvergne",
-      "D": "Bourgogne",
-      "E": "Bretagne",
-      "F": "Centre",
-      "G": "Champagne-Ardenne",
-      "H": "Corse",
-      "I": "Franche-Comté",
-      "J": "Île-de-France",
-      "K": "Languedoc-Roussillon",
-      "L": "Limousin",
-      "M": "Lorraine",
-      "N": "Midi-Pyrénées",
-      "O": "Nord-Pas-de-Calais",
-      "P": "Basse-Normandie",
-      "Q": "Haute-Normandie",
-      "R": "Pays-de-la-Loire",
-      "S": "Picardie",
-      "T": "Poitou-Charentes",
-      "U": "Provence-Alpes-Côte d'Azur",
-      "V": "Rhône-Alpes",
-      */
-
       
       "ALS": "Alsace",
       "AQU": "Aquitaine",
@@ -182,30 +157,7 @@ angular.module('app.services', [])
       "PIC": "Picardie",
       "POI": "Poitou-Charentes",
       "PAC": "Provence-Alpes-Côte d'Azur",
-      "RHA": "Rhône-Alpes",
-      
-
-      /*"Alsace": "Alsace",
-      "Aquitaine": "Aquitaine",
-      "Auvergne": "Auvergne",
-      "Basse_Normandie": "Basse Normandie",
-      "Bourgogne": "Bourgogne",
-      "Bretagne": "Bretagne",
-      "Centre": "Centre",
-      "Champagne_Ardenne": "Champagne-Ardennes",
-      "Franche_Comte": "Franche Comté",
-      "Haute_Normandie": "Haute Normandie",
-      "Ile_de_France": "Île de France",
-      "Languedoc_Roussillon": "Languedoc-Roussillon",
-      "Limousin": "Limousin",
-      "Lorraine": "Lorraine",
-      "Midi_Pyrenees": "Midi-Pyrénées",
-      "Nord_Pas_de_Calais": "Nord-Pas de Calais",
-      "PACA": "PACA",
-      "Pays_de_la_Loire": "Pays de la Loire",
-      "Picardie": "Picardie",
-      "Poitou_Charentes": "Poitou-Charentes",
-      "Rhone_Alpes": "Rhône-Alpes"*/
+      "RHA": "Rhône-Alpes"
     }
   }
 })

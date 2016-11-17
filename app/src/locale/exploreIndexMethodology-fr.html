@@ -1,5 +1,25 @@
-<h1>TODO: doc FR pour Explore Index</h1>
+<h1>Indicateurs Big Data</h1>
+Le bien-être et la coopération sociale sont des facteurs clés dans le progrès social. La création d'un indicateur de bien-être subjectif s'inscrit dans la volonté croissante de prendre en considération le bien-être comme mesure complémentaire du PIB et, ainsi, que cette sphère subjective soit prise en considération dans la conception des politiques publiques. Nécessité de mieux appréhender, mesurer et explorer ces notions.
+L'intérêt de la réalisation de ce projet est de mieux comprendre le bien-être et pallier le manque de données disponible, ne permettant pas de réaliser des comparaisons géographique ou temporelles. Nous avons privilégié l'usage des techniques propres du Big Data pour collecter  des données pour créer, ainsi, des nouveaux indicateurs comportementaux, de préférences sociales et de bien-être.
 
-Hodor, hodor. Hodor. Hodor, hodor hodor; hodor hodor hodor! Hodor, hodor... Hodor hodor hodor? Hodor. Hodor hodor hodor hodor HODOR hodor, hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor; hodor hodor; hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor.
 
-Hodor hodor hodor hodor... Hodor hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor; hodor HODOR hodor, hodor hodor? Hodor, hodor HODOR hodor, hodor hodor... Hodor hodor hodor. Hodor. Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor HODOR hodor, hodor hodor. Hodor. Hodor! Hodor hodor, hodor, hodor. Hodor hodor - hodor... Hodor hodor hodor. Hodor. Hodor. Hodor hodor; hodor hodor hodor hodor?! Hodor hodor - hodor; hodor hodor, hodor, hodor hodor.
+<h3>1.	Source des Données</h3>
+
+<h4>a.	Enquête Gallup</h4>
+
+Les données de bien-être subjectif proviennent de Gallup Analytics - une enquête téléphonique journalière menée auprès de 500 américains, âgées de plus de 18 ans. Nous avons à notre disposition une base de données Gallup collectées sur 300 semaines (entre le 6 janvier 2008 et le 4 janvier 2014).
+L'enquête compte avec 10 mesures d'émotions auto-déclarées, dont 6 positives et 4 négatives. 
+•	Émotions Positives :  le bonheur, l'apprentissage, l'évaluation de sa vie présente et à l'horizon de 5 ans, le rire et le fait d'être respecté(e).
+•	Émotions Négatives : la colère, la tristesse, le stress et l'inquiétude.
+
+<h4>b.	Données Google Trends</h4>
+
+Nous utilisons la fréquence des requêtes Google pour construire nos indicateurs de bien-être, données disponibles en ligne sur Google Trends. Plus exactement, on mesure la fréquence des recherches Google d’une catégorie composite. Par exemple, si un individu fait une requête Google sur « sorties » ou « natation », celle-ci sera automatiquement classifiée comme une requête sur la catégorie « Loisirs ». Cela nous permettre d’augmenter la stabilité relative dans le temps, car si dans l’avenir un mot devient inutilisable à cause des changements culturels cela n’aura aucun impact sur notre variable d’intérêt qui n’est pas liée avec le concept d’intérêt. De plus, ces catégories composites (par exemple, emploi, stress familial, loisirs, enfants, ou sécurité) portent leur propre intérêt pour comprendre la société.
+
+Chaque catégorie est composée de dix mots (dans l’avenir, nous allons ajouter plus des mots pour avoir encore plus de stabilité). La Construction des catégories de mots se fait en plusieurs étapes. D’abord, les mots sont regroupés au sein des catégories qui ont un sens commun (emploi, loisirs, famille, politique, etc.). Deuxièmement,  une analyse factorielle est réalisée pour trier les mots : ceux qui n’appartiennent pas au premier facteur en sens positif seront retirées de la catégorie.  Troisièmement, une variable composite est crée en calculant la moyenne des z-scores des volumes des mots-clés. Ce choix a été fait pour s’assurer que la méthode de prédiction peut être utilisée même si certains mots-clés sont manquants
+
+<h3>2.	Méthodologie</h3>
+
+Nous appliquons une technique de modélisation bayesienne  pour sélectionner un sous-groupe de catégories qui expliquent de manière robuste et sont fortement corrélées aux variables de bien-être subjectif. La fréquence des recherches est intégrée dans une régression économétrique comme l’une des variables explicatives, régression dont la variable expliquée est le bien-être. Les coefficients issus de ces régressions seront utilisés pour construire nos indicateurs. Pour calibrer le modèle, nous utilisons les données sur le bien-être provenant du Gallup World Poll ou Gallup USA Daily Poll et les variations dans le volume de recherche Google dans le temps. 
+
+La validation du modèle de prédiction se fait grâce au test « hors échantillon », à travers lequel une partie des observations est mis de coté pendant l’estimation des paramètres, et ensuite des prédictions seront effectuées une nouvelle fois mais cette fois-ci avec les observations mises de côté.

@@ -1,22 +1,22 @@
 {
   "cat_social_progress": "Progrès Social",
-  "cat_job_growth": "Croissance",
+  "cat_job_growth": "Création d'emplois",
   "cat_layoffs": "Licenciements",
   "cat_family_stress": "Stress Familial",
   "cat_financial_security": "Sécurité Financière",
   "cat_housing": "Logement",
   "cat_family": "Famille",
   "cat_civic_engagement": "Engagement Civique",
-  "cat_personal_security": "Sécurité Perso.",
+  "cat_personal_security": "Sécurité Personelle",
   "cat_healthy_habits": "Vie Saine",
   "cat_health_worries": "Soucis de Santé",
   "cat_education": "Education",
-  "cat_summer_leisure": "Loisirs Estivaux",
+  "cat_summer_leisure": "Loisirs d'été",
   "cat_spirituality": "Spiritualité",
   "cat_health_conditions": "Etat de Santé",
 
   "swb_life_eval": "Qualité de Vie",
-  "swb_life_eval_5": "Q. de Vie Anticipatée",
+  "swb_life_eval_5": "Qualité de Vie Anticipatée",
   "swb_happiness": "Bonheur",
   "swb_enjoyment": "Satisfaction",
   "swb_laugh": "Rire",
@@ -27,11 +27,20 @@
   "swb_anger": "Colère",
   "swb_learn": "Intérêt",
   "swb_security": "Sécurité",
-  "swb_job_satisfaction": "Satisfaction Pro.",
+  "swb_job_satisfaction": "Satisfaction Professionnelle",
+
+  "economic": "Economie",
+  "family1": "Famille 1",
+  "family2": "Famille 2",
+  "health": "Santé",
+  "housing": "Maison",
+  "leisure": "Loisirs",
+  "politics_security": "Politique et sécurité",
+  "social": "Social",
 
   "current_life":         "Vie en général",
   "leisure":              "Loisirs",
   "housing":              "Logement",
-  "loved_ones":           "Relations"
+  "loved_ones":           "Relations avec ses êtres chers"
 
 }

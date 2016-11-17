@@ -7,7 +7,7 @@
   "cat_housing": "Housing",
   "cat_family": "Family",
   "cat_civic_engagement": "Civic Engagement",
-  "cat_personal_security": "Perso. Security",
+  "cat_personal_security": "Personal Security",
   "cat_healthy_habits": "Healthy Habits",
   "cat_health_worries": "Health Worries",
   "cat_education": "Education",
@@ -15,8 +15,8 @@
   "cat_spirituality": "Spirituality",
   "cat_health_conditions": "Health Conditions",
 
-  "swb_life_eval": "Life Eval.",
-  "swb_life_eval_5": "Life Eval. Anticipated",
+  "swb_life_eval": "Life Evaluation",
+  "swb_life_eval_5": "Life Evaluation Anticipated",
   "swb_happiness": "Happiness",
   "swb_enjoyment": "Enjoyment",
   "swb_laugh": "Laugh",
@@ -29,9 +29,17 @@
   "swb_security": "Security",
   "swb_job_satisfaction": "Job Satisfaction",
 
+  "economic": "Economics",
+  "family1": "Family 1",
+  "family2": "Family 2",
+  "health": "Health",
+  "housing": "Housing",
+  "leisure": "Leisure",
+  "politics_security": "Politics Security",
+  "social": "Social",
+
   "current_life": "Life in general",
   "leisure": "Leisure",
   "housing": "Housing",
-  "loved_ones": "Loved ones"
-
+  "Relations with loved_ones": "Loved ones"
 }

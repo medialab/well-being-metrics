@@ -13,9 +13,23 @@
 	background-color: #43A047;
 }
 
+.doc-content {
+	padding: 24px;
+	padding-bottom: 120px;
+}
+
+.doc-content img {
+	padding: 12px 0px;
+	max-width: 400px;
+}
+
 /*
  * Explore index page
  */
+
+.data-select-bar {
+	background-color: #ffca28;
+}
 
 .input-proxy-container {
   padding-top: 27px;
@@ -320,7 +334,7 @@ div[hex-country] {
 }
 
 .floating-splash .floating-splash-content {
-	padding: 100px 20px 0px 20px;
+	padding: 80px 20px 0px 20px;
 	text-align: center;
 	font-weight: 300;
 	font-size: 20px;
