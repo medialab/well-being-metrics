@@ -120,9 +120,9 @@
   <div flex layout-fill class="pop-data-content" ng-class="{'darker-grid': startupMode}">
 
     <!-- This element is just there to remind that opening the sidebar is necessary on a medium screen -->
-    <div ng-if="!choosePresetMode" class="floating-menu-button">
-    	<md-button class="md-fab" aria-label="Open sidebar" ng-click="toggleLeft()" class="md-primary" hide-gt-md>
-        <md-icon>menu</md-icon>
+    <div ng-if="!choosePresetMode || startupMode" class="floating-menu-button">
+    	<md-button class="md-fab md-primary" aria-label="Open sidebar" ng-click="toggleLeft()" class="md-primary" hide-gt-md>
+        <md-icon>account_circle</md-icon>
       </md-button>
     </div>
 
