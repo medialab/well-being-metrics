@@ -1,17 +1,17 @@
-Le bien-être et la coopération sociale sont des facteurs clés dans le progrès social. La création d'un indicateur de bien-être subjectif s'inscrit dans la volonté croissante de prendre en considération le bien-être, d’une part, comme mesure complémentaire du PIB et, d’autre part, comme outil de conception des politiques publiques. Notre objectif à l’Observatoire de Bien-être (OBE) du CEPREMAP est de mieux appréhender, mesurer et explorer le bien-être. 
 
-L'intérêt de la réalisation de ce projet est de mieux comprendre le bien-être et pallier le manque de données disponibles, ne permettant pas de réaliser des comparaisons géographiques ou temporelles. Nous avons privilégié l'usage des techniques propres du Big Data pour collecter  des données et créer, ainsi, des nouveaux indicateurs comportementaux, de préférences sociales et de bien-être.
-
-<h3>1.	Sources des Données</h3>
 Les données utilisées dans outil proviennent de l’enquête «Statistiques sur les Revenus et Conditions de Vie » (SRCV) réalisée par l’Insee auprès d’environ 3 800 individus âgés de 18 ans ou plus. Nous  disposons des données de quatre vagues d’enquête, c’est-à-dire d’une période allant de 2010 jusqu’à 2013.
- L’enquête comporte d’une riche série de questions sociodémographiques telles que l’âge, le genre, le revenu, situation maritale, nombre d’enfants, niveau d’études atteint, entre autres. Depuis 2010, un nouveau module sur le bien-être a été rajouté. Les répondants sont désormais interrogés sur leur bien-être, plus exactement leur satisfaction générale ainsi que leur satisfaction vis-à-vis les loisirs, le logement et leurs relations. 
-<h3>2.	Méthodologie</h3>
-Le poids des différentes caractéristiques individuelles a été estimé à travers une régression linéaire multiple dite de panel (2010-2013) dans laquelle on clustérise les observations par individu et on rajoute des effets fixes par année. 
+
+On estimé la relation (coefficient) entre les caractéristiques individuelles et le niveau de bien-être à travers une régression linéaire multiple. 
+
 La liste des variables utilisées dans notre modèle sont les suivantes :
-•	Variables expliquées : Satisfaction générale, Satisfaction de Loisirs, Satisfaction du logement et Satisfaction des relations.
-•	Variables explicatives : Niveau d’études, âge, genre, revenu, nationalité, statut marital, nombre d’enfants à charge, avoir un conjoint en emploi, inscrit(e) dans une association, situation actuelle (chômeur, en emploi, etc.) et type de logement. 
-<h3>3.	Interprétation</h3>
-L’outil permet de connaître la situation relative d’un profil d’individu, en termes de Bien-être, par rapport au reste des français. La situation relative est donnée par la couleur de chaque visage : l’individu le plus satisfait est un smiley vert et le moins satisfait un smiley gris. La nuance des couleurs nous permet d’identifier la position relative du profil construit dans la distribution du bien-être en France. 
+*	Variables expliquées : Satisfaction générale, Satisfaction de Loisirs, Satisfaction du logement et Satisfaction des relations.
+*	Variables explicatives : Niveau d’études, âge, genre, revenu, nationalité, statut marital, nombre d’enfants à charge, avoir un conjoint en emploi, inscrit(e) dans une association, situation actuelle (chômeur, en emploi, etc.) et type de logement. 
+
+## Interprétation
+
+L’outil permet de connaître la situation relative d’un profil d’individu, en termes de Bien-être, par rapport au reste des français. La situation relative est donnée par la couleur de chaque visage : l’individu le plus satisfait est un cercle vert et le moins satisfait un cercle gris. La nuance des couleurs nous permet d’identifier la position relative du profil construit dans la distribution du bien-être en France.  
 ![image](res/popdata-curve+smileys.png)
-Si votre profil est présenté par un smiley vert souriant alors vous êtes dans le top 25% de la distribution. Autrement dit, vous êtes parmi le 25% des français le plus heureux :
+
+Si votre profil est présenté par un cercle vert souriant alors vous êtes dans le top 25% de la distribution. Autrement dit, vous êtes parmi le 25% des français le plus heureux. Au cas où, votre profil soit représenté par un cercle gris, cela veut dire que votre profil se situe parmi les 25% des français les moins satisfaits : 
 ![image](res/popdata-scale+smileys.png)
+
