@@ -42,7 +42,7 @@
 </style>
 
 <ul class="sw-bullets">
-  <li class="sw-bullet" ng-class="currentSlideIndex == 0 ? 'is-active': ''"><a href="#">{{currentSlideIndex}}</a></li>
-  <li class="sw-bullet" ng-class="currentSlideIndex == 1 ? 'is-active': ''"><a href="#"></a></li>
-  <li class="sw-bullet" ng-class="currentSlideIndex == 2 ? 'is-active': ''"><a href="#"></a></li>
+  <li class="sw-bullet" ng-class="{'is-active': currentSlideIndex == 0}"><a href="#"></a></li>
+  <li class="sw-bullet" ng-class="{'is-active': currentSlideIndex == 1}"><a href="#"></a></li>
+  <li class="sw-bullet" ng-class="{'is-active': currentSlideIndex == 2}"><a href="#"></a></li>
 </ul>
