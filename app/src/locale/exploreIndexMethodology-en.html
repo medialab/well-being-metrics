@@ -1,27 +1,7 @@
-<h1>TODO: EN Documentation for Explore Index</h1>
-	       
-<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+In the last decades, there has been a growing willingness to complement our main progress indicators (such as GDP) with well-being. Furthermore, there is growing interest in the potential to use well-being as a tool to design or evaluate public policies. The main objective of this project is to better understand and measure different aspects of well-being.  This project aims to produce new indicators that allow us to compare well-being, and aspects of life related to well-being, across regions and periods.
 
-<h2>Header Level 2</h2>
-	       
-<ol>
-   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-   <li>Aliquam tincidunt mauris eu risus.</li>
-</ol>
+We use data on how much people are searching for hundreds of different topics on the internet as a proxy for how much people are thinking about those particular topics. Google Trends provides freely accessible data on the search volume for different words over time.  We have taken those hundreds of series of search volumes and grouped them into categories of similar words, which we call aspects of life.  For example, there are aspects of life related to leisure, to family stress, and to healthy living, as well as to personal security and layoffs.  Each of these aspects of life is a sort of average of the search volumes over time for words that fit into that category, both statistically and sensibly.  For more details on the methodology of the construction of the categories, see [Here](http://www.cepremap.fr/depot/docweb/docweb1605.pdf).  We sort the words into categories using data at the national level, and then we use those relationships to construct data on aspects of life at the local level.
 
-<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+For France, these aspects of life show us how different regions are experiencing different patterns in what they think about and are worried (or excited).
 
-<h3>Header Level 3</h3>
-
-<ul>
-   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-   <li>Aliquam tincidunt mauris eu risus.</li>
-</ul>
-
-<pre><code>
-#header h1 a { 
-	display: block; 
-	width: 300px; 
-	height: 80px; 
-}
-</code></pre>
+For the United States, the availability of high-frequency survey data on subjective well-being at the national level allows us to take an additional step and model not only the aspects of life but also well-being at the state level. More precisely, we use survey data on subjective well-being to calibrate a model at the national level that uses changes in the different aspects of life to explain changes in subjective well-being. Well-being data for the United States comes from Gallup Analytics.  We use a training sample to construct the model, and a test sample to validate the mode (for more details on the methodology see [Here](http://www.cepremap.fr/depot/docweb/docweb1605.pdf)).  We then use this model, and data on internet searches at the state level, to predict well-being at the state level. 

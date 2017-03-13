@@ -1,6 +1,6 @@
 {
   "cat_social_progress": "Social Progress",
-  "cat_job_growth": "Job Growth",
+  "cat_job_growth": "Job Opportunities",
   "cat_layoffs": "Layoffs",
   "cat_family_stress": "Family Stress",
   "cat_financial_security": "Financial Security",
@@ -15,7 +15,7 @@
   "cat_spirituality": "Spirituality",
   "cat_health_conditions": "Health Conditions",
 
-  "swb_life_eval": "Life Evaluation",
+  "swb_life_eval": "Anticipated Life Evaluation",
   "swb_life_eval_5": "Life Evaluation Anticipated",
   "swb_happiness": "Happiness",
   "swb_enjoyment": "Enjoyment",
@@ -30,12 +30,12 @@
   "swb_job_satisfaction": "Job Satisfaction",
 
   "economic": "Economics",
-  "family1": "Family 1",
-  "family2": "Family 2",
+  "family1": "Children",
+  "family2": "Family Stress",
   "health": "Health",
   "housing": "Housing",
   "leisure": "Leisure",
-  "politics_security": "Politics Security",
+  "politics_security": "Politics and Security",
   "social": "Social",
 
   "current_life": "Life in general",

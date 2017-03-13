@@ -1,6 +1,6 @@
 {
   "cat_social_progress": "Progrès Social",
-  "cat_job_growth": "Création d'emplois",
+  "cat_job_growth": "Opportunité d'emploi",
   "cat_layoffs": "Licenciements",
   "cat_family_stress": "Stress Familial",
   "cat_financial_security": "Sécurité Financière",
@@ -15,8 +15,8 @@
   "cat_spirituality": "Spiritualité",
   "cat_health_conditions": "Etat de Santé",
 
-  "swb_life_eval": "Qualité de Vie",
-  "swb_life_eval_5": "Qualité de Vie Anticipée",
+  "swb_life_eval": "Evaluation de Vie",
+  "swb_life_eval_5": "Evaluation de Vie Anticipée",
   "swb_happiness": "Bonheur",
   "swb_enjoyment": "Satisfaction",
   "swb_laugh": "Rire",
@@ -30,8 +30,8 @@
   "swb_job_satisfaction": "Satisfaction Professionnelle",
 
   "economic": "Economie",
-  "family1": "Famille 1",
-  "family2": "Famille 2",
+  "family1": "Enfants",
+  "family2": "Estress Familial",
   "health": "Santé",
   "housing": "Logement",
   "leisure": "Loisirs",

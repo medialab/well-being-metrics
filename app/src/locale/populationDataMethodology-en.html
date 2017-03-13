@@ -1,25 +1,16 @@
-# Methodology
-
-Well-being and social cooperation are two key factors for social progress. In the last decades, there has been a growing willingness to complement our main progress indicators (such as GDP) with taking into account well-being. Furthermore, the idea of using well-being as a tool to design public policies has becoming more frequent in academia. The main objective of the Well-Being Observatory (Observatoire de Bien-être –OBE- in french) is to produce knowledge to better understand, measure and explore different aspects of well-being.
-
-Our project aims to overcome the scarcity of data producing new indicators that allow us to compare well-being across regions and periods. We have use the techniques of Big Data to collect and create new indicators related to behavior, social preferences and well-being.
-
-## 1. Data Source
 
 The data we use in the ESvie tool comes from the Survey «Statistiques sur les Revenus et Conditions de Vie » (SRCV) conducted by the Insee over almost 3 800 people that are at least 18 years old. We use the data of three waves: from 2010 to 2013.
 
-## 2. Methodology
-
-We estimate a weight for each individual situation (like being married, having kids, etc.) using an Ordinary Least Square (OLS) approach. The regression includes panel data, individuals cluster and fixe effects for each year. The variables included in our four specifications are (one for each explanatory variable):
+We use run a linear regression (OLS approach) to estimate the relationship (i.e. coefficient) between individual characteristics (like being married, having kids, etc.) and Well-being.
 
 *	Explained variables: General Satisfaction, Leisure Satisfaction, Housing Satisfaction and Relations Satisfaction.
 *	Explanatory variables: Education level, age, income, gender, citizenship, marital status, number of kids, spouse working, has joined an association, actual situation (unemployed, employed, etc.) and housing type.
 
-## 3. Interpretation
+## Interpretation
 
-ESvie tool allows our users to know the relative situation of one constructed profile, in terms of well-being, with respect to other profiles in France. The relative situation is given by the color of each smiley face: the saddest person has a gray color and the happiest one a green color. There are different shades of colors so you will identify the situation of your profile according to its color:
+ESvie tool allows you to see how different types of people are feeling in terms of well-being, with respect to other profiles in France. The relative situation is given by the color of each circle: the saddest person has a gray face and the happiest one a green face. There are different shades of colors so you will identify the situation of your profile according to its face/color: 
 ![image](res/popdata-curve+smileys.png)
 
-If your profile is represented by a green smiley then you’re in the top 25% of the distribution. In other words, your profile is among the 25% most satisfied French people:
+ If your profile is represented by a green circle then you’re in the top 25% of the distribution. In other words, that profile is among the 25% most satisfied French people. If the circle is gray, that means the profile is among the 25% less satisfied French people.
 ![image](res/popdata-scale+smileys.png)
 

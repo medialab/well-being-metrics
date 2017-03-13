@@ -464,7 +464,7 @@ angular.module('app.directives', [])
         scope.endDate
         scope.monthMax
         updateTimescale()
-        
+
         scope.monthDate = ''
         scope.date = getDate()
         scope.timePlaying = false
@@ -1498,7 +1498,6 @@ angular.module('app.directives', [])
           }
         }
 
-        
         window.addEventListener('mousewheel', mousewheelHandler);
 
         var resizeHandler = function(e) {
@@ -1515,7 +1514,9 @@ angular.module('app.directives', [])
 
         function setSlide(i) {
           if (i < 0 || i > maxSlideIndex) return;
-          $scope.currentSlideIndex = i;
+          $scope.$apply(function () {
+            $scope.currentSlideIndex = i;
+          });
 
           landingPageService.currentSlideIndex = i;
           $rootScope.$broadcast('slide:change');
@@ -1595,7 +1596,7 @@ angular.module('app.directives', [])
       }
     }
   }])
-  
+
   .directive('landingSlide', ['$sce', '$translatePartialLoader', function($sce, $translatePartialLoader) {
       return {
         restrict: 'A',
@@ -1616,21 +1617,21 @@ angular.module('app.directives', [])
         }
       }
   }])
-  
+
   .directive('slidesBullets', ['landingPageService', function(landingPageService) {
     return {
       restrict: 'A',
       scope: {
-        currentSlideIndex: '&'
+        currentSlideIndex: '@'
       },
       templateUrl: 'src/directives/slidesBullets.html',
       link: function($scope, directiveElement, attrs) {
-        // setInterval(function () {console.log(landingPageService)}, 2000)
-        $scope.currentSlideIndex = 0;
+        $scope.currentSlideIndex = landingPageService.currentSlideIndex;
 
         $scope.$on('slide:change', function(val) {
-          console.log('landingPageService', landingPageService.currentSlideIndex)
-          $scope.currentSlideIndex = landingPageService.currentSlideIndex;
+          $scope.$apply(function () {
+            $scope.currentSlideIndex = landingPageService.currentSlideIndex;
+          });
         });
       }
     }
