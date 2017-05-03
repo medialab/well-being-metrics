@@ -41,7 +41,20 @@ angular.module('app.services', [])
     'housing',
     'leisure',
     'politics_security',
-    'social'
+    'social',
+    'christianisme',
+    'crime',
+    'droite_id',
+    'immigration',
+    'islam',
+    'juifs',
+    'mal_etre',
+    'protectionnisme',
+    'recherche_emploi',
+    'solidarite',
+    'terrorisme',
+    'travail',
+    'valeurs_republique'
   ]
 })
 
